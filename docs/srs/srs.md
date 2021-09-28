@@ -1,18 +1,18 @@
 Security App SRS Document
 
-**Problem Statement:** A few sentences to describe the problem you are trying to solve, i.e., justify why this software is needed.<b>
+**Problem Statement:** A few sentences to describe the problem you are trying to solve, i.e., justify why this software is needed.
 
-Public safety has always been a concern for JHU faculty and students, especially who live in bad neighborhoods. The problem is that the current email alert system isn’t hooked up with users well, alerts either be made too late or left unreported. Users need an accurate and precise way to score and report incidents they meet, and view other incidents occur near them. <b>
+Public safety has always been a concern for JHU faculty and students, especially who live in bad neighborhoods. The problem is that the current email alert system isn’t hooked up with users well, alerts either be made too late or left unreported. Users need an accurate and precise way to score and report incidents they meet, and view other incidents occur near them.
 
-**Potential Clients:** Who are influenced by this problem and would benefit from the proposed solution? (i.e. the potential users)<b>
+**Potential Clients:** Who are influenced by this problem and would benefit from the proposed solution? (i.e. the potential users)
 
-JHU faculty and students would benefit the most, other residents who are outdoor active (dog walk, commute, exercise) will also be potential users.<b>
+JHU faculty and students would benefit the most, other residents who are outdoor active (dog walk, commute, exercise) will also be potential users.
 
-**Proposed Solution:** Write a few sentences that describe how a software solution will solve the problem described above.<b>
+**Proposed Solution:** Write a few sentences that describe how a software solution will solve the problem described above.
 
-A security alert web app with functions to view, score, and report incidents in near neighborhoods. The app will also have social functions for users to discuss incidents and watch over each other.<b>
+A security alert web app with functions to view, score, and report incidents in near neighborhoods. The app will also have social functions for users to discuss incidents and watch over each other.
 
-**Functional Requirements:** List the (functional) requirements that software needs to have in order to solve the problem stated above. It is useful to try to group the requirements into those that are essential (must have), and those which are non-essential (but nice to have).<b>
+**Functional Requirements:** List the (functional) requirements that software needs to have in order to solve the problem stated above. It is useful to try to group the requirements into those that are essential (must have), and those which are non-essential (but nice to have).
 
 **Must have:**
   
