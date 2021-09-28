@@ -1,33 +1,44 @@
-### Security App SRS Document
+Security App SRS Document
 
-**Problem Statement:** A few sentences to describe the problem you are trying to solve, i.e., justify why this software is needed.
+**Problem Statement:** A few sentences to describe the problem you are trying to solve, i.e., justify why this software is needed.<b>
 
+Public safety has always been a concern for JHU faculty and students, especially who live in bad neighborhoods. The problem is that the current email alert system isn’t hooked up with users well, alerts either be made too late or left unreported. Users need an accurate and precise way to score and report incidents they meet, and view other incidents occur near them. <b>
 
+**Potential Clients:** Who are influenced by this problem and would benefit from the proposed solution? (i.e. the potential users)<b>
 
-**Potential Clients:** Who are influenced by this problem and would benefit from the proposed solution? (i.e. the potential users)
+JHU faculty and students would benefit the most, other residents who are outdoor active (dog walk, commute, exercise) will also be potential users.<b>
 
+**Proposed Solution:** Write a few sentences that describe how a software solution will solve the problem described above.<b>
 
+A security alert web app with functions to view, score, and report incidents in near neighborhoods. The app will also have social functions for users to discuss incidents and watch over each other.<b>
 
-**Proposed Solution:** Write a few sentences that describe how a software solution will solve the problem described above.
-
-
-
-**Functional Requirements:** List the (functional) requirements that software needs to have in order to solve the problem stated above. It is useful to try to group the requirements into those that are essential (must have), and those which are non-essential (but nice to have).
-
-
+**Functional Requirements:** List the (functional) requirements that software needs to have in order to solve the problem stated above. It is useful to try to group the requirements into those that are essential (must have), and those which are non-essential (but nice to have).<b>
 
 **Must have:**
-    
-- A real-time map with different colored pins that signify different levels of severity
-- Plan safe routes to avoid all danger.
-- Upload photos/videos of neighborhoods.
-- Live updates about ongoing incidents.
-- Social component with comments and stuff like "thumbs up I find this info helpful", etc.
+  
+As a user, I want to:  
+- view a map interface so that I am familiar with the environment in the neighborhood.
+- post an incident at a specific location on map (for example, drop-down menu giving users an option) so that I can report a new case to web app.
+- see pins for incidents on map so that I can relate one pin with one incident. 
+- click a location to send SMS alert text messages to my contacts so that they’ll get notified about the neighborhood. 
+- report an issue to the campus security so that I don’t have to learn how to report to campus security. 
+- rate the level of severity of an incident so that a more accurate score can be calculated. 
+- receive a notification of incidents and its details so that I know more about real-time danger. 
+- sign-up and login (provide details) to use social components so that I could explore more about the app. 
+- classify different kinds of incidents on map so that I know which neighborhood is related with certain kinds of incidents.
 
 **Nice to have:**
 
--
+As a user, I want to:
+- view real time alert on browser so that I know the most recent dangers. 
+- have different colored pins for different dangerous/safety levels on the map so that it's easier to read the map. 
+- plan routes based on the level of safety and time so that I can find the safest route to travel. 
+- ask follow-up questions for an incident so that I know details about the case. 
+- comment on a report regarding the incident so that I can interact with other users. 
+- upload photos/videos of neighborhoods. 
+- watch live updates about ongoing incidents so that I can learn more information 3D.
 
 **Software Architecture:**
-
--
+1.	As an incident report system, I want an incident scale system to score incidents to different severity so that low-risk and high-risk incidents can be differentiated. (3rd party crime report can be used)
+2.	As a social component of the web app, I want an authentication system so that only authorized users can interact with posts and comments.
+3.	As a front end, I want a map API so that I can visualize data on a map.
