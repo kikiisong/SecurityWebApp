@@ -2,7 +2,7 @@
 ## Application Background
 Public safety has always been a concern for citizens, especially who live in bad neighborhoods.
 We aim to provide users an precise way to view, report, and analyze security incidents. Our clients would mainly be Baltimore citizens, especially JHU students and faculty.
-## Expected Functions
+## Final Expected Functions
 A security alert web app where users can view, score, and report incidents in near neighborhoods. The app will also have social functions for users to discuss incidents and watch lives.
 ## Iteration 1 (due 10/05 11PM)
 1. Documentation: We finished software spesification (SRS) document, unified modeling language (UML) design, and project planning on 09/28. We then refined them before 10/05. 
