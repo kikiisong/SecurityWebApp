@@ -6,7 +6,7 @@ We aim to provide users a precise way to view, report and be notified of securit
 A security alert web app where users can view, score and report incidents in near neighborhoods. The app will also have social functions which allows users to discuss incidents and provide support to each other.
 ## Iteration 2
 1. Documentation: 
-    - retrospective: retrospective/it1_retrospective.md
+    - retrospective: docs/retrospective/it1_retrospective.md
     - srs: docs/srs/srs.md
     - UML: docs/design/it2_class_diagram1.png
     - Project Board updated 
