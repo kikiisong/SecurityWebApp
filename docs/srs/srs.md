@@ -17,8 +17,12 @@ A security alert web app with functions to view, score, and report incidents in 
 **Must have:**
   
 As a user, I want to:  
-- view a map interface so that I am familiar with the environment in the neighborhood.
-- post an incident at a specific location on map (for example, drop-down menu giving users an option) so that I can report a new case to web app.
+**Iteration 2:**
+- **have access to a database so that I can view, add, and search incidents.**
+- **submit a new incident via a form on the website so that I can inform the community of the incident.**
+
+**TO DO in later iterations:**
+- post an incident at a specific location on map (for example, drop-down menu giving users an option) so that I can report a new incident without entering location information.
 - see pins for incidents on map so that I can relate one pin with one incident. 
 - click a location to send SMS alert text messages to my contacts so that they’ll get notified about the neighborhood. 
 - report an issue to the campus security so that I don’t have to learn how to report to campus security. 
@@ -26,6 +30,9 @@ As a user, I want to:
 - receive a notification of incidents and its details so that I know more about real-time danger. 
 - sign-up and login (provide details) to use social components so that I could explore more about the app. 
 - classify different kinds of incidents on map so that I know which neighborhood is related with certain kinds of incidents.
+
+**Done:**
+ - view a map interface so that I am familiar with the environment in the neighborhood.
 
 **Nice to have:**
 

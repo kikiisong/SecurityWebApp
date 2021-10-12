@@ -1,11 +1,17 @@
 # Security Web Application
 ## Application Background
-Public safety has always been a concern for citizens, especially who live in bad neighborhoods.
-We aim to provide users an precise way to view, report, and analyze security incidents. Our clients would mainly be Baltimore citizens, especially JHU students and faculty.
+Public safety has always been a concern for citizens, especially for those who live in bad neighborhoods.
+We aim to provide users a precise way to view, report and be notified of security incidents. Our intended audience would mainly be Baltimore citizens, especially JHU students and faculty.
 ## Final Expected Functions
-A security alert web app where users can view, score, and report incidents in near neighborhoods. The app will also have social functions for users to discuss incidents and watch lives.
+A security alert web app where users can view, score and report incidents in near neighborhoods. The app will also have social functions which allows users to discuss incidents and provide support to each other.
+## Iteration 2
+1. Documentation: 
+    - retrospective: retrospective/it1_retrospective.md
+    - srs: docs/srs/srs.md
+    - UML: docs/design/10-05 Iteration-1-UML.png (We plan to focus on database-server-frontend connections first so there is no change to the class diagram for now)
+    - Project Board updated 
 ## Iteration 1 (due 10/05 11PM)
-1. Documentation: We finished software spesification (SRS) document, unified modeling language (UML) design, and project planning on 09/28. We then refined them before 10/05. 
+1. Documentation: We finished the software spesification (SRS) document, unified modeling language (UML) design, and project planning on 09/28. We then refined them before 10/05. 
 2. User Story: In this iteration, we finished one user story that as a user, he/she can view a map interface on a html page so that he/she would know better about neighborhoods. 
 3. System Architecture: 
     - We set up branching strategies for the project.
@@ -23,3 +29,5 @@ A security alert web app where users can view, score, and report incidents in ne
 2. Change directory to project directory.
 3. Run "cd frontend" to change directory to frontend.
 4. Use your installed browser to open "frontend.html", you should see a map interface with post form.
+
+
