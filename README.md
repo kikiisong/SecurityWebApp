@@ -8,7 +8,7 @@ A security alert web app where users can view, score and report incidents in nea
 1. Documentation: 
     - retrospective: retrospective/it1_retrospective.md
     - srs: docs/srs/srs.md
-    - UML: docs/design/10-05 Iteration-1-UML.png (We plan to focus on database-server-frontend connections first so there is no change to the class diagram for now)
+    - UML: docs/design/it2_class_diagram1.png
     - Project Board updated 
 ## Iteration 1 (due 10/05 11PM)
 1. Documentation: We finished the software spesification (SRS) document, unified modeling language (UML) design, and project planning on 09/28. We then refined them before 10/05. 
