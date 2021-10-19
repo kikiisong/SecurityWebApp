@@ -18,12 +18,12 @@ A security alert web app with functions to view, score, and report incidents in 
   
 As a user, I want to:  
 **Iteration 2:**
-- **have access to a database so that I can view, add, and search incidents.**
+- **view all incidents so that I know what has happened before.**
 - **submit a new incident via a form on the website so that I can inform the community of the incident.**
+- **see pins for incidents on map so that I can relate one pin with one incident.**
 
 **TO DO in later iterations:**
 - post an incident at a specific location on map (for example, drop-down menu giving users an option) so that I can report a new incident without entering location information.
-- see pins for incidents on map so that I can relate one pin with one incident. 
 - click a location to send SMS alert text messages to my contacts so that they’ll get notified about the neighborhood. 
 - report an issue to the campus security so that I don’t have to learn how to report to campus security. 
 - rate the level of severity of an incident so that a more accurate score can be calculated. 
