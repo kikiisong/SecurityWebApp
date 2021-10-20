@@ -14,12 +14,12 @@ A security alert web app where users can view, score and report incidents in nea
 7. Marker will be displayed on the map, once the incident is successfully submitted.
 8. Go to "Incident History" from the Navigation Bar to see the reported incident.
 9. Go to "Contact" from the Navigation Bar to see the contact details of The office of Campus Security.
-## Design Docs
+## Design Docs (for iteration 2)
 - retrospective: docs/retrospective/it1_retrospective.md
 - srs: docs/srs/srs.md
-- UML: docs/design/it2_class_diagram1.png
-- Project Board updated
-## Branching
+- initial UML: docs/design/it2_class_diagram1.png
+- refined UML: docs/design/it2_class_diagram2.png
+## Contributions
 - In addition to the main branch, please check the branch iteration-2-database-setup to view all the commits from each group member during the development stage.
 
 
