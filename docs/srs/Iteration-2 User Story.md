@@ -5,7 +5,9 @@ It-1 User Story Document
 **Must have:**
   
 As a user, I want to:  
-- view a map interface so that I am familiar with the environment in the neighborhood.
+- view a map interface so that I am familiar with the environment in the neighborhood. (It-1)
+- post an incident to database so that an incident record is made.
+- mark a posted incident on the map as a pin so that users know there's an incident.
 
 **Nice to have:**
 
@@ -17,3 +19,5 @@ N/A
 2. As a backend, I want 
    - a model package so that I can construct and process json data later.
    - a server so that I can host web pages.
+3. As a database management system, I want:
+   - a local database to store all posted incidents so that I can check records later.
