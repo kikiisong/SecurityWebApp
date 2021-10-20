@@ -32,7 +32,10 @@
 .DS_Store?
 ._*
 .idea/
+.gradle/
 .Spotlight-V100
 .Trashes
+build/
+gradle/
 ehthumbs.db
 Thumbs.db
