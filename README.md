@@ -9,7 +9,7 @@ A security alert web app where users can view, score and report incidents in nea
 2. Go to SecurityApp > src > main > java > Server.java .
 3. Run Server.java locally.
 4. Use your installed browser to open "localhost:7000", you should be redirected to the user interface of the application.
-5. Click on "Report Incident" and fill out the details.
+5. Click on "Report Incident" (If you are having trouble clicking it, scroll the page to the bottom, and click the bottom part of this button) and fill out the "Address" (e.g. carey business school).
 6. Click "Submit"!
 7. Marker will be displayed on the map, once the incident is successfully submitted.
 8. Go to "Incident History" from the Navigation Bar to see the reported incident.
