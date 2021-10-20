@@ -25,9 +25,14 @@ A security alert web app where users can view, score and report incidents in nea
     - frontend html page is under frontend/.
     - model package, server and Junit tests are stored under backend/src/.
 ## Run 
-1. Switch to iteration-1 branch and clone the repo to local. 
-2. Change directory to project directory.
-3. Run "cd frontend" to change directory to frontend.
-4. Use your installed browser to open "frontend.html", you should see a map interface with post form.
+1. Switch to main branch and clone the repo to local. 
+2. Go to SecurityApp > src > main > java > Server.java .
+3. Run Server.java locally.
+4. Use your installed browser to open "localhost:7000", you should be redirected to the user interface of the application.
+5. Click on "Report Incident" and fill out the details.
+6. Click "Submit"!
+7. Marker will be displayed on the map, once the incident is successfully submitted.
+8. Go to "Incident History" from the Navigation Bar to see the reported incident.
+9. Go to "Contact" from the Navigation Bar to see the contact details of The office of Campus Security.
 
 
