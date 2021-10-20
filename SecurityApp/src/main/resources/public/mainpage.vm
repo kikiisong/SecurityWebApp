@@ -1,0 +1,239 @@
+#set( $title = "Welcome Page" )
+#parse("public/top.vm")
+
+<head>
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/custom.css"/>
+
+    <script src="../js/index.js"></script>
+
+    <title>Simple Map</title>
+    <style>
+        /* Button used to open the contact form - fixed at the bottom of the page */
+    		.open-button {
+    		background-color: rgb(248, 10, 10);
+    		color: rgb(8, 8, 8);
+    		padding: 16px 20px;
+    		border: none;
+    		cursor: pointer;
+    		opacity: 0.8;
+    		position: fixed;
+    		bottom: 23px;
+    		right: 28px;
+    		width: 280px;
+    		}
+
+    		/* The popup form - hidden by default */
+    		.form-popup {
+    		 display: none;
+    		position: fixed;
+    		bottom: 0;
+    		top: 15px;
+    		right: 15px;
+    		border: 3px solid #f1f1f1;
+    		z-index: 9;
+             overflow-y:scroll;
+    		}
+
+    		/* Add styles to the form container */
+    		.form-container {
+    		max-width: 600px;
+    		padding: 10px;
+    		background-color: white;
+
+    		}
+
+    		/* Full-width input fields */
+    		.form-container input[type=text], .form-container input[type=password] {
+    		width: 100%;
+    		padding: 15px;
+    		margin: 5px 0 22px 0;
+    		border: none;
+    		background: #f1f1f1;
+    		}
+
+    		/* When the inputs get focus, do something */
+    		.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+    		background-color: #ddd;
+    		outline: none;
+    		}
+
+    		/* Set a style for the submit/login button */
+    		.form-container .btn {
+    		background-color: #04AA6D;
+    		color: white;
+    		padding: 16px 20px;
+    		border: none;
+    		cursor: pointer;
+    		width: 100%;
+    		margin-bottom:10px;
+    		opacity: 0.8;
+    		}
+
+    		/* Add a red background color to the cancel button */
+    		.form-container .cancel {
+    		background-color: red;
+    		}
+
+    		/* Add some hover effects to buttons */
+    		.form-container .btn:hover, .open-button:hover {
+    		opacity: 1;
+    		}
+      </style>
+  </head>
+
+  <header class="header-section">
+    <div class="container">
+      <!-- logo -->
+      <a class="site-logo" href="index.html" style="color:#ffb320;">
+        <img src="../img/main-icon.ico" alt="" style="padding-right:10px" width="70vh" height ="70vh">
+        <b>JHU Security APP</b>
+      </a>
+
+      <div class="user-panel">
+
+        <a href="/login">Login</a>  /  <a href="/signup">Register</a>
+      </div>
+      <!-- responsive -->
+      <div class="nav-switch">
+        <i class="fa fa-bars"></i>
+      </div>
+      <!-- site menu -->
+      <nav class="main-menu">
+        <ul>
+
+          <li><a href="/">Home</a></li>
+          <li><a href="/account">Account</a></li>
+          <li><a href="/intro">Intro</a></li>
+          <li><a href="/newpage">Incident History</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+    <body>
+    <a><h3>You can report your incident using the Report button on the lower right corner, once submitted
+    you can see your incident marked on the map<h3></a>
+    </body>
+    <body onload="initMap()">
+     <div id="map" style=" margin:auto; width: 1000px; height: 600px;"></div>
+
+    </body>
+
+
+<section class="section pb-5">
+
+
+  <div class="row">
+
+    <!--Grid column-->
+    <div class="col-lg-5 mb-4">
+    </div>
+    <button class="open-button" onclick="openForm()">REPORT INCIDENT</button>
+
+    <div class="form-popup" id="myForm">
+      <form  class="form-container">
+        <h2>REPORT</h2>
+        <div class="row">
+          <div class="col">
+            <label for="inputName">First Name</label>
+
+            <input type="text" id = "firstName" class="form-control" placeholder="First name">
+          </div>
+          <div class="col">
+            <label for="inputName">Last Name</label>
+
+            <input type="text" id = "lastName"  class="form-control" placeholder="Last name">
+          </div>
+        </div>
+
+        <label for="Date"><b>Date:</b></label>
+        <input type="date" id = "date"  name="date" required>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Email</label>
+            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+          </div>
+
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">Address</label>
+          <input type="text" id = "address" class="form-control" id="address" placeholder="1234 Main St">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputCity">City</label>
+            <input type="text" id = "city" class="form-control" id="inputCity">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputState">State</label>
+            <select id="inputState" class="form-control">
+              <option selected>Choose...</option>
+              <option value="Maryland">Maryland</option>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputZip">Zip</label>
+            <input type="text" id = "zip" class="form-control" id="inputZip">
+          </div>
+        </div>
+        <textarea id="description" rows="4" cols="50" name="describe" form="myForm" placeholder="Describe the incident here"></textarea>
+         <button type="button" id="addButton2" class="btn" onclick=" addIncident(); codeAddress()">Submit Incident</button>
+
+
+
+          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </form>
+    </div>
+
+
+
+
+
+    <!--Grid column-->
+
+  </div>
+        <div class="row text-center">
+        <div class="col-md-4">
+          <a class="btn-floating blue accent-1"><ion-icon size = large name="location"></ion-icon></a>
+          <p> Batimore, MD 21218</p>
+          <p>United States</p>
+        </div>
+
+        <div class="col-md-4">
+          <a class="btn-floating blue accent-1"><ion-icon size = large  name="call"></ion-icon></a>
+          <p>+ 01 234 567 89</p>
+          <p>Mon - Fri, 8:00-22:00</p>
+        </div>
+
+        <div class="col-md-4">
+          <a class="btn-floating blue accent-1"><ion-icon size = large name="mail"></ion-icon></a>
+          <p>id@jhu.edu</p>
+          <p>id@jhu.edu</p>
+        </div>
+      </div>
+
+</section>
+
+
+  <body>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPjr40zhYagqXTfKxI1sBC8hnNajRo98&callback=initMap&v=weekly"
+      async
+    ></script>
+  </body>
+</HTML>

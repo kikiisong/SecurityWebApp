@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  <meta name="description" content="Game Warrior Template">
+  <meta name="keywords" content="warrior, game, creative, html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Favicon -->
+<!--   <link href="img/favicon.ico" rel="shortcut icon"/>
+ -->
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" media="only screen and (min-width: 481px) and (max-width: 960px)" href="../css/tablet.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+      <!-- Media query for full browser width -->
+    <link rel="stylesheet" media="only screen and (min-width: 961px)" href="../css/custom.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../css/owl.carousel.css"/>
+    <link rel="stylesheet" href="../css/custom.css"/>
+    <link rel="stylesheet" href="../css/animate.css"/>
+    <header class="header-section">
+        <div class="container">
+          <!-- logo -->
+          <a class="site-logo" href="index.html" style="color:#ffb320;">
+                  <img src="../img/main-icon.ico" alt="" style="padding-right:10px" width="70vh" height ="70vh">
+                  <b>JHU Security APP</b>
+                </a>
+          <div class="user-panel">
+            <a href="/login">Login</a>  /  <a href="/signup">Register</a>
+          </div>
+          <!-- responsive -->
+          <div class="nav-switch">
+            <i class="fa fa-bars"></i>
+          </div>
+          <!-- site menu -->
+          <nav class="main-menu">
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/account">Account</a></li>
+              <li><a href="/intro">Intro</a></li>
+              <li><a href="/newpage">NewPage</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+    <title>Simple Map</title>
+     <a><h2>Coming Soon....</h2></a>
+  </head>
+  </HTML>
