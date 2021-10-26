@@ -17,10 +17,10 @@ A security alert web app with functions to view, score, and report incidents in 
 **Must have:**
   
 As a user, I want to:  
-**Iteration 2:**
-- **view all incidents so that I know what has happened before.**
-- **submit a new incident via a form on the website so that I can inform the community of the incident.**
-- **see pins for incidents on map so that I can relate one pin with one incident.**
+**Iteration 3:**
+- **view all incidents so that I know what has happened before on the map using a marker.**
+- **view the newly reported incident on the map with a marker distinguished by color.**
+- **Be able to determine areas which are safe, moderately safe and unsafe.**
 
 **TO DO in later iterations:**
 - post an incident at a specific location on map (for example, drop-down menu giving users an option) so that I can report a new incident without entering location information.
@@ -29,10 +29,12 @@ As a user, I want to:
 - rate the level of severity of an incident so that a more accurate score can be calculated. 
 - receive a notification of incidents and its details so that I know more about real-time danger. 
 - sign-up and login (provide details) to use social components so that I could explore more about the app. 
-- classify different kinds of incidents on map so that I know which neighborhood is related with certain kinds of incidents.
 
 **Done:**
  - view a map interface so that I am familiar with the environment in the neighborhood.
+ - user able to report a new incident.
+ - marker pops up on the map when an icident is reported.
+ - user able to view previously reported incidents.
 
 **Nice to have:**
 
