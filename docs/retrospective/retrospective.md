@@ -10,6 +10,7 @@
 
 **In iteration 2:**
 - We have standup meetings more frequently.
+- Delegating bigger tasks among multiple team members
 - More collaborative effort
 
 
