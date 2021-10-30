@@ -82,13 +82,13 @@ public class Server {
         Spark.post("/newpage", (req, res) -> {
             String firstName = req.queryParams("firstName");
             String lastName = req.queryParams("lastName");
-            float longtitude = 100.00F;
-            float latitude = 200.000F;
+            String longitude = req.queryParams("longitude");
+            String latitude = req.queryParams("latitude");
             String description = req.queryParams("description");
-            String location = req.queryParams("address");;
+            String location = req.queryParams("address");
             String name = firstName + lastName;
             User user = new User(name);
-            Incident incident = new Incident(longtitude,latitude,description, null,location,user);
+            Incident incident = new Incident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,1, null,location,user);
             getIncidentORMLiteDao().create(incident);
             System.out.println(incident);
             res.status(201);

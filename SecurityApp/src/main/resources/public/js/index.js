@@ -43,6 +43,17 @@ function codeAddress() {
           map: map,
           position: position
       });
+      const firstName = document.getElementById("firstName").value;
+      const lastName = document.getElementById("lastName").value;
+      const description = document.getElementById("description").value;
+      const date = document.getElementById("date").value;
+      const address = document.getElementById("address").value;
+
+      fetch('http://localhost:7000/newpage?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude, {
+            method: 'POST',
+          }
+      ).then();
+      console.log("FETCHED");
 
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
@@ -51,19 +62,10 @@ function codeAddress() {
   document.getElementById("myForm").style.display = "none";
   alert("Successfully added your incident! Check map to see incident marker")
 
+
 }
 function addIncident(){
 // add to the db
-  const firstName = document.getElementById("firstName").value;
-  const lastName = document.getElementById("lastName").value;
-  const description = document.getElementById("description").value;
-  const date = document.getElementById("date").value;
-  const address = document.getElementById("address").value;
-  fetch('http://localhost:7000/newpage?name=' + firstName + "&date=" + date + "&description=" + description + "&address" + address, {
-        method: 'POST',
-      }
-  ).then();
-  console.log("FETCHED");
 }
 
 

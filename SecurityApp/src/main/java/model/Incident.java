@@ -17,6 +17,8 @@ public class Incident {
     @DatabaseField//(canBeNull = false)
     private String description;
     @DatabaseField//(canBeNull = false)
+    private int crimeCode;
+    @DatabaseField//(canBeNull = false)
     private Date dateAndTime; //TODO later: should date be from java.util or java.sql?
     @DatabaseField//(canBeNull = false)
     private String location;
@@ -26,10 +28,11 @@ public class Incident {
     public Incident() {
     }
 
-    public Incident(Float longtitude, Float latitude, String description, Date dateAndTime, String location, User user) {
+    public Incident(Float longtitude, Float latitude, String description, int crimeCode, Date dateAndTime, String location, User user) {
         this.longtitude = longtitude;
         this.latitude = latitude;
         this.description = description;
+        this.crimeCode=crimeCode;
         this.dateAndTime = dateAndTime;
         this.location = location;
         this.user = user;
@@ -49,6 +52,9 @@ public class Incident {
 
     public String getDescription() {
         return description;
+    }
+    public int getCrimeCode() {
+        return crimeCode;
     }
 
     public Date getDateAndTime() {
@@ -78,6 +84,9 @@ public class Incident {
     public void setDescription(String description) {
         this.description = description;
     }
+    public void setCrimeCode(int crimeCode) {
+        this.crimeCode=crimeCode;
+    }
 
     public void setDateAndTime(Date dateAndTime) {
         this.dateAndTime = dateAndTime;
@@ -97,13 +106,13 @@ public class Incident {
         if (o == null || getClass() != o.getClass()) return false;
         Incident incident = (Incident) o;
         return id == incident.id && longtitude == incident.longtitude && incident.latitude == latitude
-                && description.equals(incident.description) && Objects.equals(dateAndTime, incident.dateAndTime)
+                && description.equals(incident.description) && incident.crimeCode==crimeCode && Objects.equals(dateAndTime, incident.dateAndTime)
                 && location.equals(incident.location) && Objects.equals(user, incident.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, longtitude, latitude, description, dateAndTime, location, user);
+        return Objects.hash(id, longtitude, latitude, description, crimeCode, dateAndTime, location, user);
     }
 
     @Override
@@ -113,6 +122,7 @@ public class Incident {
                 ", longtitude=" + longtitude +
                 ", latitude=" + latitude +
                 ", description='" + description + '\'' +
+                ", crimecode='"+crimeCode+'\''+
                 ", dateAndTime=" + dateAndTime +
                 ", location='" + location + '\'' +
                 ", user=" + user +
