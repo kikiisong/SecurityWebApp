@@ -29,7 +29,20 @@ function initMap() {
 }
 function codeAddress() {
   var address = document.getElementById('address').value;
+  var description = document.getElementById('description').value;
+  // document.getElementById('address').style.fontSize = "x-large";
+  // document.getElementById('description').style.fontSize = "x-large";
   console.log("calling code address function");
+  // const contentString = address + "\n" + description;
+  const contentString =
+      '<div id="content">' +
+      '<div id="siteNotice">' +
+      "</div>" +
+      '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
+      '<div id="bodyContent">' +
+      "<h2> Location of the incident </h2>" + address +"<p></p>"+
+      "<h3> Description of the incident </h3>"+  description +
+      "</div>" + "</div>";
   geocoder.geocode( { 'address': address}, function(results, status) {
     if (status == 'OK') {
       var latitude = results[0].geometry.location.lat();
@@ -53,12 +66,23 @@ function codeAddress() {
 
 
       const image =
-          "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+      "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
 
+      const infowindow = new google.maps.InfoWindow({
+        content: contentString,
+      });
       var marker = new google.maps.Marker({
           map: map,
           position: position,
-          image:image
+          icon:image,
+          title:"incident"
+      });
+      marker.addListener("click", () => {
+        infowindow.open({
+          anchor: marker,
+          map,
+          shouldFocus: false,
+        });
       });
       const firstName = document.getElementById("firstName").value;
       const lastName = document.getElementById("lastName").value;
