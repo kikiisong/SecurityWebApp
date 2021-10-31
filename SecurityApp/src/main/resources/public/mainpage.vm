@@ -189,7 +189,7 @@
             <input type="text" id = "zip" class="form-control" id="inputZip">
           </div>
         </div>
-        <textarea id="description" rows="4" cols="50" name="describe" form="myForm" placeholder="Describe the incident here"></textarea>
+        <textarea id="description" rows="4" cols="36" name="describe" form="myForm" placeholder="Describe the incident here"></textarea>
          <button type="button" id="addButton2" class="btn" onclick=" codeAddress()">Submit Incident</button>
 
 

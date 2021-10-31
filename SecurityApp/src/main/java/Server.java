@@ -86,9 +86,10 @@ public class Server {
             String latitude = req.queryParams("latitude");
             String description = req.queryParams("description");
             String location = req.queryParams("address");
+            String crimecode = req.queryParams("crimecode");
             String name = firstName + lastName;
             User user = new User(name);
-            Incident incident = new Incident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,1, null,location,user);
+            Incident incident = new Incident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,Integer.valueOf(crimecode), null,location,user);
             getIncidentORMLiteDao().create(incident);
             System.out.println(incident);
             res.status(201);

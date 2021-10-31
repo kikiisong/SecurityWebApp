@@ -89,8 +89,10 @@ function codeAddress() {
       const description = document.getElementById("description").value;
       const date = document.getElementById("date").value;
       const address = document.getElementById("address").value;
+      const crimecode = predictCrimeCode();
 
-      fetch('http://localhost:7000/newpage?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude, {
+
+      fetch('http://localhost:7000/newpage?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
             method: 'POST',
           }
       ).then();
@@ -101,15 +103,57 @@ function codeAddress() {
     }
   });
   document.getElementById("myForm").style.display = "none";
-  alert("Successfully added your incident! Check map to see incident marker")
+  //alert("Successfully added your incident! Check map to see incident marker")
 
 
 }
-function addIncident(){
-// add to the db
+
+function predictCrimeCode(){
+let description = document.getElementById("description").value;
+
+if (description.includes("shot") || description.includes("shoot") || description.includes("fired") || description.includes ("gun") || description.includes("bullet"))
+{
+    return 9;
 }
+else if (description.includes("murder") || description.includes("homicide") || description.includes("killed") || description.includes("died"))
+{
+    return 1;
+}
+else if (description.includes("rape") || description.includes("sexual") || description.includes("inappropriate") ||description.includes("molest") || description.includes("grope"))
+{
+    return 2;
+}
+else if ((description.includes("home") || description.includes("house") || description.includes("property") || description.includes("store") || description.includes("office") || description.includes("room")) &&  (description.includes("rob") || description.includes("break")))
+{
+    return 5;
+}
+else if (description.includes("set fire") || description.includes("torch") || description.includes("burn") || description.includes("lit"))
+{
+    return 8;
+}
+else if (description.includes("bag") || description.includes("wallet") || description.includes("card") ||description.includes("bag") ||description.includes("phone") ||description.includes("snatch") ||description.includes("key") ||description.includes("watch"))
+{
+    return 6;
+}
+else if (description.includes("car") || description.includes("bike") || description.includes("van") || description.includes("truck") || description.includes("scooter"))
+{
+    return 7;
+}
+else if (description.includes("rob") || description.includes("theft") || description.includes("demand"))
+{
+    return 3;
+}
+else if (description.includes("assault") || description.includes("hit") || description.includes("beat") || description.includes("threw") || description.includes("punch") || description.includes("kick"))
+{
+    return 4;
+}
+else
+{
+ let crimecode = prompt("What was the crime related too? (1. Homicide 2.Rape 3.Robbery 4.Assault 5.Burglary 6.Larceny 7.Auto Theft 8.Arson 9.Shooting","Please enter a number!",10);
+  return crimecode;
 
-
+}
+}
 // document.getElementById("addButton").addEventListener("click", codeAddress);
 
 
