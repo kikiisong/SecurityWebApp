@@ -39,9 +39,26 @@ function codeAddress() {
 
       // map.setCenter(results[0].geometry.location);
       // console.log(results[0].geometry.location);
+      // get type from db
+      // db number -> switch case
+      // "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+      // "http://maps.google.com/mapfiles/ms/icons/grey-dot.png"
+      // "http://maps.google.com/mapfiles/ms/icons/purple-dot.png"
+      // "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"
+      // "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+      // "http://maps.google.com/mapfiles/ms/icons/white-dot.png"
+      // "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+      // "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+      // "http://maps.google.com/mapfiles/ms/icons/brown-dot.png";
+
+
+      const image =
+          "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+
       var marker = new google.maps.Marker({
           map: map,
-          position: position
+          position: position,
+          image:image
       });
       const firstName = document.getElementById("firstName").value;
       const lastName = document.getElementById("lastName").value;
