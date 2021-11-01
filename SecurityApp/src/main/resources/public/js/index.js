@@ -40,8 +40,8 @@ function codeAddress() {
       "</div>" +
       '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
       '<div id="bodyContent">' +
-      "<h2> Location of the incident </h2>" + address +"<p></p>"+
-      "<h3> Description of the incident </h3>"+  description +
+      "<p2> Location of the incident: </p2>" + address +"<p></p>"+
+      "<p3> Description of the incident: </p3>"+  description +
       "</div>" + "</div>";
   geocoder.geocode( { 'address': address}, function(results, status) {
     if (status == 'OK') {
@@ -54,19 +54,47 @@ function codeAddress() {
       // console.log(results[0].geometry.location);
       // get type from db
       // db number -> switch case
-      // "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-      // "http://maps.google.com/mapfiles/ms/icons/grey-dot.png"
-      // "http://maps.google.com/mapfiles/ms/icons/purple-dot.png"
-      // "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"
-      // "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-      // "http://maps.google.com/mapfiles/ms/icons/white-dot.png"
-      // "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
       // "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
-      // "http://maps.google.com/mapfiles/ms/icons/brown-dot.png";
 
-
-      const image =
-      "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+      const crimecode = predictCrimeCode();
+      console.log(crimecode);
+      var image;
+      if (crimecode == 1){
+         image =
+            "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+      }
+      else if (crimecode == 2){
+         image =
+            "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+      }
+      else if (crimecode ==3) {
+         image =
+            "http://maps.google.com/mapfiles/ms/icons/pink-dot.png";
+      }
+      else if (crimecode ==4) {
+         image =
+            "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
+      }
+      else if (crimecode ==5) {
+         image =
+            "http://maps.google.com/mapfiles/ms/icons/orange-dot.png";
+      }
+      else if (crimecode ==6) {
+         image =
+            "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+      }
+      else if (crimecode ==7) {
+         image =
+            "http://maps.google.com/mapfiles/kml/paddle/wht-circle.png";
+      }
+      else if (crimecode ==8) {
+         image =
+            "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
+      }
+      else if (crimecode ==9) {
+         image =
+             "http://maps.google.com/mapfiles/ms/micons/ltblue-dot.png";
+      }
 
       const infowindow = new google.maps.InfoWindow({
         content: contentString,
@@ -89,7 +117,7 @@ function codeAddress() {
       const description = document.getElementById("description").value;
       const date = document.getElementById("date").value;
       const address = document.getElementById("address").value;
-      const crimecode = predictCrimeCode();
+
 
 
       fetch('http://localhost:7000/newpage?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {

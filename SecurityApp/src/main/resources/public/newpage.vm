@@ -62,7 +62,7 @@
         <ol>
             #foreach($inc in $incidents)
                 <li>
-                    <i>longtitude: $inc.longtitude  latitude: $inc.latitude </i> description: $inc.description.
+                    <i>longtitude: $inc.longtitude  latitude: $inc.latitude </i> description: $inc.description <i> address: $inc.location </i>
                 </li>
             #end
         </ol>
