@@ -54,11 +54,10 @@ public class Server {
                     float longtitude = Float.valueOf(values[13]);
                     float latitude = Float.valueOf(values[12]);
                     Date dateAndTime = formatter.parse(values[3]);
-                    System.out.println(dateAndTime.toString());
                     String description = values[6];
                     String location = values[5];
 
-                    Incident incident = new Incident(longtitude, latitude, description, 1, dateAndTime, location, null);
+                    Incident incident = new Incident(longtitude, latitude, description, 0, dateAndTime, location, null);
                     getIncidentORMLiteDao().create(incident);
 
                     i++;
@@ -79,8 +78,6 @@ public class Server {
 
     public static void main(String[] args) {
 
-
-        importDatafromCSV();
 
         final int PORT_NUM = 7000;
         Spark.port(PORT_NUM);
@@ -146,5 +143,6 @@ public class Server {
         });
 
 
+        importDatafromCSV();
     }
 }

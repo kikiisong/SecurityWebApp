@@ -167,7 +167,7 @@ else if (description.includes("car") || description.includes("bike") || descript
 {
     return 7;
 }
-else if (description.includes("rob") || description.includes("theft") || description.includes("demand"))
+else if (description.includes("rob") || description.includes("theft") || description.includes("demand") || description.includes("larceny") )
 {
     return 3;
 }
