@@ -223,9 +223,11 @@ function addMarkers() {
             });
              console.log(infoWinArr[i]);
              console.log(infoWindow);
-             marker.addListener("click", () => {
+            console.log(infoWindow);
+             infoWindow.setPosition(position);
+            console.log(infoWindow);
+            marker.addListener("click", () => {
                 infoWindow.open({
-                    anchor: marker,
                     map,
                     shouldFocus: false,
                 });
