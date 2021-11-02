@@ -12,27 +12,75 @@ import com.j256.ormlite.table.TableUtils;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Server {
 
     private static Dao getIncidentORMLiteDao() throws SQLException {
-        final String URI = "jdbc:sqlite:./SecurityApp.db";  // implement later
+        final String URI = "jdbc:sqlite:./SecurityApp.db";  // change to postgres later
         ConnectionSource connectionSource = new JdbcConnectionSource(URI);
         TableUtils.createTableIfNotExists(connectionSource, Incident.class);
         return DaoManager.createDao(connectionSource, Incident.class);
     }
 
+    public static void importDatafromCSV() {
+        List<Incident> ls = null;
+        try {
+            ls = getIncidentORMLiteDao().queryForAll();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        if (ls.isEmpty()) {
+            try (BufferedReader br = new BufferedReader(new FileReader("resources/Part1_Crime_data.csv"))) {
+                String line = br.readLine();
+                int i = 0;
+
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss", Locale.US);
+                formatter.setTimeZone(TimeZone.getTimeZone("America/New_York"));
+
+                // reads the latest 500 incidents from .csv file
+                while ((line = br.readLine()) != null && i <= 500) {
+                    String[] values = line.split(",");
+                    float longtitude = Float.valueOf(values[0]);
+                    float latitude = Float.valueOf(values[1]);
+                    Date dateAndTime = formatter.parse(values[3]);
+                    System.out.println(dateAndTime.toString());
+                    String description = values[6];
+                    String location = values[5];
+
+                    Incident incident = new Incident(longtitude, latitude, description, 1, dateAndTime, location, null);
+                    getIncidentORMLiteDao().create(incident);
+
+                    i++;
+
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
     public static void main(String[] args) {
+
+
+        importDatafromCSV();
 
         final int PORT_NUM = 7000;
         Spark.port(PORT_NUM);
