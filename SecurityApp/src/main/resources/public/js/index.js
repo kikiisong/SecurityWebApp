@@ -42,10 +42,11 @@ function codeAddress() {
         '<div id="content">' +
         '<div id="siteNotice">' +
         "</div>" +
-        '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
+        // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
+        "<p2> Incident </p2>"+
         '<div id="bodyContent">' +
-        "<p2> Location of the incident: </p2>" + address +"<p></p>"+
-        "<p3> Description of the incident: </p3>"+  description +
+        "<p2> Location of the incident: </p2>" +"<p5>" + address+  "</p5>"  +"<p></p>"+
+        "<p3> Description of the incident: </p3>"+ "<p6>" + description + "</p6>"
         "</div>" + "</div>";
     geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == 'OK') {
@@ -141,8 +142,7 @@ function addMarkers() {
     var infoWinArr = new Array(500);
 
     // const contentString = address + "\n" + description;
-    var image =
-        "http://maps.google.com/mapfiles/ms/micons/ltblue-dot.png";
+
 
     d3.csv("../js/Part1_Crime_data.csv", function(data) {
         for (var i  =0; i < 500; i++){
@@ -151,6 +151,48 @@ function addMarkers() {
             var longitude = parseFloat(data[i].Longitude);
             var location = data[i].Location;
             var description = data[i].Description;
+            var crimecodeStr = data[i].CrimeCode.split("");
+            var crimecode =crimecodeStr[0];
+            console.log(crimecodeStr);
+            console.log(crimecode);
+            var image;
+            if (crimecode == 1){
+                image =
+                    "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+            }
+            else if (crimecode == 2){
+                image =
+                    "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+            }
+            else if (crimecode ==3) {
+                image =
+                    "http://maps.google.com/mapfiles/ms/icons/pink-dot.png";
+            }
+            else if (crimecode ==4) {
+                image =
+                    "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
+            }
+            else if (crimecode ==5) {
+                image =
+                    "http://maps.google.com/mapfiles/ms/icons/orange-dot.png";
+            }
+            else if (crimecode ==6) {
+                image =
+                    "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+            }
+            else if (crimecode ==7) {
+                image =
+                    "http://maps.google.com/mapfiles/kml/paddle/wht-circle.png";
+            }
+            else if (crimecode ==8) {
+                image =
+                    "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
+            }
+            else if (crimecode ==9) {
+                image =
+                    "http://maps.google.com/mapfiles/ms/micons/ltblue-dot.png";
+            }
+
             console.log(data[i]);
             console.log(latitude);
             console.log(longitude);
@@ -160,11 +202,12 @@ function addMarkers() {
                 '<div id="content">' +
                 '<div id="siteNotice">' +
                 "</div>" +
-                '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
+                // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
+                "<p2> Incident </p2>"+
                 '<div id="bodyContent">' +
-                "<p2> Location of the incident: </p2>" + location +"<p></p>"+
-                "<p3> Description of the incident: </p3>"+  description +
-                "</div>" + "</div>";
+                "<p2> Location of the incident: </p2>" +"<p5>" + location+  "</p5>"  +"<p></p>"+
+                "<p3> Description of the incident: </p3>"+ "<p6>" + description + "</p6>"
+            "</div>" + "</div>";
 
             var marker = new google.maps.Marker({
                 map: map,
