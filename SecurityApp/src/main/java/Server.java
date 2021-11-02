@@ -51,8 +51,8 @@ public class Server {
                 // reads the latest 500 incidents from .csv file
                 while ((line = br.readLine()) != null && i <= 500) {
                     String[] values = line.split(",");
-                    float longtitude = Float.valueOf(values[0]);
-                    float latitude = Float.valueOf(values[1]);
+                    float longtitude = Float.valueOf(values[13]);
+                    float latitude = Float.valueOf(values[12]);
                     Date dateAndTime = formatter.parse(values[3]);
                     System.out.println(dateAndTime.toString());
                     String description = values[6];
