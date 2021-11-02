@@ -7,6 +7,10 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
+    <script src="papaparse.min.js"></script>
+    <script src="jquery-csv.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -122,15 +126,16 @@
       </nav>
     </div>
   </header>
+
     <body>
     <a><h3>You can report your incident using the Report button on the lower right corner, once submitted
     you can see your incident marked on the map<h3></a>
     </body>
-    <body onload="initMap()">
+
+    <body onload="initMap(), addMarkers()">
      <div id="map" style=" margin:auto; width: 1000px; height: 600px;"></div>
 
     </body>
-
 
 <section class="section pb-5">
 

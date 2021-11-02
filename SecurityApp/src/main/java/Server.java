@@ -130,8 +130,8 @@ public class Server {
         Spark.post("/newpage", (req, res) -> {
             String firstName = req.queryParams("firstName");
             String lastName = req.queryParams("lastName");
-            String longitude = req.queryParams("longitude");
-            String latitude = req.queryParams("latitude");
+            String longitude = req.queryParams("latitude");
+            String latitude = req.queryParams("longitude");
             String description = req.queryParams("description");
             String location = req.queryParams("address");
             String crimecode = req.queryParams("crimecode");

@@ -1,3 +1,7 @@
+
+
+// import { MarkerClusterer } from "@googlemaps/markerclusterer";
+
 var geocoder;
 var map;
 // const {Pool, Client} = require('pg');
@@ -50,11 +54,7 @@ function codeAddress() {
       var longitude = results[0].geometry.location.lng();
       const position = { lat:latitude, lng: longitude };
 
-      // map.setCenter(results[0].geometry.location);
-      // console.log(results[0].geometry.location);
-      // get type from db
-      // db number -> switch case
-      // "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+
 
       const crimecode = predictCrimeCode();
       console.log(crimecode);
@@ -135,6 +135,34 @@ function codeAddress() {
 
 
 }
+function addMarkers() {
+    var locations = new Array(500);
+
+    // const contentString = address + "\n" + description;
+    var image =
+        "http://maps.google.com/mapfiles/ms/micons/ltblue-dot.png";
+    d3.csv("../js/Part1_Crime_data.csv", function(data) {
+        for (var i  =0; i < 500; i++){
+            var latitude = parseFloat(data[i].Latitude);
+            var longitude = parseFloat(data[i].Longitude);
+            console.log(data[i]);
+            console.log(latitude);
+            console.log(longitude);
+            const position = { lat:latitude, lng: longitude };
+            console.log(position);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: position,
+                title:"incident",
+                icon: image
+            });
+        }
+        console.log(data)
+    });
+
+
+}
+
 
 function predictCrimeCode(){
 let description = document.getElementById("description").value;
@@ -182,6 +210,10 @@ else
 
 }
 }
+
+
+// start reading the file. When it is done, calls the onload event defined above.
+
 // document.getElementById("addButton").addEventListener("click", codeAddress);
 
 
