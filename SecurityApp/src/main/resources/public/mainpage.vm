@@ -57,6 +57,11 @@
     		background-color: white;
 
     		}
+    		table, th, td {
+              border: 1px solid black;
+              border-collapse: collapse;
+              padding: 10px;
+            }
 
     		/* Full-width input fields */
     		.form-container input[type=text], .form-container input[type=password] {
@@ -133,8 +138,53 @@
     </body>
 
     <body onload="initMap(), addMarkers()">
-     <div id="map" style=" margin:auto; width: 1000px; height: 600px;"></div>
-
+    <div class="row" style= "margin: auto;">
+     <div id="map" style="margin:auto;  width: 800px; height: 600px;"></div>
+     <div style="margin:auto;">
+     <table>
+       <tr>
+           <th>Color</th>
+           <th>Crime</th>
+       </tr>
+       <tr>
+           <td><img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"></td>
+           <td>Murder</td>
+       </tr>
+        <tr>
+            <td><img src="http://maps.google.com/mapfiles/ms/icons/green-dot.png"></td>
+            <td>Rape</td>
+       </tr>
+       <tr>
+            <td><img src="http://maps.google.com/mapfiles/ms/icons/pink-dot.png"></td>
+            <td>Robbery</td>
+       </tr>
+        <tr>
+            <td><img src="http://maps.google.com/mapfiles/ms/icons/purple-dot.png"></td>
+            <td>Assault</td>
+       </tr>
+        <tr>
+            <td><img src="http://maps.google.com/mapfiles/ms/icons/orange-dot.png"></td>
+            <td>Burglary</td>
+       </tr>
+        <tr>
+            <td><img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png"></td>
+            <td>Larceny</td>
+       </tr>
+       <tr>
+            <td><img src="http://maps.google.com/mapfiles/kml/paddle/wht-circle.png"></td>
+            <td>Auto Theft</td>
+       </tr>
+       <tr>
+            <td><img src="http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"></td>
+            <td>Arson</td>
+       </tr>
+       <tr>
+            <td><img src="http://maps.google.com/mapfiles/ms/icons/ltblue-dot.png"></td>
+            <td>Shooting</td>
+       </tr>
+     </table>
+     </div>
+</div>
     </body>
 
 <section class="section pb-5">
@@ -210,6 +260,7 @@
 
     <!--Grid column-->
 
+
   </div>
         <div class="row text-center">
         <div class="col-md-4">
@@ -231,6 +282,7 @@
         </div>
 
       </div>
+
 
 </section>
 
