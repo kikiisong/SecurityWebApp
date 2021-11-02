@@ -137,24 +137,55 @@ function codeAddress() {
 }
 function addMarkers() {
     var locations = new Array(500);
+    var markerArr = new Array(500);
+    var infoWinArr = new Array(500);
 
     // const contentString = address + "\n" + description;
     var image =
         "http://maps.google.com/mapfiles/ms/micons/ltblue-dot.png";
+
     d3.csv("../js/Part1_Crime_data.csv", function(data) {
         for (var i  =0; i < 500; i++){
+
             var latitude = parseFloat(data[i].Latitude);
             var longitude = parseFloat(data[i].Longitude);
+            var location = data[i].Location;
+            var description = data[i].Description;
             console.log(data[i]);
             console.log(latitude);
             console.log(longitude);
             const position = { lat:latitude, lng: longitude };
             console.log(position);
+            const contentString =
+                '<div id="content">' +
+                '<div id="siteNotice">' +
+                "</div>" +
+                '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
+                '<div id="bodyContent">' +
+                "<p2> Location of the incident: </p2>" + location +"<p></p>"+
+                "<p3> Description of the incident: </p3>"+  description +
+                "</div>" + "</div>";
+
             var marker = new google.maps.Marker({
                 map: map,
                 position: position,
                 title:"incident",
-                icon: image
+                icon: image,
+
+            });
+            console.log(marker);
+            console.log(markerArr[i]);
+            const infoWindow = new google.maps.InfoWindow({
+                content: contentString,
+            });
+             console.log(infoWinArr[i]);
+             console.log(infoWindow);
+             marker.addListener("click", () => {
+                infoWindow.open({
+                    anchor: marker,
+                    map,
+                    shouldFocus: false,
+                });
             });
         }
         console.log(data)
