@@ -142,7 +142,6 @@ public class Server {
             return new Gson().toJson(incident.toString());
         });
 
-
         importDatafromCSV();
     }
 }
