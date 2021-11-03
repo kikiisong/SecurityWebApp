@@ -237,6 +237,35 @@ function addMarkers() {
     });
 
 
+    anychart.onDocumentRead(function() {
+        var data = [
+            {x: "LARCENY", value: 77073},
+            {x: "COMMON ASSAULT", value: 60450},
+            {x: "BURGLARY", value: 48387},
+            {x: "LARCENY FROM AUTO", value: 45203},
+            {x: "AGG. ASSAULT", value: 40566},
+            {x: "AUTO THEFT", value: 30788},
+            {x: "ROBBERY - STREET", value: 23734},
+            {x: "ROBBERY - COMMERCIAL", value: 6158},
+            {x: "SHOOTING", value: 4680},
+            {x: "ROBBERY - RESIDENCE", value: 3757}
+        ];
+
+
+        // create the chart
+        var chart = anychart.pie();
+
+        // set the chart title
+        chart.title("Population by Race for the United States: 2010 Census");
+
+        // add the data
+        chart.data(data);
+
+        // display the chart in the container
+        chart.container('container');
+        chart.draw();
+    });
+
 }
 
 
@@ -287,35 +316,34 @@ function predictCrimeCode(){
     }
 }
 
-anychart.onDocumentRead(function() {
-    var data = [
-        {x: "LARCENY", value: 77073},
-        {x: "COMMON ASSAULT", value: 60450},
-        {x: "BURGLARY", value: 48387},
-        {x: "LARCENY FROM AUTO", value: 45203},
-        {x: "AGG. ASSAULT", value: 40566},
-        {x: "AUTO THEFT", value: 30788},
-        {x: "ROBBERY - STREET", value: 23734},
-        {x: "ROBBERY - COMMERCIAL", value: 6158},
-        {x: "SHOOTING", value: 4680},
-        {x: "ROBBERY - RESIDENCE", value: 3757}
-    ];
-
-    console.log('something');
-
-    // create the chart
-    var chart = anychart.pie();
-
-    // set the chart title
-    chart.title("Population by Race for the United States: 2010 Census");
-
-    // add the data
-    chart.data(data);
-
-    // display the chart in the container
-    chart.container('container');
-    chart.draw();
-});
+// anychart.onDocumentRead(function() {
+//     var data = [
+//         {x: "LARCENY", value: 77073},
+//         {x: "COMMON ASSAULT", value: 60450},
+//         {x: "BURGLARY", value: 48387},
+//         {x: "LARCENY FROM AUTO", value: 45203},
+//         {x: "AGG. ASSAULT", value: 40566},
+//         {x: "AUTO THEFT", value: 30788},
+//         {x: "ROBBERY - STREET", value: 23734},
+//         {x: "ROBBERY - COMMERCIAL", value: 6158},
+//         {x: "SHOOTING", value: 4680},
+//         {x: "ROBBERY - RESIDENCE", value: 3757}
+//     ];
+//
+//
+//     // create the chart
+//     var chart = anychart.pie();
+//
+//     // set the chart title
+//     chart.title("Population by Race for the United States: 2010 Census");
+//
+//     // add the data
+//     chart.data(data);
+//
+//     // display the chart in the container
+//     chart.container('container');
+//     chart.draw();
+// });
 
 
 // start reading the file. When it is done, calls the onload event defined above.
