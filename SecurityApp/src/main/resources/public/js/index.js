@@ -31,6 +31,12 @@ function initMap() {
         map: map,
     });
 }
+
+function handleSubmit(event) {
+    //Write business logic here
+}
+
+
 function codeAddress() {
     var address = document.getElementById('address').value;
     var description = document.getElementById('description').value;
