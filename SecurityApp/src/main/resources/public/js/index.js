@@ -243,6 +243,8 @@ function addMarkers() {
     });
 
 
+
+
     anychart.onDocumentRead(function() {
         var data = [
             {x: "LARCENY", value: 77073},
