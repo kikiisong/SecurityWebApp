@@ -16,13 +16,18 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static spark.Spark.port;
 
 public class Server {
 
@@ -74,13 +79,19 @@ public class Server {
             }
         }
     }
-
+    static int PORT = 7000;
+    private static int getPort() {
+        String herokuPort = System.getenv("PORT");
+        if (herokuPort != null) {
+            PORT = Integer.parseInt(herokuPort);
+        }
+        return PORT;
+    }
 
     public static void main(String[] args) {
 
-
-        final int PORT_NUM = 7000;
-        Spark.port(PORT_NUM);
+        port(getPort());
+        workWithDatabase();
         Spark.staticFiles.location("/public");
 
 
@@ -143,5 +154,54 @@ public class Server {
         });
 
         importDatafromCSV();
+    }
+    private static void workWithDatabase(){
+        try (Connection conn = getConnection()) {
+            String sql_inc = "";
+            String sql_user = "";
+
+            if ("SQLite".equalsIgnoreCase(conn.getMetaData().getDatabaseProductName())) { // running locally
+                sql_inc = "CREATE TABLE IF NOT EXISTS incidents (id SERIAL PRIMARY KEY, " +
+                        "longitude DECIMAL NOT NULL, latitude DECIMAL NOT NULL, description VARCHAR(10000), " +
+                        "crimeCode INTEGER NOT NULL, dateAndTime TIMESTAMP NOT NULL, location VARCHAR(100) NOT NULL, " +
+                        "user_id INTEGER FOREIGN KEY);";
+                sql_user = "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name VARCHAR(100));";
+            }
+            else {
+                sql_inc = "CREATE TABLE IF NOT EXISTS incidents (id SERIAL PRIMARY KEY, " +
+                        "longitude DECIMAL NOT NULL, latitude DECIMAL NOT NULL, description VARCHAR(10000), " +
+                        "crimeCode INTEGER NOT NULL, dateAndTime TIMESTAMP NOT NULL, location VARCHAR(100) NOT NULL, " +
+                        "user_id INTEGER FOREIGN KEY);";
+                sql_user = "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name VARCHAR(100));";
+            }
+
+            Statement st = conn.createStatement();
+            st.execute(sql_inc);
+            st.execute(sql_user);
+
+            sql_inc = "INSERT INTO incidents(id, longitude, latitude,description, crimeCode, dateAndTime, location, user_id)" +
+                    " VALUES (1, 39.3299, 76.6205, 'Robbery', 3,'1999-01-08 04:05:06', 'Johns Hopkins University', 100);";
+            st.execute(sql_inc);
+            st.execute(sql_user);
+
+        } catch (URISyntaxException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    private static Connection getConnection() throws URISyntaxException, SQLException {
+        String databaseUrl = System.getenv("DATABASE_URL");
+        if (databaseUrl == null) {
+            // Not on Heroku, so use SQLite
+            return DriverManager.getConnection("jdbc:sqlite:./JBApp.db");
+        }
+
+        URI dbUri = new URI(databaseUrl);
+
+        String username = dbUri.getUserInfo().split(":")[0];
+        String password = dbUri.getUserInfo().split(":")[1];
+        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':'
+                + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+
+        return DriverManager.getConnection(dbUrl, username, password);
     }
 }
