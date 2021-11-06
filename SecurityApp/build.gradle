@@ -49,6 +49,7 @@ heroku {
     processTypes(
             web: "java -jar build/libs/SecurityApp-1.0-SNAPSHOT.jar"
     )
+    // domains:add www.security-jhu-app.herokuapp.com/ --app security-jhu-app
 }
 
 

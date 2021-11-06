@@ -39,6 +39,14 @@ public class Server {
         return DaoManager.createDao(connectionSource, Incident.class);
     }
 
+    private static void addIncident() {
+        try (Connection conn = getConnection()) {
+
+        } catch (URISyntaxException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void importDatafromCSV() {
         List<Incident> ls = null;
         try {
@@ -80,6 +88,7 @@ public class Server {
             }
         }
     }
+
     static int PORT = 7000;
     private static int getPort() {
         String herokuPort = System.getenv("PORT");
@@ -166,14 +175,16 @@ public class Server {
                 sql_inc = "CREATE TABLE IF NOT EXISTS incidents (id SERIAL PRIMARY KEY, " +
                         "longitude DECIMAL NOT NULL, latitude DECIMAL NOT NULL, description VARCHAR(10000), " +
                         "crimeCode INTEGER NOT NULL, dateAndTime TIMESTAMP NOT NULL, location VARCHAR(100) NOT NULL, " +
-                        "user_id INTEGER FOREIGN KEY);";
+                        //"user_id INTEGER FOREIGN KEY);";
+                        "user_id INTEGER NOT NULL);";
                 sql_user = "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name VARCHAR(100));";
             }
             else {
                 sql_inc = "CREATE TABLE IF NOT EXISTS incidents (id SERIAL PRIMARY KEY, " +
                         "longitude DECIMAL NOT NULL, latitude DECIMAL NOT NULL, description VARCHAR(10000), " +
                         "crimeCode INTEGER NOT NULL, dateAndTime TIMESTAMP NOT NULL, location VARCHAR(100) NOT NULL, " +
-                        "user_id INTEGER FOREIGN KEY);";
+                        // "user_id INTEGER FOREIGN KEY);";
+                        "user_id INTEGER NOT NULL);";
                 sql_user = "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name VARCHAR(100));";
             }
 
@@ -191,10 +202,11 @@ public class Server {
         }
     }
     private static Connection getConnection() throws URISyntaxException, SQLException {
-        String databaseUrl = System.getenv("DATABASE_URL");
+        String databaseUrl = System.getenv("DATABASE_URL" +
+                "");
         if (databaseUrl == null) {
             // Not on Heroku, so use SQLite
-            return DriverManager.getConnection("jdbc:sqlite:./JBApp.db");
+            return DriverManager.getConnection("jdbc:sqlite:./SecurityApp.db");
         }
 
         URI dbUri = new URI(databaseUrl);
