@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static spark.Spark.port;
+import static spark.Spark.get;
 
 public class Server {
 
@@ -100,6 +101,7 @@ public class Server {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "public/mainpage.vm");
         }, new VelocityTemplateEngine());
+
         Spark.get("/intro", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "public/intro.vm");
@@ -182,7 +184,7 @@ public class Server {
             sql_inc = "INSERT INTO incidents(id, longitude, latitude,description, crimeCode, dateAndTime, location, user_id)" +
                     " VALUES (1, 39.3299, 76.6205, 'Robbery', 3,'1999-01-08 04:05:06', 'Johns Hopkins University', 100);";
             st.execute(sql_inc);
-            st.execute(sql_user);
+            // st.execute(sql_user);
 
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();

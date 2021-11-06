@@ -1,4 +1,5 @@
 plugins {
+    id "com.heroku.sdk.heroku-gradle" version "2.0.0"
     id 'java'
 }
 
@@ -39,3 +40,15 @@ jar {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
+
+
+
+heroku {
+    appName = "security-jhu-app"
+    jdkVersion = 8
+    processTypes(
+            web: "java -jar build/libs/SecurityApp-1.0-SNAPSHOT.jar"
+    )
+}
+
+
