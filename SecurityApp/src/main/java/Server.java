@@ -39,8 +39,13 @@ public class Server {
         return DaoManager.createDao(connectionSource, Incident.class);
     }
 
-    private static void addIncident() {
+    private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, Date date1, String location ) {
+        String sql= "";
         try (Connection conn = getConnection()) {
+            Statement st = conn.createStatement();
+            sql = "INSERT INTO incidents(id, longitude, latitude,description, crimeCode, dateAndTime, location, user_id)" +
+                    " VALUES (1,"+ longitude+"," +latitude+","+ descriptions+","+ crimeCode+"," +date1+"," +location+", 1);";
+            st.execute(sql);
 
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
@@ -154,14 +159,16 @@ public class Server {
             String description = req.queryParams("description");
             String location = req.queryParams("address");
             String crimecode = req.queryParams("crimecode");
+            String date=req.queryParams("date");
             String name = firstName + lastName;
+            Date date1=new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse(date);
             User user = new User(name);
-            Incident incident = new Incident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,Integer.valueOf(crimecode), null,location,user);
-            getIncidentORMLiteDao().create(incident);
-            System.out.println(incident);
+            addIncident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,Integer.valueOf(crimecode), date1,location);
+            //getIncidentORMLiteDao().create(incident);
+            //System.out.println(incident);
             res.status(201);
             res.type("application/json");
-            return new Gson().toJson(incident.toString());
+            return 1;
         });
 
         importDatafromCSV();
