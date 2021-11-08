@@ -39,12 +39,12 @@ public class Server {
         return DaoManager.createDao(connectionSource, Incident.class);
     }
 
-    private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, Date date1, String location ) {
+    private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, String date1, String location ) {
         String sql= "";
         try (Connection conn = getConnection()) {
             Statement st = conn.createStatement();
             sql = "INSERT INTO incidents(id, longitude, latitude,description, crimeCode, dateAndTime, location, user_id)" +
-                    " VALUES (1,"+ longitude+"," +latitude+","+ descriptions+","+ crimeCode+"," +date1+"," +location+", 1);";
+                    " VALUES (1,'"+ longitude+"','" +latitude+"','"+ descriptions+"',"+ crimeCode+",'"+date1+"','" +location+"', 1);";
             st.execute(sql);
 
         } catch (URISyntaxException | SQLException e) {
@@ -161,9 +161,9 @@ public class Server {
             String crimecode = req.queryParams("crimecode");
             String date=req.queryParams("date");
             String name = firstName + lastName;
-            Date date1=new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse(date);
-            User user = new User(name);
-            addIncident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,Integer.valueOf(crimecode), date1,location);
+            // Date date1 = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse(date);
+            // User user = new User(name);
+            addIncident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,Integer.valueOf(crimecode), date,location);
             //getIncidentORMLiteDao().create(incident);
             //System.out.println(incident);
             res.status(201);
@@ -178,30 +178,30 @@ public class Server {
             String sql_inc = "";
             String sql_user = "";
 
-            if ("SQLite".equalsIgnoreCase(conn.getMetaData().getDatabaseProductName())) { // running locally
-                sql_inc = "CREATE TABLE IF NOT EXISTS incidents (id SERIAL PRIMARY KEY, " +
-                        "longitude DECIMAL NOT NULL, latitude DECIMAL NOT NULL, description VARCHAR(10000), " +
-                        "crimeCode INTEGER NOT NULL, dateAndTime TIMESTAMP NOT NULL, location VARCHAR(100) NOT NULL, " +
-                        //"user_id INTEGER FOREIGN KEY);";
-                        "user_id INTEGER NOT NULL);";
-                sql_user = "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name VARCHAR(100));";
-            }
-            else {
-                sql_inc = "CREATE TABLE IF NOT EXISTS incidents (id SERIAL PRIMARY KEY, " +
-                        "longitude DECIMAL NOT NULL, latitude DECIMAL NOT NULL, description VARCHAR(10000), " +
-                        "crimeCode INTEGER NOT NULL, dateAndTime TIMESTAMP NOT NULL, location VARCHAR(100) NOT NULL, " +
-                        // "user_id INTEGER FOREIGN KEY);";
-                        "user_id INTEGER NOT NULL);";
-                sql_user = "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name VARCHAR(100));";
-            }
+//            if ("SQLite".equalsIgnoreCase(conn.getMetaData().getDatabaseProductName())) { // running locally
+//                sql_inc = "CREATE TABLE IF NOT EXISTS incidents (id SERIAL PRIMARY KEY, " +
+//                        "longitude DECIMAL NOT NULL, latitude DECIMAL NOT NULL, description VARCHAR(10000), " +
+//                        "crimeCode INTEGER NOT NULL, dateAndTime VARCHAR(100) NOT NULL, location VARCHAR(100) NOT NULL, " +
+//                        //"user_id INTEGER FOREIGN KEY);";
+//                        "user_id INTEGER NOT NULL);";
+//                sql_user = "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name VARCHAR(100));";
+//            }
+//            else {
+            sql_inc = "CREATE TABLE IF NOT EXISTS incidents (id SERIAL PRIMARY KEY, " +
+                    "longitude DECIMAL NOT NULL, latitude DECIMAL NOT NULL, description VARCHAR(10000), " +
+                    "crimeCode INTEGER NOT NULL, dateAndTime VARCHAR(100) NOT NULL, location VARCHAR(100) NOT NULL, " +
+                    // "user_id INTEGER FOREIGN KEY);";
+                    "user_id INTEGER NOT NULL);";
+            sql_user = "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name VARCHAR(100));";
+        // }
 
             Statement st = conn.createStatement();
             st.execute(sql_inc);
             st.execute(sql_user);
 
-            sql_inc = "INSERT INTO incidents(id, longitude, latitude,description, crimeCode, dateAndTime, location, user_id)" +
-                    " VALUES (1, 39.3299, 76.6205, 'Robbery', 3,'1999-01-08 04:05:06', 'Johns Hopkins University', 100);";
-            st.execute(sql_inc);
+//            sql_inc = "INSERT INTO incidents(id, longitude, latitude, description, crimeCode, dateAndTime, location, user_id)" +
+//                    " VALUES (1, 39.3299, 76.6205, 'Robbery', 3,'1999-01-08 04:05:06', 'Johns Hopkins University', 100);";
+//            st.execute(sql_inc);
             // st.execute(sql_user);
 
         } catch (URISyntaxException | SQLException e) {
@@ -211,10 +211,10 @@ public class Server {
     private static Connection getConnection() throws URISyntaxException, SQLException {
         String databaseUrl = System.getenv("DATABASE_URL" +
                 "");
-        if (databaseUrl == null) {
-            // Not on Heroku, so use SQLite
-            return DriverManager.getConnection("jdbc:sqlite:./SecurityApp.db");
-        }
+//        if (databaseUrl == null) {
+//            // Not on Heroku, so use SQLite
+//            return DriverManager.getConnection("jdbc:sqlite:./SecurityApp.db");
+//        }
 
         URI dbUri = new URI(databaseUrl);
 
