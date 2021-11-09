@@ -19,17 +19,28 @@ body {
 {box-sizing: border-box;}
 
 /* Button used to open the contact form - fixed at the bottom of the page */
-.open-button {
-  background-color: #555;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
+.btn btn-danger {
+  color: black;
+  /*padding: 16px 20px;*/
+  /*border: none;*/
+  /*cursor: pointer;*/
   opacity: 0.8;
-  position: fixed;
+  /*position: fixed;*/
   bottom: 23px;
   right: 28px;
   width: 280px;
+  position:relative;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+
+}
+
+.btn-lg{
+  position:relative;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 /* The popup form - hidden by default */
@@ -83,6 +94,6 @@ body {
 }
 
 /* Add some hover effects to buttons */
-.form-container .btn:hover, .open-button:hover {
+.form-container .btn:hover, .btn btn-danger:hover {
   opacity: 1;
 }

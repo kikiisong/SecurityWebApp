@@ -211,10 +211,10 @@ public class Server {
     private static Connection getConnection() throws URISyntaxException, SQLException {
         String databaseUrl = System.getenv("DATABASE_URL" +
                 "");
-//        if (databaseUrl == null) {
-//            // Not on Heroku, so use SQLite
-//            return DriverManager.getConnection("jdbc:sqlite:./SecurityApp.db");
-//        }
+        if (databaseUrl == null) {
+            // Not on Heroku, so use SQLite
+            return DriverManager.getConnection("jdbc:sqlite:./SecurityApp.db");
+        }
 
         URI dbUri = new URI(databaseUrl);
 

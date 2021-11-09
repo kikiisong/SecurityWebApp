@@ -11,6 +11,7 @@
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
     <script src="papaparse.min.js"></script>
+    <script type="module" src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     <script src="jquery-csv.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -30,14 +31,14 @@
     		.open-button {
     		background-color: rgb(248, 10, 10);
     		color: rgb(8, 8, 8);
-    		padding: 16px 20px;
-    		border: none;
-    		cursor: pointer;
-    		opacity: 0.8;
-    		position: fixed;
-    		bottom: 23px;
-    		right: 28px;
-    		width: 280px;
+    		/*padding: 16px 20px;*/
+    		/*border: none;*/
+    		/*cursor: pointer;*/
+    		/*opacity: 0.8;*/
+    		/*position: fixed;*/
+    		/*bottom: 23px;*/
+    		/*right: 28px;*/
+    		/*width: 280px;*/
     		}
 
     		/* The popup form - hidden by default */
@@ -194,48 +195,50 @@
     <title>Top 10 Crime by Type</title>
 
     <div id="container" style="width: 100%; height: 100%"></div>
-    <script>
-        // const anychart = require("./js/d3.min.js");
-        anychart.onDocumentReady(function() {
-            var data = [
-                {x: "LARCENY", value: 77073},
-                {x: "COMMON ASSAULT", value: 60450},
-                {x: "BURGLARY", value: 48387},
-                {x: "LARCENY FROM AUTO", value: 45203},
-                {x: "AGG. ASSAULT", value: 40566},
-                {x: "AUTO THEFT", value: 30788},
-                {x: "ROBBERY - STREET", value: 23734},
-                {x: "ROBBERY - COMMERCIAL", value: 6158},
-                {x: "SHOOTING", value: 4680},
-                {x: "ROBBERY - RESIDENCE", value: 3757}
-            ];
 
-
-            // create the chart
-            var chart = anychart.pie();
-
-            // set the chart title
-            chart.title("Crime Visualization by Type");
-
-            // add the data
-            chart.data(data);
-
-            // display the chart in the container
-            chart.container('container');
-            chart.draw();
-        });
-    </script>
+##    <script>
+##        // const anychart = require("./js/d3.min.js");
+##        anychart.onDocumentReady(function() {
+##            var data = [
+##                {x: "LARCENY", value: 77073},
+##                {x: "COMMON ASSAULT", value: 60450},
+##                {x: "BURGLARY", value: 48387},
+##                {x: "LARCENY FROM AUTO", value: 45203},
+##                {x: "AGG. ASSAULT", value: 40566},
+##                {x: "AUTO THEFT", value: 30788},
+##                {x: "ROBBERY - STREET", value: 23734},
+##                {x: "ROBBERY - COMMERCIAL", value: 6158},
+##                {x: "SHOOTING", value: 4680},
+##                {x: "ROBBERY - RESIDENCE", value: 3757}
+##            ];
+##
+##
+##            // create the chart
+##            var chart = anychart.pie();
+##
+##            // set the chart title
+##            chart.title("Crime Visualization by Type");
+##
+##            // add the data
+##            chart.data(data);
+##
+##            // display the chart in the container
+##            chart.container('container');
+##            chart.draw();
+##        });
+##    </script>
 
 
 <section class="section pb-5">
 
 
   <div class="row">
-
+      <div>
+      <button type="button" class="btn btn-danger btn-lg" style=" position: relative; margin: 0 auto;  align-items: center; justify-content: center;" onclick="openForm()">REPORT INCIDENT</button>
+      </div>
     <!--Grid column-->
     <div class="col-lg-5 mb-4">
     </div>
-    <button class="open-button" onclick="openForm()">REPORT INCIDENT</button>
 
     <div class="form-popup" id="myForm">
       <form  class="form-container">
@@ -299,7 +302,9 @@
 
 
     <!--Grid column-->
+<div>
 
+</div>
 
   </div>
         <div class="row text-center">

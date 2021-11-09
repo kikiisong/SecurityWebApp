@@ -241,6 +241,8 @@ function addMarkers() {
         }
         console.log(data)
     });
+    const markerCluster = new MarkerClusterer({ map, markerArr });
+
 
 
 
