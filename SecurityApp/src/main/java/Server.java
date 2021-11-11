@@ -44,7 +44,7 @@ public class Server {
         try (Connection conn = getConnection()) {
             Statement st = conn.createStatement();
             sql = "INSERT INTO incidents(id, longitude, latitude,description, crimeCode, dateAndTime, location, user_id)" +
-                    " VALUES (1,'"+ longitude+"','" +latitude+"','"+ descriptions+"',"+ crimeCode+",'"+date1+"','" +location+"', 1);";
+                    " VALUES (2,'"+ longitude+"','" +latitude+"','"+ descriptions+"',"+ crimeCode+",'"+date1+"','" +location+"', 2);";
             st.execute(sql);
 
         } catch (URISyntaxException | SQLException e) {
@@ -199,10 +199,10 @@ public class Server {
             st.execute(sql_inc);
             st.execute(sql_user);
 
-            sql_inc = "INSERT INTO incidents(id, longitude, latitude, description, crimeCode, dateAndTime, location, user_id)" +
-                    " VALUES (1, 39.3299, 76.6205, 'Robbery', 3,'1999-01-08 04:05:06', 'Johns Hopkins University', 100);";
-            st.execute(sql_inc);
-             st.execute(sql_user);
+            //sql_inc = "INSERT INTO incidents(id, longitude, latitude, description, crimeCode, dateAndTime, location, user_id)" +
+                    //" VALUES (1, 39.3299, 76.6205, 'Robbery', 3,'1999-01-08 04:05:06', 'Johns Hopkins University', 100);";
+            //st.execute(sql_inc);
+             //st.execute(sql_user);
 
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
