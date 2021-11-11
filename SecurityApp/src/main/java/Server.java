@@ -199,10 +199,10 @@ public class Server {
             st.execute(sql_inc);
             st.execute(sql_user);
 
-//            sql_inc = "INSERT INTO incidents(id, longitude, latitude, description, crimeCode, dateAndTime, location, user_id)" +
-//                    " VALUES (1, 39.3299, 76.6205, 'Robbery', 3,'1999-01-08 04:05:06', 'Johns Hopkins University', 100);";
-//            st.execute(sql_inc);
-            // st.execute(sql_user);
+            sql_inc = "INSERT INTO incidents(id, longitude, latitude, description, crimeCode, dateAndTime, location, user_id)" +
+                    " VALUES (1, 39.3299, 76.6205, 'Robbery', 3,'1999-01-08 04:05:06', 'Johns Hopkins University', 100);";
+            st.execute(sql_inc);
+             st.execute(sql_user);
 
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();

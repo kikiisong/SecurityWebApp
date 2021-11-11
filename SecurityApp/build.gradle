@@ -45,7 +45,7 @@ jar {
 
 heroku {
     appName = "security-jhu-app"
-    jdkVersion = 8
+    jdkVersion = 16
     processTypes(
             web: "java -jar build/libs/SecurityApp-1.0-SNAPSHOT.jar"
     )
