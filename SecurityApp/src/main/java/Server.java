@@ -69,7 +69,7 @@ public class Server {
             incident = st.getResultSet();
 
 
-            /*sql = "INSERT INTO incidents(longitude, latitude,description, crimeCode, dateAndTime, location,)" +
+            /*sqlx = "INSERT INTO incidents(longitude, latitude,description, crimeCode, dateAndTime, location,)" +
                     " VALUES ('"+ longitude+"','" +latitude+"','"+ descriptions+"',"+ crimeCode+",'"+date1+"','" +location+"');";
             st.execute(sql);*/
 

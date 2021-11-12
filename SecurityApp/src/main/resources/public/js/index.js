@@ -1,12 +1,13 @@
 
 
 // import { MarkerClusterer } from "@googlemaps/markerclusterer";
-
+// const {MarkerClusterer} = require("@googlemaps/markerclusterer");
+// const pg = require("pg");
+var arrMarkers = []
 var geocoder;
 var map;
 // const {Pool, Client} = require('pg');
 
-// var pg = require(‘pg’);
 
 function openForm(){
     document.getElementById("myForm").style.display = "block";
@@ -113,6 +114,7 @@ function codeAddress() {
                 icon:image,
                 title:"incident"
             });
+            arrMarkers.push(marker);
             marker.addListener("click", () => {
                 infowindow.open({
                     anchor: marker,
@@ -144,9 +146,6 @@ function codeAddress() {
 
 }
 function addMarkers() {
-    var locations = new Array(500);
-    var markerArr = new Array(500);
-    var infoWinArr = new Array(500);
 
     // const contentString = address + "\n" + description;
 
@@ -230,16 +229,13 @@ function addMarkers() {
                 icon: image,
 
             });
-            console.log(marker);
-            console.log(markerArr[i]);
+            arrMarkers.push(marker);
+            console.log(arrMarkers);
             const infoWindow = new google.maps.InfoWindow({
                 content: contentString,
             });
-             console.log(infoWinArr[i]);
-             console.log(infoWindow);
-            console.log(infoWindow);
              infoWindow.setPosition(position);
-            console.log(infoWindow);
+            // console.log(infoWindow);
             marker.addListener("click", () => {
                 infoWindow.open({
                     map,
@@ -250,7 +246,7 @@ function addMarkers() {
         }
         console.log(data)
     });
-    const markerCluster = new MarkerClusterer({ map, markerArr });
+    const markerCluster = new MarkerClusterer({ arrMarkers, map });
 
 
 
@@ -333,6 +329,53 @@ function predictCrimeCode(){
         return crimecode;
 
     }
+}
+setInterval(function() {
+    updateTheMarkers();
+}, 5000);
+function removeMarkers(){
+    var i;
+    for(i=0;i<arrMarkers.length;i++){
+        arrMarkers[i].setMap(null);
+    }
+    arrMarkers = [];
+
+}
+function updateTheMarkers(){
+    var pg = require('pg');
+    var connectionString = "postgres://mbsinzvjlqtmla:ad6952c914bde23c762b765ef5258f4093334d3bb6e0964311f1583c87c2cc77@ec2-54-156-121-167.compute-1.amazonaws.com:5432/daajpudv9kabqh";
+    var pgClient = new pg.Client(connectionString);
+    pgClient.connect();
+    var query = pgClient.query("SELECT * from incidents");
+    console.log("in update markers")
+    query.on("row", function(row,result){
+        console.log("in query on")
+        result.addRow(row);
+        console.log(result);
+
+    });
+    // $.ajax({
+    //     type: "GET",
+    //     url: "postgres://mbsinzvjlqtmla:ad6952c914bde23c762b765ef5258f4093334d3bb6e0964311f1583c87c2cc77@ec2-54-156-121-167.compute-1.amazonaws.com:5432/daajpudv9kabqh",
+    //     success: function (data) {
+    //         //We remove the old markers
+    //         removeMarkers();
+    //         console.log(data);
+    //         var jsonObj = $.parseJSON(data),
+    //             i;
+    //         console.log("inside update markers");
+    //         console.log(jsonObj);
+    //         // beaches =[];//Erasing the beaches array
+    //
+    //         //Adding the new ones
+    //         // for(i=0;i < jsonObj.beaches.length; i++) {
+    //         //     beaches.push(jsonObj.beaches[i]);
+    //         // }
+    //
+    //         //Adding them to the map
+    //         // setMarkers(map, beaches);
+    //     }
+    // });
 }
 
 // anychart.onDocumentRead(function() {

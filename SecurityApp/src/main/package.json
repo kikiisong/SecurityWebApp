@@ -3,5 +3,8 @@
   "version": "1.0.0",
   "devDependencies": {
     "jquery-csv": "^1.0.21"
+  },
+  "dependencies": {
+    "pg": "^8.7.1"
   }
 }
