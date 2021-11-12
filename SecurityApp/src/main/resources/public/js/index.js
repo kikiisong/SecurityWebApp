@@ -128,7 +128,7 @@ function codeAddress() {
 
 
 
-            fetch('https://security-jhu-app.herokuapp.com/newpage?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
+            fetch('https://security-jhu-app.herokuapp.com/incidents?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
                     method: 'POST',
                 }
             ).then();
@@ -163,7 +163,7 @@ function addMarkers() {
             var date = data[i].CrimeDateTime;
             console.log(crimecodeStr);
             console.log(crimecode);
-            fetch('https://security-jhu-app.herokuapp.com/newpage?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + location + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
+            fetch('https://security-jhu-app.herokuapp.com/incidents?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + location + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
                     method: 'POST',
                 }
             ).then();
