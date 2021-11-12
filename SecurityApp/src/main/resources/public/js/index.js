@@ -6,6 +6,7 @@ var geocoder;
 var map;
 // const {Pool, Client} = require('pg');
 
+// var pg = require(‘pg’);
 
 function openForm(){
     document.getElementById("myForm").style.display = "block";
@@ -159,8 +160,15 @@ function addMarkers() {
             var description = data[i].Description;
             var crimecodeStr = data[i].CrimeCode.split("");
             var crimecode =crimecodeStr[0];
+            var date = data[i].CrimeDateTime;
             console.log(crimecodeStr);
             console.log(crimecode);
+            fetch('https://security-jhu-app.herokuapp.com/newpage?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + location + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
+                    method: 'POST',
+                }
+            ).then();
+            console.log("FETCHED");
+
             var image;
             if (crimecode == 1){
                 image =
@@ -238,6 +246,7 @@ function addMarkers() {
                     shouldFocus: false,
                 });
             });
+
         }
         console.log(data)
     });

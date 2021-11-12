@@ -30,12 +30,12 @@ import static spark.Spark.get;
 
 public class Server {
 
-    private static Dao getIncidentORMLiteDao() throws SQLException {
-        final String URI = "jdbc:sqlite:./SecurityApp.db";  // change to postgres later
-        ConnectionSource connectionSource = new JdbcConnectionSource(URI);
-        TableUtils.createTableIfNotExists(connectionSource, Incident.class);
-        return DaoManager.createDao(connectionSource, Incident.class);
-    }
+//    private static Dao getIncidentORMLiteDao() throws SQLException {
+//        final String URI = "jdbc:sqlite:./SecurityApp.db";  // change to postgres later
+//        ConnectionSource connectionSource = new JdbcConnectionSource(URI);
+//        TableUtils.createTableIfNotExists(connectionSource, Incident.class);
+//        return DaoManager.createDao(connectionSource, Incident.class);
+//    }
 
     private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, String date1, String location ) {
         String sql= "";
@@ -82,13 +82,9 @@ public class Server {
 
     public static void importDatafromCSV() {
         List<Incident> ls = null;
-        try {
-            ls = getIncidentORMLiteDao().queryForAll();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        if (ls.isEmpty()) {
-            try (BufferedReader br = new BufferedReader(new FileReader("resources/Part1_Crime_data.csv"))) {
+
+        if (ls == null) {
+            try (BufferedReader br = new BufferedReader(new FileReader("/Part1_Crime_data.csv"))) {
                 String line = br.readLine();
                 int i = 0;
 
@@ -98,14 +94,16 @@ public class Server {
                 // reads the latest 500 incidents from .csv file
                 while ((line = br.readLine()) != null && i <= 500) {
                     String[] values = line.split(",");
-                    float longtitude = Float.valueOf(values[13]);
+                    float longitude = Float.valueOf(values[13]);
                     float latitude = Float.valueOf(values[12]);
                     String dateAndTime = String.valueOf(values[3]);
                     String description = values[6];
                     String location = values[5];
+                    int crimeCode = Integer.parseInt(values[0]);
 
-                    Incident incident = new Incident(longtitude, latitude, description, 0, dateAndTime, location, 2);
-                    getIncidentORMLiteDao().create(incident);
+
+//                    Incident incident = new Incident(longitude, latitude, description, 0, dateAndTime, location, 2);
+                    addIncident( longitude,  latitude,  description,  crimeCode, dateAndTime, location);
 
                     i++;
 
@@ -114,8 +112,6 @@ public class Server {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
             }
         }
     }
