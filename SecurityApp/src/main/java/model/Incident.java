@@ -20,16 +20,16 @@ public class Incident {
     @DatabaseField//(canBeNull = false)
     private int crimeCode;
     @DatabaseField//(canBeNull = false)
-    private Date dateAndTime; //TODO later: should date be from java.util or java.sql?
+    private String dateAndTime; //TODO later: should date be from java.util or java.sql?
     @DatabaseField//(canBeNull = false)
     private String location;
     @DatabaseField(foreign = true)
-    private User user;
+    private int userid;
 
     public Incident() {
     }
 
-    public Incident(Float longtitude, Float latitude, String description, int crimeCode, Date dateAndTime, String location, User user) {
+    public Incident(Float longtitude, Float latitude, String description, int crimeCode, String dateAndTime, String location, int userid) {
         this.longtitude = longtitude;
         this.latitude = latitude;
         this.description = description;
@@ -39,7 +39,7 @@ public class Incident {
             this.crimeCode=crimeCode;
         this.dateAndTime = dateAndTime;
         this.location = location;
-        this.user = user;
+        this.userid = userid;
     }
 
     private int getCrimeCode(String description)
@@ -104,7 +104,7 @@ public class Incident {
         return crimeCode;
     }
 
-    public Date getDateAndTime() {
+    public String getDateAndTime() {
         return dateAndTime;
     }
 
@@ -112,8 +112,8 @@ public class Incident {
         return location;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserid() {
+        return userid;
     }
 
     public void setId(Integer id) {
@@ -135,7 +135,7 @@ public class Incident {
         this.crimeCode=crimeCode;
     }
 
-    public void setDateAndTime(Date dateAndTime) {
+    public void setDateAndTime(String dateAndTime) {
         this.dateAndTime = dateAndTime;
     }
 
@@ -143,8 +143,8 @@ public class Incident {
         this.location = location;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(int userid) {
+        this.userid = userid;
     }
 
     @Override
@@ -153,13 +153,13 @@ public class Incident {
         if (o == null || getClass() != o.getClass()) return false;
         Incident incident = (Incident) o;
         return id == incident.id && longtitude == incident.longtitude && incident.latitude == latitude
-                && description.equals(incident.description) && incident.crimeCode==crimeCode && Objects.equals(dateAndTime, incident.dateAndTime)
-                && location.equals(incident.location) && Objects.equals(user, incident.user);
+                && description.equals(incident.description) && incident.crimeCode==crimeCode && incident.dateAndTime==dateAndTime
+                && location.equals(incident.location) && Objects.equals(userid, incident.userid);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, longtitude, latitude, description, crimeCode, dateAndTime, location, user);
+        return Objects.hash(id, longtitude, latitude, description, crimeCode, dateAndTime, location, userid);
     }
 
     @Override
@@ -172,7 +172,7 @@ public class Incident {
                 ", crimecode='"+crimeCode+'\''+
                 ", dateAndTime=" + dateAndTime +
                 ", location='" + location + '\'' +
-                ", user=" + user +
+                ", userid=" + userid +
                 '}';
     }
 }

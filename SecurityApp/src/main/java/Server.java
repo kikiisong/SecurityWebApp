@@ -18,14 +18,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.SQLException;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.*;
 
-import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 import static spark.Spark.port;
 import static spark.Spark.get;
@@ -42,14 +40,44 @@ public class Server {
     private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, String date1, String location ) {
         String sql= "";
         try (Connection conn = getConnection()) {
-            Statement st = conn.createStatement();
-            sql = "INSERT INTO incidents(id, longitude, latitude,description, crimeCode, dateAndTime, location, user_id)" +
-                    " VALUES (2,'"+ longitude+"','" +latitude+"','"+ descriptions+"',"+ crimeCode+",'"+date1+"','" +location+"', 2);";
-            st.execute(sql);
+            //Statement st = conn.createStatement();
+            PreparedStatement st = conn.prepareStatement("INSERT INTO incidents(longitude,latitude,description,crimeCode,dateAndTime, location,user_id) VALUES(?,?,?,?,?,?,?);");
+            st.setFloat(1, longitude);
+            st.setFloat(2, latitude);
+            st.setString(3, descriptions);
+            st.setInt(4, crimeCode);
+            st.setString(5, date1);
+            st.setString(6, location);
+            st.setInt(7, 1);
+            st.executeUpdate();
+
+            /*sql = "INSERT INTO incidents(longitude, latitude,description, crimeCode, dateAndTime, location,)" +
+                    " VALUES ('"+ longitude+"','" +latitude+"','"+ descriptions+"',"+ crimeCode+",'"+date1+"','" +location+"');";
+            st.execute(sql);*/
 
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
         }
+    }
+    private static ResultSet showIncident() {
+        String sql= "";
+        ResultSet incident=null;
+        try (Connection conn = getConnection()) {
+            //Statement st = conn.createStatement();
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents;");
+            st.execute();
+            incident = st.getResultSet();
+
+
+            /*sql = "INSERT INTO incidents(longitude, latitude,description, crimeCode, dateAndTime, location,)" +
+                    " VALUES ('"+ longitude+"','" +latitude+"','"+ descriptions+"',"+ crimeCode+",'"+date1+"','" +location+"');";
+            st.execute(sql);*/
+
+
+        } catch (URISyntaxException | SQLException e) {
+            e.printStackTrace();
+        }
+        return incident;
     }
 
     public static void importDatafromCSV() {
@@ -72,11 +100,11 @@ public class Server {
                     String[] values = line.split(",");
                     float longtitude = Float.valueOf(values[13]);
                     float latitude = Float.valueOf(values[12]);
-                    Date dateAndTime = formatter.parse(values[3]);
+                    String dateAndTime = String.valueOf(values[3]);
                     String description = values[6];
                     String location = values[5];
 
-                    Incident incident = new Incident(longtitude, latitude, description, 0, dateAndTime, location, null);
+                    Incident incident = new Incident(longtitude, latitude, description, 0, dateAndTime, location, 2);
                     getIncidentORMLiteDao().create(incident);
 
                     i++;
@@ -88,8 +116,6 @@ public class Server {
                 e.printStackTrace();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
-            } catch (ParseException e) {
-                e.printStackTrace();
             }
         }
     }
@@ -138,7 +164,12 @@ public class Server {
         }, new VelocityTemplateEngine());*/
         Spark.get("/newpage", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            List<Incident> ls = getIncidentORMLiteDao().queryForAll();
+
+            ResultSet rs=showIncident();
+            List<Incident> ls = new ArrayList<Incident>();
+            while (rs.next()) {
+                ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
+            }
             model.put("incidents", ls);
             return new ModelAndView(model, "public/newpage.vm");
         }, new VelocityTemplateEngine());
@@ -200,7 +231,7 @@ public class Server {
             st.execute(sql_user);
 
             //sql_inc = "INSERT INTO incidents(id, longitude, latitude, description, crimeCode, dateAndTime, location, user_id)" +
-                    //" VALUES (1, 39.3299, 76.6205, 'Robbery', 3,'1999-01-08 04:05:06', 'Johns Hopkins University', 100);";
+              //      " VALUES (1, 39.3299, 76.6205, 'Robbery', 3,'1999-01-08 04:05:06', 'Johns Hopkins University', 100);";
             //st.execute(sql_inc);
              //st.execute(sql_user);
 
