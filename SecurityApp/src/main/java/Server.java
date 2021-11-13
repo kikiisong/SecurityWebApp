@@ -175,7 +175,17 @@ public class Server {
             return new ModelAndView(model, "public/account.vm");
         }, new VelocityTemplateEngine());
 
+        Spark.get("/newpage", (req, res) -> {
+            ResultSet rs=showIncident();
+            List<Incident> ls = new ArrayList<Incident>();
 
+            while (rs.next()) {
+                ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
+            }
+            String json = new Gson().toJson(ls);
+            res.type("application/json");
+            return ls;
+        });
         // CHANGE THIS
         // need to use the correct element id
         Spark.post("/newpage", (req, res) -> {

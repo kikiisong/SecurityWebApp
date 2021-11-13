@@ -342,40 +342,33 @@ function removeMarkers(){
 
 }
 function updateTheMarkers(){
-    var pg = require('pg');
-    var connectionString = "postgres://mbsinzvjlqtmla:ad6952c914bde23c762b765ef5258f4093334d3bb6e0964311f1583c87c2cc77@ec2-54-156-121-167.compute-1.amazonaws.com:5432/daajpudv9kabqh";
-    var pgClient = new pg.Client(connectionString);
-    pgClient.connect();
-    var query = pgClient.query("SELECT * from incidents");
-    console.log("in update markers")
-    query.on("row", function(row,result){
-        console.log("in query on")
-        result.addRow(row);
-        console.log(result);
 
+    $.ajax({
+        type: "GET",
+        url: "https://security-jhu-app.herokuapp.com/newpage",
+        success: function (data) {
+            //We remove the old markers
+            removeMarkers();
+            console.log(JSON.stringify(data));
+            // console.log(data);
+            // var jsonObj = $.parseJSON(data),
+            //     i;
+            var obj = JSON.stringify(data);
+            console.log("inside update markers");
+            var myobj = JSON.parse(obj);
+            console.log(myobj);
+            // console.log(document.getElementById("id").innerHTML = myobj.longitude);
+            // beaches =[];//Erasing the beaches array
+
+            //Adding the new ones
+            // for(i=0;i < jsonObj.beaches.length; i++) {
+            //     beaches.push(jsonObj.beaches[i]);
+            // }
+
+            //Adding them to the map
+            // setMarkers(map, beaches);
+        }
     });
-    // $.ajax({
-    //     type: "GET",
-    //     url: "postgres://mbsinzvjlqtmla:ad6952c914bde23c762b765ef5258f4093334d3bb6e0964311f1583c87c2cc77@ec2-54-156-121-167.compute-1.amazonaws.com:5432/daajpudv9kabqh",
-    //     success: function (data) {
-    //         //We remove the old markers
-    //         removeMarkers();
-    //         console.log(data);
-    //         var jsonObj = $.parseJSON(data),
-    //             i;
-    //         console.log("inside update markers");
-    //         console.log(jsonObj);
-    //         // beaches =[];//Erasing the beaches array
-    //
-    //         //Adding the new ones
-    //         // for(i=0;i < jsonObj.beaches.length; i++) {
-    //         //     beaches.push(jsonObj.beaches[i]);
-    //         // }
-    //
-    //         //Adding them to the map
-    //         // setMarkers(map, beaches);
-    //     }
-    // });
 }
 
 // anychart.onDocumentRead(function() {
