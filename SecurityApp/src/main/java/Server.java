@@ -154,11 +154,11 @@ public class Server {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "public/contact.vm");
         }, new VelocityTemplateEngine());
-        /*Spark.get("/newpage", (req, res) -> {
+        /*Spark.get("/incidents", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            return new ModelAndView(model, "public/newpage.vm");
+            return new ModelAndView(model, "public/incidents.vm");
         }, new VelocityTemplateEngine());*/
-        Spark.get("/newpage", (req, res) -> {
+        Spark.get("/incidents", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
             ResultSet rs=showIncident();
@@ -167,7 +167,7 @@ public class Server {
                 ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
             }
             model.put("incidents", ls);
-            return new ModelAndView(model, "public/newpage.vm");
+            return new ModelAndView(model, "public/incidents.vm");
         }, new VelocityTemplateEngine());
 
         Spark.get("/account", (req, res) -> {
@@ -188,7 +188,7 @@ public class Server {
         });
         // CHANGE THIS
         // need to use the correct element id
-        Spark.post("/newpage", (req, res) -> {
+        Spark.post("/incidents", (req, res) -> {
             String firstName = req.queryParams("firstName");
             String lastName = req.queryParams("lastName");
             String longitude = req.queryParams("latitude");

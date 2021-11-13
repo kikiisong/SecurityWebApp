@@ -55,7 +55,7 @@
           <li><a href="/">Home</a></li>
           <li><a href="/account">Account</a></li>
           <li><a href="/intro">Intro</a></li>
-          <li><a href="/newpage">Incident History</a></li>
+          <li><a href="/incidents">Incident History</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
       </nav>

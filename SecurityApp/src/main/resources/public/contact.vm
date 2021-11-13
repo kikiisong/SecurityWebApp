@@ -28,6 +28,9 @@
     <link rel="stylesheet" href="../css/owl.carousel.css"/>
     <link rel="stylesheet" href="../css/custom.css"/>
     <link rel="stylesheet" href="../css/animate.css"/>
+
+    <script src="../js/contact.js"></script>
+
     <header class="header-section">
         <div class="container">
           <!-- logo -->
@@ -48,14 +51,14 @@
               <li><a href="/">Home</a></li>
               <li><a href="/account">Account</a></li>
               <li><a href="/intro">Intro</a></li>
-              <li><a href="/newpage">Incident History</a></li>
+              <li><a href="/incidents">Incident History</a></li>
               <li><a href="/contact">Contact</a></li>
             </ul>
           </nav>
         </div>
       </header>
 
-    <title>Simple Map</title>
+    <title>Contact</title>
 
     <!--Grid column-->
 
@@ -70,13 +73,13 @@
 
         <div class="col-md-4">
           <a class="btn-floating blue accent-1"><ion-icon size = large  name="call"></ion-icon></a>
-          <p>+(410) 516-4600</p>
-          <p>Mon - Fri, 8:00-22:00</p>
+          <p><a href="tel:+4105164600">+(410) 516-4600</a></p>
+          <p>Mon - Fri, 8:00-22:00 <span id="status">Open</span></p>
         </div>
 
         <div class="col-md-4">
           <a class="btn-floating blue accent-1"><ion-icon size = large name="mail"></ion-icon></a>
-          <p>security@jhu.edu</p>
+          <p><a href="mailto:security@jhu.edu">security@jhu.edu</a></p>
 
         </div>
 
