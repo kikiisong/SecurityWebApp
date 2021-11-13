@@ -7,7 +7,49 @@ var arrMarkers = []
 var geocoder;
 var map;
 // const {Pool, Client} = require('pg');
-
+function validateForm(){
+    let x = document.forms["myForm"]["fname"].value;
+    if (x == "") {
+        alert("First Name must be filled out");
+        return false;
+    }
+    let x1 = document.forms["myForm"]["lname"].value;
+    if (x2 == "") {
+        alert("Last Name must be filled out");
+        return false;
+    }
+    let x3 = document.forms["myForm"]["date"].value;
+    if (x3 == "") {
+        alert("Date must be filled out");
+        return false;
+    }
+    let x4 = document.forms["myForm"]["email"].value;
+    if (x4 == "") {
+        alert("Email must be filled out");
+        return false;
+    }
+    let x5 = document.forms["myForm"]["address"].value;
+    if (x5 == "") {
+        alert("Address must be filled out");
+        return false;
+    }
+    let x6 = document.forms["myForm"]["city"].value;
+    if (x6 == "") {
+        alert("City must be filled out");
+        return false;
+    }
+    let x7 = document.forms["myForm"]["city"].value;
+    if (x7 == "") {
+        alert("City must be filled out");
+        return false;
+    }
+    let x8 = document.forms["myForm"]["describe"].value;
+    if (x8 == "") {
+        alert("Description must be filled out");
+        return false;
+    }
+    return true;
+}
 
 function openForm(){
     document.getElementById("myForm").style.display = "block";
