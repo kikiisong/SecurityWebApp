@@ -209,7 +209,7 @@
 
   <div class="row">
       <div>
-          <button type="button" class="btn btn-dark btn-lg" style=" position: relative; margin: 0 auto;  align-items: center; justify-content: center;" onclick="addMarkers()">ADD Data</button>
+          <button type="button" class="btn btn-dark btn-lg" style=" position: relative; margin: 0 auto;  align-items: center; justify-content: center;">ADD Data</button>
 
 
       </div>
