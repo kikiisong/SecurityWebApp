@@ -20,6 +20,7 @@ function initMap() {
     console.log("init map");
     geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(-34.397, 150.644);
+    console.log(findimage(3));
 
     const hopkins = { lat: 39.329903, lng: -76.620522 };
     // The map, centered at Uluru
@@ -68,43 +69,8 @@ function codeAddress() {
 
             const crimecode = predictCrimeCode();
             console.log(crimecode);
-            var image;
-            if (crimecode == 1){
-                image =
-                    "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
-            }
-            else if (crimecode == 2){
-                image =
-                    "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
-            }
-            else if (crimecode ==3) {
-                image =
-                    "http://maps.google.com/mapfiles/ms/icons/pink-dot.png";
-            }
-            else if (crimecode ==4) {
-                image =
-                    "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
-            }
-            else if (crimecode ==5) {
-                image =
-                    "http://maps.google.com/mapfiles/ms/icons/orange-dot.png";
-            }
-            else if (crimecode ==6) {
-                image =
-                    "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
-            }
-            else if (crimecode ==7) {
-                image =
-                    "http://maps.google.com/mapfiles/kml/paddle/wht-circle.png";
-            }
-            else if (crimecode ==8) {
-                image =
-                    "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
-            }
-            else if (crimecode ==9) {
-                image =
-                    "http://maps.google.com/mapfiles/ms/micons/ltblue-dot.png";
-            }
+            var image = findimage(crimecode);
+
 
             const infowindow = new google.maps.InfoWindow({
                 content: contentString,
@@ -146,220 +112,47 @@ function codeAddress() {
 
 
 }
-// function codeAddress2(longitude,latitude,address,description,crimecode) {
-//
-//     // document.getElementById('address').style.fontSize = "x-large";
-//     // document.getElementById('description').style.fontSize = "x-large";
-//     // const contentString = address + "\n" + description;
-//     console.log("code add 2");
-//     var add = String(address);
-//     var des = String(description);
-//     const contentString =
-//         '<div id="content">' +
-//         '<div id="siteNotice">' +
-//         "</div>" +
-//         // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
-//         "<p2> Incident </p2>"+
-//         '<div id="bodyContent">' +
-//         "<p2> Location of the incident: </p2>" +"<p5>" + add+  "</p5>"  +"<p></p>"+
-//         "<p3> Description of the incident: </p3>"+ "<p6>" + des + "</p6>"
-//     "</div>" + "</div>";
-//
-//     const position = { lat:latitude, lng: longitude };
-//
-//     var image;
-//     if (crimecode == 1){
-//         image =
-//             "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
-//     }
-//     else if (crimecode == 2){
-//         image =
-//             "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
-//     }
-//     else if (crimecode ==3) {
-//         image =
-//             "http://maps.google.com/mapfiles/ms/icons/pink-dot.png";
-//     }
-//     else if (crimecode ==4) {
-//         image =
-//             "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
-//     }
-//     else if (crimecode ==5) {
-//         image =
-//             "http://maps.google.com/mapfiles/ms/icons/orange-dot.png";
-//     }
-//     else if (crimecode ==6) {
-//         image =
-//             "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
-//     }
-//     else if (crimecode ==7) {
-//         image =
-//             "http://maps.google.com/mapfiles/kml/paddle/wht-circle.png";
-//     }
-//     else if (crimecode ==8) {
-//         image =
-//             "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
-//     }
-//     else if (crimecode ==9) {
-//         image =
-//             "http://maps.google.com/mapfiles/ms/micons/ltblue-dot.png";
-//     }
-//     const infowindow = new google.maps.InfoWindow({
-//         content: contentString,
-//     });
-//     // console.log("adding markers");
-//     var marker = new google.maps.Marker({
-//         map: map,
-//         position: position,
-//         icon:image,
-//         title:"incident"
-//     });
-//     // arrMarkers.push(marker);
-//     marker.addListener("click", () => {
-//         infowindow.open({
-//             anchor: marker,
-//             map,
-//             shouldFocus: false,
-//         });
-//     });
-//
-// }
-function addMarkers() {
-
-    // const contentString = address + "\n" + description;
-
-
-    d3.csv("../js/Part1_Crime_data.csv", function(data) {
-        for (var i  =0; i < 500; i++){
-
-            var latitude = parseFloat(data[i].Latitude);
-            var longitude = parseFloat(data[i].Longitude);
-            var location = data[i].Location;
-            var description = data[i].Description;
-            var crimecodeStr = data[i].CrimeCode.split("");
-            var crimecode =crimecodeStr[0];
-            var date = data[i].CrimeDateTime;
-            console.log(crimecodeStr);
-            console.log(crimecode);
-            fetch('https://security-jhu-app.herokuapp.com/incidents?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + location + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
-                    method: 'POST',
-                }
-            ).then();
-            console.log("FETCHED");
-
-            var image;
-            if (crimecode == 1){
-                image =
-                    "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
-            }
-            else if (crimecode == 2){
-                image =
-                    "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
-            }
-            else if (crimecode ==3) {
-                image =
-                    "http://maps.google.com/mapfiles/ms/icons/pink-dot.png";
-            }
-            else if (crimecode ==4) {
-                image =
-                    "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
-            }
-            else if (crimecode ==5) {
-                image =
-                    "http://maps.google.com/mapfiles/ms/icons/orange-dot.png";
-            }
-            else if (crimecode ==6) {
-                image =
-                    "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
-            }
-            else if (crimecode ==7) {
-                image =
-                    "http://maps.google.com/mapfiles/kml/paddle/wht-circle.png";
-            }
-            else if (crimecode ==8) {
-                image =
-                    "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
-            }
-            else if (crimecode ==9) {
-                image =
-                    "http://maps.google.com/mapfiles/ms/micons/ltblue-dot.png";
-            }
-
-            console.log(data[i]);
-            console.log(latitude);
-            console.log(longitude);
-            const position = { lat:latitude, lng: longitude };
-            console.log(position);
-            const contentString =
-                '<div id="content">' +
-                '<div id="siteNotice">' +
-                "</div>" +
-                // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
-                "<p2> Incident </p2>"+
-                '<div id="bodyContent">' +
-                "<p2> Location of the incident: </p2>" +"<p5>" + location+  "</p5>"  +"<p></p>"+
-                "<p3> Description of the incident: </p3>"+ "<p6>" + description + "</p6>"
-            "</div>" + "</div>";
-
-            var marker = new google.maps.Marker({
-                map: map,
-                position: position,
-                title:"incident",
-                icon: image,
-
-            });
-            arrMarkers.push(marker);
-            console.log(arrMarkers);
-            const infoWindow = new google.maps.InfoWindow({
-                content: contentString,
-            });
-             infoWindow.setPosition(position);
-            // console.log(infoWindow);
-            marker.addListener("click", () => {
-                infoWindow.open({
-                    map,
-                    shouldFocus: false,
-                });
-            });
-
-        }
-        console.log(data)
-    });
-
-
-
-
-    //
-    // anychart.onDocumentRead(function() {
-    //     var data = [
-    //         {x: "LARCENY", value: 77073},
-    //         {x: "COMMON ASSAULT", value: 60450},
-    //         {x: "BURGLARY", value: 48387},
-    //         {x: "LARCENY FROM AUTO", value: 45203},
-    //         {x: "AGG. ASSAULT", value: 40566},
-    //         {x: "AUTO THEFT", value: 30788},
-    //         {x: "ROBBERY - STREET", value: 23734},
-    //         {x: "ROBBERY - COMMERCIAL", value: 6158},
-    //         {x: "SHOOTING", value: 4680},
-    //         {x: "ROBBERY - RESIDENCE", value: 3757}
-    //     ];
-    //
-    //
-    //     // create the chart
-    //     var chart = anychart.pie();
-    //
-    //     // set the chart title
-    //     chart.title("Population by Race for the United States: 2010 Census");
-    //
-    //     // add the data
-    //     chart.data(data);
-    //
-    //     // display the chart in the container
-    //     chart.container('container');
-    //     chart.draw();
-    // });
-
+function findimage(crimecode){
+    var image;
+    if (crimecode == 1){
+        image =
+            "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+    }
+    else if (crimecode == 2){
+        image =
+            "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+    }
+    else if (crimecode ==3) {
+        image =
+            "http://maps.google.com/mapfiles/ms/icons/pink-dot.png";
+    }
+    else if (crimecode ==4) {
+        image =
+            "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
+    }
+    else if (crimecode ==5) {
+        image =
+            "http://maps.google.com/mapfiles/ms/icons/orange-dot.png";
+    }
+    else if (crimecode ==6) {
+        image =
+            "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+    }
+    else if (crimecode ==7) {
+        image =
+            "../img/grey-dot.png";
+    }
+    else if (crimecode ==8) {
+        image =
+            "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
+    }
+    else if (crimecode ==9) {
+        image =
+            "http://maps.google.com/mapfiles/ms/micons/ltblue-dot.png";
+    }
+    return image;
 }
+
 
 
 function predictCrimeCode(){
@@ -411,14 +204,14 @@ function predictCrimeCode(){
 // setInterval(function() {
 //     updateTheMarkers();
 // }, 5000);
-function removeMarkers(){
-    var i;
-    for(i=0;i<arrMarkers.length;i++){
-        arrMarkers[i].setMap(null);
-    }
-    arrMarkers = [];
-
-}
+// function removeMarkers(){
+//     var i;
+//     for(i=0;i<arrMarkers.length;i++){
+//         arrMarkers[i].setMap(null);
+//     }
+//     arrMarkers = [];
+//
+// }
 // function updateTheMarkers(){
 //         // var i;
 //         // console.log(arrMarkers);
@@ -496,3 +289,103 @@ function removeMarkers(){
 
 // import MarkerClusterer, { MarkerClustererOptions } from '@google/markerclustererplus'
 
+// function addMarkers() {
+//
+//     // const contentString = address + "\n" + description;
+//
+//
+//     d3.csv("../js/Part1_Crime_data.csv", function(data) {
+//         for (var i  =0; i < 500; i++){
+//
+//             var latitude = parseFloat(data[i].Latitude);
+//             var longitude = parseFloat(data[i].Longitude);
+//             var location = data[i].Location;
+//             var description = data[i].Description;
+//             var crimecodeStr = data[i].CrimeCode.split("");
+//             var crimecode =crimecodeStr[0];
+//             var date = data[i].CrimeDateTime;
+//             console.log(crimecodeStr);
+//             console.log(crimecode);
+//             fetch('https://security-jhu-app.herokuapp.com/incidents?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + location + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
+//                     method: 'POST',
+//                 }
+//             ).then();
+//             console.log("FETCHED");
+//             var image = findimage(crimecode);
+//
+//
+//             console.log(data[i]);
+//             console.log(latitude);
+//             console.log(longitude);
+//             const position = { lat:latitude, lng: longitude };
+//             console.log(position);
+//             const contentString =
+//                 '<div id="content">' +
+//                 '<div id="siteNotice">' +
+//                 "</div>" +
+//                 // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
+//                 "<p2> Incident </p2>"+
+//                 '<div id="bodyContent">' +
+//                 "<p2> Location of the incident: </p2>" +"<p5>" + location+  "</p5>"  +"<p></p>"+
+//                 "<p3> Description of the incident: </p3>"+ "<p6>" + description + "</p6>"
+//             "</div>" + "</div>";
+//
+//             var marker = new google.maps.Marker({
+//                 map: map,
+//                 position: position,
+//                 title:"incident",
+//                 icon: image,
+//
+//             });
+//             arrMarkers.push(marker);
+//             console.log(arrMarkers);
+//             const infoWindow = new google.maps.InfoWindow({
+//                 content: contentString,
+//             });
+//              infoWindow.setPosition(position);
+//             // console.log(infoWindow);
+//             marker.addListener("click", () => {
+//                 infoWindow.open({
+//                     map,
+//                     shouldFocus: false,
+//                 });
+//             });
+//
+//         }
+//         console.log(data)
+//     });
+//
+//
+//
+//
+//
+//     anychart.onDocumentRead(function() {
+//         var data = [
+//             {x: "LARCENY", value: 77073},
+//             {x: "COMMON ASSAULT", value: 60450},
+//             {x: "BURGLARY", value: 48387},
+//             {x: "LARCENY FROM AUTO", value: 45203},
+//             {x: "AGG. ASSAULT", value: 40566},
+//             {x: "AUTO THEFT", value: 30788},
+//             {x: "ROBBERY - STREET", value: 23734},
+//             {x: "ROBBERY - COMMERCIAL", value: 6158},
+//             {x: "SHOOTING", value: 4680},
+//             {x: "ROBBERY - RESIDENCE", value: 3757}
+//         ];
+//
+//
+//         // create the chart
+//         var chart = anychart.pie();
+//
+//         // set the chart title
+//         chart.title("Population by Race for the United States: 2010 Census");
+//
+//         // add the data
+//         chart.data(data);
+//
+//         // display the chart in the container
+//         chart.container('container');
+//         chart.draw();
+//     });
+//
+// }
