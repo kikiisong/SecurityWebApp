@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <head>
     <meta charset="utf-8">
   <meta name="description" content="Game Warrior Template">
   <meta name="keywords" content="warrior, game, creative, html">
@@ -31,35 +30,9 @@
 
     <script src="../js/contact.js"></script>
 
-    <header class="header-section">
-        <div class="container">
-          <!-- logo -->
-          <a class="site-logo" href="index.html" style="color:#ffb320;">
-                  <img src="../img/main-icon.ico" alt="" style="padding-right:10px" width="70vh" height ="70vh">
-                  <b>JHU Security APP</b>
-                </a>
-          <div class="user-panel">
-            <a href="/login">Login</a>  /  <a href="/signup">Register</a>
-          </div>
-          <!-- responsive -->
-          <div class="nav-switch">
-            <i class="fa fa-bars"></i>
-          </div>
-          <!-- site menu -->
-          <nav class="main-menu">
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/account">Account</a></li>
-              <li><a href="/intro">Intro</a></li>
-              <li><a href="/incidents">Incident History</a></li>
-              <li><a href="/contact">Contact</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-
     <title>Contact</title>
 
+    #parse("public/navigation.vm")
     <!--Grid column-->
 
   </div>

@@ -95,11 +95,10 @@ ol {
 
 
 .header-section {
-	background: #131313;
+	background: #456990;
 	clear: both;
 	overflow: hidden;
-	padding: 18px 0;
-	border-bottom: 1px solid #ffb320;
+	padding: 18px 0 0 0;
 }
 
 .site-logo {
@@ -109,19 +108,20 @@ ol {
 .user-panel {
 	float: right;
 	font-weight: 500;
-	background: #ffb320;
-	padding: 8px 28px;
+	background: #97d6de;
+	padding: 8px 20px;
 	border-radius: 30px;
+	margin-left: 8px;
 }
 
 .user-panel a {
 	font-size: 14px;
-	color: #131313;
+	color: #1c2830;
 }
 
 .main-menu {
-	float: right;
-	margin-right: 170px;
+	margin: auto;
+	//margin-right: 170px;
 }
 
 .main-menu ul {
@@ -142,7 +142,7 @@ ol {
 }
 
 .main-menu ul li a:hover {
-	color: #ffb320;
+	color: #fcca46;
 }
 
 .header-btn {

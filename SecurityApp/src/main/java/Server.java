@@ -209,7 +209,7 @@ public class Server {
             return 1;
         });
 
-        importDatafromCSV();
+        //importDatafromCSV();
     }
 
     private static void workWithDatabase(){
