@@ -176,12 +176,9 @@
      </div>
 </div>
         #if ($incidents)
-        <h2>List of all incidents:</h2>
         <div class="container">
-            <ol>
                 #foreach($inc in $incidents)
-                    <li id="data">
-                        <i>longtitude: $inc.longtitude  latitude: $inc.latitude </i> description: $inc.description <i> address: $inc.location </i> <i> crimeCode: $inc.crimeCode</i>
+##                        <i>longtitude: $inc.longtitude  latitude: $inc.latitude </i> description: $inc.description <i> address: $inc.location </i> <i> crimeCode: $inc.crimeCode</i>
                         <script   >
                             setInterval(function() {
                             //     updateTheMarkers();
@@ -263,9 +260,7 @@
 
                         </script>
 
-                    </li>
                 #end
-            </ol>
         </div>
         #end
     </body>

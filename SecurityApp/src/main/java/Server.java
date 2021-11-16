@@ -134,11 +134,21 @@ public class Server {
 
 
         // render and return homepage
+//        Spark.get("/", (req, res) -> {
+//            Map<String, Object> model = new HashMap<>();
+//            return new ModelAndView(model, "public/mainpage.vm");
+//        }, new VelocityTemplateEngine());
         Spark.get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+
+            ResultSet rs=showIncident();
+            List<Incident> ls = new ArrayList<Incident>();
+            while (rs.next()) {
+                ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
+            }
+            model.put("incidents", ls);
             return new ModelAndView(model, "public/mainpage.vm");
         }, new VelocityTemplateEngine());
-
         Spark.get("/intro", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "public/intro.vm");
@@ -159,7 +169,19 @@ public class Server {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "public/incidents.vm");
         }, new VelocityTemplateEngine());*/
-        Spark.get("/mainpage", (req, res) -> {
+//        Spark.get("/mainpage", (req, res) -> {
+//            Map<String, Object> model = new HashMap<>();
+//
+//            ResultSet rs=showIncident();
+//            List<Incident> ls = new ArrayList<Incident>();
+//            while (rs.next()) {
+//                ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
+//            }
+//            model.put("incidents", ls);
+//            return new ModelAndView(model, "public/mainpage.vm");
+//        }, new VelocityTemplateEngine());
+
+        Spark.get("/incidents", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
             ResultSet rs=showIncident();
@@ -168,7 +190,7 @@ public class Server {
                 ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
             }
             model.put("incidents", ls);
-            return new ModelAndView(model, "public/mainpage.vm");
+            return new ModelAndView(model, "public/incidents.vm");
         }, new VelocityTemplateEngine());
 
         Spark.get("/account", (req, res) -> {
@@ -176,17 +198,7 @@ public class Server {
             return new ModelAndView(model, "public/account.vm");
         }, new VelocityTemplateEngine());
 
-//        Spark.get("/incidents", (req, res) -> {
-//            ResultSet rs=showIncident();
-//            List<Incident> ls = new ArrayList<Incident>();
-//
-//            while (rs.next()) {
-//                ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
-//            }
-//            String json = new Gson().toJson(ls);
-//            res.type("application/json");
-//            return json;
-//        });
+
         // CHANGE THIS
         // need to use the correct element id
         Spark.post("/mainpage", (req, res) -> {

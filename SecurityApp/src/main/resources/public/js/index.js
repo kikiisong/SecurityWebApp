@@ -18,7 +18,6 @@ function closeForm(){
 function initMap() {
     // The location of Uluru
     console.log("init map");
-    console.log(document.getElementById("data"));
     geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(-34.397, 150.644);
 
