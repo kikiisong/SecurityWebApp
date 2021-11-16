@@ -187,16 +187,19 @@
                         // import { MarkerClusterer } from "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js";
 
                         var arrMarkers = [];
-                        var locations = [];
+                        var incidents = [];
+
 
                     setInterval(function() {
                             //     updateTheMarkers();
                             // }, 5000);
                             ## codeAddress2( $inc.longtitude, $inc.latitude, "$inc.location",  "$inc.description",  $inc.crimeCode);
                             // console.log("codeadd2");
+                            var num_markers = 0;
                             var add = String("$inc.location");
                             var des = String("$inc.description");
                             var crimecode = $inc.crimeCode;
+                            var incident = {lat:$inc.latitude,lng:$inc.longtitude, address:add, description:des, crimecode:crimecode};
                             var contentString =
                                     '<div id="content">' +
                                     '<div id="siteNotice">' +
@@ -265,26 +268,28 @@
                                 });
                             });
                             console.log(position);
-                            if (locations.some(position=> position.lat === $inc.latitude) && locations.some(position=> position.lng === $inc.longtitude )){
+                            if (incidents.some(incident=> incident.lat === $inc.latitude) && incidents.some(incident=> incident.lng === $inc.longtitude ) && incidents.some(incident=> incident.address === add) &&incidents.some(incident=> incident.description === des) &&incidents.some(incident=> incident.crimecode === crimecode )  ){
                                 console.log("already exists");
-                                console.log(locations);
-                                console.log(locations.some(position=> position.lat === $inc.latitude ));
+                                console.log(incidents);
+                                ## console.log(locations.some(position=> position.lat === $inc.latitude ));
                             }
                             else{
-                                locations.push(position);
+                                incidents.push(incident);
                                 arrMarkers.push(marker);
+                                // num_markers++;
                             }
+                        console.log("calling marker cluster");
+
+                        const imagePath = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m";
+                        new MarkerClusterer( map, arrMarkers,{imagePath: imagePath} );
+
                         // const markerCluster = new markerClusterer.MarkerClusterer({ map, arrMarkers });
 
                         console.log(marker);
                         console.log(arrMarkers);
-                        console.log("calling marker cluster");
-                        const imagePath = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m";
-
-                        new MarkerClusterer( map, arrMarkers,{imagePath: imagePath} );
 
 
-                    }, 5000);
+                    }, 10000);
                         </script>
 ##                    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js">
 ##                        console.log("marker cluster");
