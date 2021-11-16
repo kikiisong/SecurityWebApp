@@ -19,21 +19,23 @@
 ##    ></script>
     <script type="text/javascript">
         // only load it if it isn't already loaded
-        !window.google && document.write('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPjr40zhYagqXTfKxI1sBC8hnNajRo98&v=weekly&sensor=false"><\/script>')
+        !window.google && document.write('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPjr40zhYagqXTfKxI1sBC8hnNajRo98&v=weekly"><\/script>')
     </script>
-    <script type="module" src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+##    <script type="module" src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+##    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     <script src="jquery-csv.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/custom.css"/>
 
     <script src="../js/index.js"></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 
     <title>Simple Map</title>
     <style>
@@ -179,8 +181,15 @@
         <div class="container">
                 #foreach($inc in $incidents)
 ##                        <i>longtitude: $inc.longtitude  latitude: $inc.latitude </i> description: $inc.description <i> address: $inc.location </i> <i> crimeCode: $inc.crimeCode</i>
-                        <script   >
-                            setInterval(function() {
+##                    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+##                        // import { MarkerClusterer } from "@googlemaps/markerclusterer";
+                    <script>
+                        // import { MarkerClusterer } from "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js";
+
+                        var arrMarkers = [];
+                        var locations = [];
+
+                    setInterval(function() {
                             //     updateTheMarkers();
                             // }, 5000);
                             ## codeAddress2( $inc.longtitude, $inc.latitude, "$inc.location",  "$inc.description",  $inc.crimeCode);
@@ -200,7 +209,6 @@
                             "</div>" + "</div>";
 
                             var position = { lat:$inc.latitude, lng: $inc.longtitude };
-
                             var image;
                             if (crimecode == 1){
                                 image =
@@ -256,9 +264,33 @@
                                     shouldFocus: false,
                                 });
                             });
-                            }, 5000);
+                            console.log(position);
+                            if (locations.some(position=> position.lat === $inc.latitude) && locations.some(position=> position.lng === $inc.longtitude )){
+                                console.log("already exists");
+                                console.log(locations);
+                                console.log(locations.some(position=> position.lat === $inc.latitude ));
+                            }
+                            else{
+                                locations.push(position);
+                                arrMarkers.push(marker);
+                            }
+                        // const markerCluster = new markerClusterer.MarkerClusterer({ map, arrMarkers });
 
+                        console.log(marker);
+                        console.log(arrMarkers);
+                        console.log("calling marker cluster");
+                        const imagePath = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m";
+
+                        new MarkerClusterer( map, arrMarkers,{imagePath: imagePath} );
+
+
+                    }, 5000);
                         </script>
+##                    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js">
+##                        console.log("marker cluster");
+##                        new markerClusterer.MarkerClusterer({ map, arrMarkers });
+##                    </script>
+
 
                 #end
         </div>
