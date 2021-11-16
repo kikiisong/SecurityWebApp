@@ -8,9 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
+
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
-    <script src="papaparse.min.js"></script>
+##    <script async defer
+##             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPjr40zhYagqXTfKxI1sBC8hnNajRo98&callback=initMap&v=weekly"
+##    ></script>
+##    <script async
+##            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPjr40zhYagqXTfKxI1sBC8hnNajRo98&v=weekly"
+##    ></script>
+    <script type="text/javascript">
+        // only load it if it isn't already loaded
+        !window.google && document.write('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPjr40zhYagqXTfKxI1sBC8hnNajRo98&v=weekly&sensor=false"><\/script>')
+    </script>
     <script type="module" src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     <script src="jquery-csv.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -190,6 +200,99 @@
      </table>
      </div>
 </div>
+        #if ($incidents)
+        <h2>List of all incidents:</h2>
+        <div class="container">
+            <ol>
+                #foreach($inc in $incidents)
+                    <li id="data">
+                        <i>longtitude: $inc.longtitude  latitude: $inc.latitude </i> description: $inc.description <i> address: $inc.location </i> <i> crimeCode: $inc.crimeCode</i>
+                        <script   >
+                            setInterval(function() {
+                            //     updateTheMarkers();
+                            // }, 5000);
+                            ## codeAddress2( $inc.longtitude, $inc.latitude, "$inc.location",  "$inc.description",  $inc.crimeCode);
+                            // console.log("codeadd2");
+                            var add = String("$inc.location");
+                            var des = String("$inc.description");
+                            var crimecode = $inc.crimeCode;
+                            var contentString =
+                                    '<div id="content">' +
+                                    '<div id="siteNotice">' +
+                                    "</div>" +
+                                    // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
+                                    "<p2> Incident </p2>"+
+                                    '<div id="bodyContent">' +
+                                    "<p2> Location of the incident: </p2>" +"<p5>" + add+  "</p5>"  +"<p></p>"+
+                                    "<p3> Description of the incident: </p3>"+ "<p6>" + des + "</p6>"
+                            "</div>" + "</div>";
+
+                            var position = { lat:$inc.latitude, lng: $inc.longtitude };
+
+                            var image;
+                            if (crimecode == 1){
+                                image =
+                                        "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+                            }
+                            else if (crimecode == 2){
+                                image =
+                                        "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+                            }
+                            else if (crimecode ==3) {
+                                image =
+                                        "http://maps.google.com/mapfiles/ms/icons/pink-dot.png";
+                            }
+                            else if (crimecode ==4) {
+                                image =
+                                        "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
+                            }
+                            else if (crimecode ==5) {
+                                image =
+                                        "http://maps.google.com/mapfiles/ms/icons/orange-dot.png";
+                            }
+                            else if (crimecode ==6) {
+                                image =
+                                        "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+                            }
+                            else if (crimecode ==7) {
+                                image =
+                                        "http://maps.google.com/mapfiles/kml/paddle/wht-circle.png";
+                            }
+                            else if (crimecode ==8) {
+                                image =
+                                        "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
+                            }
+                            else if (crimecode ==9) {
+                                image =
+                                        "http://maps.google.com/mapfiles/ms/micons/ltblue-dot.png";
+                            }
+                            var infowindow = new google.maps.InfoWindow({
+                                content: contentString,
+                            });
+                            // console.log("adding markers");
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: position,
+                                icon:image,
+                                title:"incident"
+                            });
+                            // arrMarkers.push(marker);
+                            marker.addListener("click", () => {
+                                infowindow.open({
+                                    anchor: marker,
+                                    map,
+                                    shouldFocus: false,
+                                });
+                            });
+                            }, 5000);
+
+                        </script>
+
+                    </li>
+                #end
+            </ol>
+        </div>
+        #end
     </body>
 
     <title>Top 10 Crime by Type</title>
@@ -335,10 +438,7 @@
   <body>
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPjr40zhYagqXTfKxI1sBC8hnNajRo98&callback=initMap&v=weekly"
-      async
-    ></script>
+
   </body>
 </HTML>
 

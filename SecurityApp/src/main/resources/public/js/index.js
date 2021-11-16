@@ -7,49 +7,6 @@ var arrMarkers = []
 var geocoder;
 var map;
 // const {Pool, Client} = require('pg');
-function validateForm(){
-    let x = document.forms["myForm"]["fname"].value;
-    if (x == "") {
-        alert("First Name must be filled out");
-        return false;
-    }
-    let x1 = document.forms["myForm"]["lname"].value;
-    if (x2 == "") {
-        alert("Last Name must be filled out");
-        return false;
-    }
-    let x3 = document.forms["myForm"]["date"].value;
-    if (x3 == "") {
-        alert("Date must be filled out");
-        return false;
-    }
-    let x4 = document.forms["myForm"]["email"].value;
-    if (x4 == "") {
-        alert("Email must be filled out");
-        return false;
-    }
-    let x5 = document.forms["myForm"]["address"].value;
-    if (x5 == "") {
-        alert("Address must be filled out");
-        return false;
-    }
-    let x6 = document.forms["myForm"]["city"].value;
-    if (x6 == "") {
-        alert("City must be filled out");
-        return false;
-    }
-    let x7 = document.forms["myForm"]["city"].value;
-    if (x7 == "") {
-        alert("City must be filled out");
-        return false;
-    }
-    let x8 = document.forms["myForm"]["describe"].value;
-    if (x8 == "") {
-        alert("Description must be filled out");
-        return false;
-    }
-    return true;
-}
 
 function openForm(){
     document.getElementById("myForm").style.display = "block";
@@ -60,6 +17,8 @@ function closeForm(){
 }
 function initMap() {
     // The location of Uluru
+    console.log("init map");
+    console.log(document.getElementById("data"));
     geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(-34.397, 150.644);
 
@@ -82,6 +41,7 @@ function handleSubmit(event) {
 
 
 function codeAddress() {
+    console.log("codeAddress1");
     var address = document.getElementById('address').value;
     var description = document.getElementById('description').value;
     // document.getElementById('address').style.fontSize = "x-large";
@@ -172,7 +132,7 @@ function codeAddress() {
 
 
 
-            fetch('https://security-jhu-app.herokuapp.com/incidents?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
+            fetch('https://security-jhu-app.herokuapp.com/mainpage?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
                     method: 'POST',
                 }
             ).then();
@@ -187,6 +147,84 @@ function codeAddress() {
 
 
 }
+// function codeAddress2(longitude,latitude,address,description,crimecode) {
+//
+//     // document.getElementById('address').style.fontSize = "x-large";
+//     // document.getElementById('description').style.fontSize = "x-large";
+//     // const contentString = address + "\n" + description;
+//     console.log("code add 2");
+//     var add = String(address);
+//     var des = String(description);
+//     const contentString =
+//         '<div id="content">' +
+//         '<div id="siteNotice">' +
+//         "</div>" +
+//         // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
+//         "<p2> Incident </p2>"+
+//         '<div id="bodyContent">' +
+//         "<p2> Location of the incident: </p2>" +"<p5>" + add+  "</p5>"  +"<p></p>"+
+//         "<p3> Description of the incident: </p3>"+ "<p6>" + des + "</p6>"
+//     "</div>" + "</div>";
+//
+//     const position = { lat:latitude, lng: longitude };
+//
+//     var image;
+//     if (crimecode == 1){
+//         image =
+//             "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+//     }
+//     else if (crimecode == 2){
+//         image =
+//             "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+//     }
+//     else if (crimecode ==3) {
+//         image =
+//             "http://maps.google.com/mapfiles/ms/icons/pink-dot.png";
+//     }
+//     else if (crimecode ==4) {
+//         image =
+//             "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
+//     }
+//     else if (crimecode ==5) {
+//         image =
+//             "http://maps.google.com/mapfiles/ms/icons/orange-dot.png";
+//     }
+//     else if (crimecode ==6) {
+//         image =
+//             "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+//     }
+//     else if (crimecode ==7) {
+//         image =
+//             "http://maps.google.com/mapfiles/kml/paddle/wht-circle.png";
+//     }
+//     else if (crimecode ==8) {
+//         image =
+//             "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
+//     }
+//     else if (crimecode ==9) {
+//         image =
+//             "http://maps.google.com/mapfiles/ms/micons/ltblue-dot.png";
+//     }
+//     const infowindow = new google.maps.InfoWindow({
+//         content: contentString,
+//     });
+//     // console.log("adding markers");
+//     var marker = new google.maps.Marker({
+//         map: map,
+//         position: position,
+//         icon:image,
+//         title:"incident"
+//     });
+//     // arrMarkers.push(marker);
+//     marker.addListener("click", () => {
+//         infowindow.open({
+//             anchor: marker,
+//             map,
+//             shouldFocus: false,
+//         });
+//     });
+//
+// }
 function addMarkers() {
 
     // const contentString = address + "\n" + description;
@@ -288,40 +326,39 @@ function addMarkers() {
         }
         console.log(data)
     });
-    const markerCluster = new MarkerClusterer({ arrMarkers, map });
 
 
 
 
-
-    anychart.onDocumentRead(function() {
-        var data = [
-            {x: "LARCENY", value: 77073},
-            {x: "COMMON ASSAULT", value: 60450},
-            {x: "BURGLARY", value: 48387},
-            {x: "LARCENY FROM AUTO", value: 45203},
-            {x: "AGG. ASSAULT", value: 40566},
-            {x: "AUTO THEFT", value: 30788},
-            {x: "ROBBERY - STREET", value: 23734},
-            {x: "ROBBERY - COMMERCIAL", value: 6158},
-            {x: "SHOOTING", value: 4680},
-            {x: "ROBBERY - RESIDENCE", value: 3757}
-        ];
-
-
-        // create the chart
-        var chart = anychart.pie();
-
-        // set the chart title
-        chart.title("Population by Race for the United States: 2010 Census");
-
-        // add the data
-        chart.data(data);
-
-        // display the chart in the container
-        chart.container('container');
-        chart.draw();
-    });
+    //
+    // anychart.onDocumentRead(function() {
+    //     var data = [
+    //         {x: "LARCENY", value: 77073},
+    //         {x: "COMMON ASSAULT", value: 60450},
+    //         {x: "BURGLARY", value: 48387},
+    //         {x: "LARCENY FROM AUTO", value: 45203},
+    //         {x: "AGG. ASSAULT", value: 40566},
+    //         {x: "AUTO THEFT", value: 30788},
+    //         {x: "ROBBERY - STREET", value: 23734},
+    //         {x: "ROBBERY - COMMERCIAL", value: 6158},
+    //         {x: "SHOOTING", value: 4680},
+    //         {x: "ROBBERY - RESIDENCE", value: 3757}
+    //     ];
+    //
+    //
+    //     // create the chart
+    //     var chart = anychart.pie();
+    //
+    //     // set the chart title
+    //     chart.title("Population by Race for the United States: 2010 Census");
+    //
+    //     // add the data
+    //     chart.data(data);
+    //
+    //     // display the chart in the container
+    //     chart.container('container');
+    //     chart.draw();
+    // });
 
 }
 
@@ -372,9 +409,9 @@ function predictCrimeCode(){
 
     }
 }
-setInterval(function() {
-    updateTheMarkers();
-}, 5000);
+// setInterval(function() {
+//     updateTheMarkers();
+// }, 5000);
 function removeMarkers(){
     var i;
     for(i=0;i<arrMarkers.length;i++){
@@ -383,35 +420,44 @@ function removeMarkers(){
     arrMarkers = [];
 
 }
-function updateTheMarkers(){
-
-    $.ajax({
-        type: "GET",
-        url: "https://security-jhu-app.herokuapp.com/newpage",
-        success: function (data) {
-            //We remove the old markers
-            removeMarkers();
-            console.log(JSON.stringify(data));
-            // console.log(data);
-            // var jsonObj = $.parseJSON(data),
-            //     i;
-            var obj = JSON.stringify(data);
-            console.log("inside update markers");
-            var myobj = JSON.parse(obj);
-            console.log(myobj);
-            // console.log(document.getElementById("id").innerHTML = myobj.longitude);
-            // beaches =[];//Erasing the beaches array
-
-            //Adding the new ones
-            // for(i=0;i < jsonObj.beaches.length; i++) {
-            //     beaches.push(jsonObj.beaches[i]);
-            // }
-
-            //Adding them to the map
-            // setMarkers(map, beaches);
-        }
-    });
-}
+// function updateTheMarkers(){
+//         // var i;
+//         // console.log(arrMarkers);
+//         // for (i = 0; i < arrMarkers.length;i++){
+//         //     console.log(arrMarkers[i]);
+//         //
+//         // }
+//         //
+//         // const markerCluster = new MarkerCluster({ arrMarkers, map });
+//
+//     $.ajax({
+//         type: "GET",
+//         url: "https://security-jhu-app.herokuapp.com/incidents",
+//         success: function (data) {
+//             //We remove the old markers
+//             removeMarkers();
+//             console.log(JSON.stringify(data));
+//             // console.log(data);
+//             // var jsonObj = $.parseJSON(data),
+//             //     i;
+//             var obj = JSON.stringify(data);
+//             console.log("inside update markers");
+//             var myobj = JSON.parse(obj);
+//             console.log(myobj);
+//             //         // console.log(document.getElementById("id").innerHTML = myobj.longitude);
+//             //         // beaches =[];//Erasing the beaches array
+//             //
+//             //         //Adding the new ones
+//             //         // for(i=0;i < jsonObj.beaches.length; i++) {
+//             //         //     beaches.push(jsonObj.beaches[i]);
+//             //         // }
+//             //
+//             //         //Adding them to the map
+//             //         // setMarkers(map, beaches);
+//         }
+//     });
+//
+// }
 
 // anychart.onDocumentRead(function() {
 //     var data = [
