@@ -427,14 +427,14 @@
 
         <div class="col-md-4">
           <a class="btn-floating blue accent-1"><ion-icon size = large  name="call"></ion-icon></a>
-          <p>+ 01 234 567 89</p>
+          <p><a href="tel:+4105164600">+(410) 516-4600</a></p>
           <p>Mon - Fri, 8:00-22:00</p>
         </div>
 
         <div class="col-md-4">
           <a class="btn-floating blue accent-1"><ion-icon size = large name="mail"></ion-icon></a>
-          <p>id@jhu.edu</p>
-          <p>id@jhu.edu</p>
+          <p><a href="mailto:security@jhu.edu">id@jhu.edu</a></p>
+          <p><a href="mailto:security@jhu.edu">id@jhu.edu</a></p>
         </div>
 
       </div>
