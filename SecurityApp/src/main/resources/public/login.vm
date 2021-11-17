@@ -83,6 +83,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
     <script src="../js/index.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
@@ -126,7 +127,45 @@
 </center>
 
 <br>
+<script>
+    function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        //console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        const name = profile.getName();
+        //console.log('Given Name: ' + profile.getGivenName());
+        //console.log('Family Name: ' + profile.getFamilyName());
+        //console.log("Image URL: " + profile.getImageUrl());
+        const email= profile.getEmail();
+        console.log("signing in");
 
+        fetch('https://security-jhu-app.herokuapp.com/login?'+ "&name" + name +"&email"+ email, {
+                    method: 'POST',
+                }
+        ).then();
+        console.log("FETCHED");
+
+
+        var myUserEntity = {};
+        myUserEntity.Id = profile.getId();
+        myUserEntity.Name = profile.getName();
+
+        //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
+        sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
+
+
+        window.location.href = "https://security-jhu-app.herokuapp.com/";
+
+    }
+    // <a href="#" onclick="signOut();">Sign out</a>
+    function signOut() {
+        console.log("signing out");
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    }
+</script>
 
 
 <!-- Compiled and minified CSS -->

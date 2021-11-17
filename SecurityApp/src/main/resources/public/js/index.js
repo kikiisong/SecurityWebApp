@@ -206,36 +206,7 @@ function predictCrimeCode(){
 
     }
 }
-function onSignIn(googleUser) {
-    // Useful data for your client-side scripts:
-    var profile = googleUser.getBasicProfile();
-    //console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-    const name = profile.getName();
-    //console.log('Given Name: ' + profile.getGivenName());
-    //console.log('Family Name: ' + profile.getFamilyName());
-    //console.log("Image URL: " + profile.getImageUrl());
-    const email= profile.getEmail();
-    console.log("signing in");
 
-    fetch('https://security-jhu-app.herokuapp.com/login?'+ "&name" + name +"&email"+ email, {
-            method: 'POST',
-        }
-    ).then();
-    console.log("FETCHED");
-
-
-    var myUserEntity = {};
-    myUserEntity.Id = profile.getId();
-    myUserEntity.Name = profile.getName();
-
-    //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
-    sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
-
-
-    window.location.href = "https://security-jhu-app.herokuapp.com/";
-
-
-}
 
 function checkIfLoggedIn()
 {
@@ -251,14 +222,7 @@ function checkIfLoggedIn()
         return true;
     }
 }
-// <a href="#" onclick="signOut();">Sign out</a>
-function signOut() {
-    console.log("signing out");
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-        console.log('User signed out.');
-    });
-}
+
 function logout()
 {
     console.log("logging out");
