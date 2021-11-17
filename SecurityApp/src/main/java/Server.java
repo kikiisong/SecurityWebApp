@@ -156,7 +156,7 @@ public class Server {
         String sql= "";
         try (Connection conn = getConnection()) {
             //Statement st = conn.createStatement();
-            PreparedStatement st = conn.prepareStatement("INSERT INTO users(User name,Email) VALUES(?,?);");
+            PreparedStatement st = conn.prepareStatement("INSERT INTO users(name,email) VALUES (?,?);");
             st.setString(1, name);
             //st.setString(2, "1234567891");
             st.setString(2, email);
@@ -334,7 +334,7 @@ public class Server {
             return 1;
         });
         Spark.post("/login", (req, res) -> {
-            String name = req.queryParams("Name");
+            String name = req.queryParams("name");
             String email = req.queryParams("email");
             addUser(name,email);
             res.status(201);

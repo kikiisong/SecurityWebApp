@@ -217,7 +217,7 @@ function onSignIn(googleUser) {
     const email= profile.getEmail();
     console.log("signing in");
 
-    fetch('https://security-jhu-app.herokuapp.com/login?'+ "&Name" + name +"&email"+ email, {
+    fetch('https://security-jhu-app.herokuapp.com/login?'+ "&name" + name +"&email"+ email, {
             method: 'POST',
         }
     ).then();
