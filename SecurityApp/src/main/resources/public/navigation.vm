@@ -11,6 +11,7 @@
         <div class="user-panel">
             <a href="/signup">Register</a>
         </div>
+
         <!-- responsive -->
         <div class="nav-switch">
             <i class="fa fa-bars"></i>

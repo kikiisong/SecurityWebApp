@@ -1,6 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
+#set( $title = "Welcome Page" )
+#parse("public/top.vm")
+
+<head>
       <style>
       /* Bordered form */
       form {
@@ -78,7 +79,6 @@
 
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" media="only screen and (min-width: 481px) and (max-width: 960px)" href="../css/tablet.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -87,63 +87,39 @@
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
-      <!-- Media query for full browser width -->
-    <link rel="stylesheet" media="only screen and (min-width: 961px)" href="../css/custom.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="../css/owl.carousel.css"/>
     <link rel="stylesheet" href="../css/custom.css"/>
-    <link rel="stylesheet" href="../css/animate.css"/>
+      <script src="../js/index.js"></script>
+
 
         <meta name="google-signin-scope" content="profile email">
 
         <meta name="google-signin-client_id" content="873266246787-gb5nqmcj9ojuibrujfrar5gpl3tgkgli.apps.googleusercontent.com">
         <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-    <header class="header-section">
-        <div class="container">
-          <!-- logo -->
-          <a class="site-logo" href="index.html" style="color:#ffb320;">
-                  <img src="../img/main-icon.ico" alt="" style="padding-right:10px" width="70vh" height ="70vh">
-                  <b>JHU Security APP</b>
-                </a>
-          <div class="user-panel">
-            <a href="/login">Login</a>  /  <a href="/signup">Register</a>
-          </div>
-          <!-- responsive -->
-          <div class="nav-switch">
-            <i class="fa fa-bars"></i>
-          </div>
-          <!-- site menu -->
-          <nav class="main-menu">
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/account">Account</a></li>
-              <li><a href="/intro">Intro</a></li>
-              <li><a href="/incidents">NewPage</a></li>
-              <li><a href="/contact">Contact</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+      #parse("public/navigation.vm")
+
 
     <title>Simple Map</title>
      <a>
-      <form action="action_page.php" method="post">
+##      <form action="action_page.php" method="post">
          <div class="imgcontainer">
-           <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Avatar" class="avatar" style="width:100px; height: 100px">
-         </div>
-
-         <div class="container">
-           <label for="uname"><b>Username</b></label>
-           <input type="text" placeholder="Enter Username" name="uname" required>
-
-           <label for="psw"><b>Password</b></label>
-           <input type="password" placeholder="Enter Password" name="psw" required>
+##           <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Avatar" class="avatar" style="width:100px; height: 100px">
+##         </div>
+##
+##         <div class="container">
+##           <label for="uname"><b>Username</b></label>
+##           <input type="text" placeholder="Enter Username" name="uname" required>
+##
+##           <label for="psw"><b>Password</b></label>
+##           <input type="password" placeholder="Enter Password" name="psw" required>
 
            <button type="button" onclick="handleSubmit()">Login</button>
+             <button> <a href="https://security-jhu-app.herokuapp.com" onclick="signOut();"></a> Sign out </button>
+
          </div>
-       </form>
+##       </form>
      </a>
 
 <center>
@@ -152,57 +128,61 @@
 
      <br>
          <script>
-           function onSignIn(googleUser) {
-             // Useful data for your client-side scripts:
-             var profile = googleUser.getBasicProfile();
-             //console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-             const name = profile.getName());
-             //console.log('Given Name: ' + profile.getGivenName());
-             //console.log('Family Name: ' + profile.getFamilyName());
-             //console.log("Image URL: " + profile.getImageUrl());
-             const email= profile.getEmail();
-             fetch('https://security-jhu-app.herokuapp.com/login?'+ "&Name" + name +"&email"+ email, {
-                                 method: 'POST',
-                             }
-                         ).then();
-                         console.log("FETCHED");
-
-                     } else {
-                         alert('Geocode was not successful for the following reason: ' + status);
-                     }
-
-               var myUserEntity = {};
-               myUserEntity.Id = profile.getId();
-               myUserEntity.Name = profile.getName();
-
-               //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
-               sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
-
-
-             window.location.href = "https://security-jhu-app.herokuapp.com/";
-
-
-           }
-
-           function checkIfLoggedIn()
-           {
-             if(sessionStorage.getItem('myUserEntity') == null){
-               //Redirect to login page, no user entity available in sessionStorage
-               window.location.href='https://security-jhu-app.herokuapp.com//login';
-             } else {
-               //User already logged in
-               var userEntity = {};
-               userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
-               window.location.href = "https://security-jhu-app.herokuapp.com/";
-
-             }
-           }
-
-           function logout()
-           {
-             //Don't forget to clear sessionStorage when user logs out
-             sessionStorage.clear();
-           }
+           // function onSignIn(googleUser) {
+           //   // Useful data for your client-side scripts:
+           //   var profile = googleUser.getBasicProfile();
+           //   //console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+           //   const name = profile.getName();
+           //   //console.log('Given Name: ' + profile.getGivenName());
+           //   //console.log('Family Name: ' + profile.getFamilyName());
+           //   //console.log("Image URL: " + profile.getImageUrl());
+           //   const email= profile.getEmail();
+           //
+           //   fetch('https://security-jhu-app.herokuapp.com/login?'+ "&Name" + name +"&email"+ email, {
+           //                       method: 'POST',
+           //                   }
+           //               ).then();
+           //               console.log("FETCHED");
+           //
+           //
+           //     var myUserEntity = {};
+           //     myUserEntity.Id = profile.getId();
+           //     myUserEntity.Name = profile.getName();
+           //
+           //     //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
+           //     sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
+           //
+           //
+           //   window.location.href = "https://security-jhu-app.herokuapp.com/";
+           //
+           //
+           // }
+           //
+           // function checkIfLoggedIn()
+           // {
+           //   if(sessionStorage.getItem('myUserEntity') == null){
+           //     //Redirect to login page, no user entity available in sessionStorage
+           //     window.location.href='https://security-jhu-app.herokuapp.com//login';
+           //   } else {
+           //     //User already logged in
+           //     var userEntity = {};
+           //     userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+           //     // window.location.href = "https://security-jhu-app.herokuapp.com/";
+           //
+           //   }
+           // }
+           // // <a href="#" onclick="signOut();">Sign out</a>
+           //     function signOut() {
+           //     var auth2 = gapi.auth2.getAuthInstance();
+           //     auth2.signOut().then(function () {
+           //     console.log('User signed out.');
+           // });
+           // }
+           // function logout()
+           // {
+           //   //Don't forget to clear sessionStorage when user logs out
+           //   sessionStorage.clear();
+           // }
          </script>
 
 

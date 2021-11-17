@@ -11,12 +11,7 @@
 
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
-##    <script async defer
-##             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPjr40zhYagqXTfKxI1sBC8hnNajRo98&callback=initMap&v=weekly"
-##    ></script>
-##    <script async
-##            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPjr40zhYagqXTfKxI1sBC8hnNajRo98&v=weekly"
-##    ></script>
+
     <script type="text/javascript">
         // only load it if it isn't already loaded
         !window.google && document.write('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPjr40zhYagqXTfKxI1sBC8hnNajRo98&v=weekly"><\/script>')
@@ -39,19 +34,7 @@
 
     <title>Simple Map</title>
     <style>
-        /* Button used to open the contact form - fixed at the bottom of the page */
-    		.open-button {
-    		background-color: rgb(248, 10, 10);
-    		color: rgb(8, 8, 8);
-    		/*padding: 16px 20px;*/
-    		/*border: none;*/
-    		/*cursor: pointer;*/
-    		/*opacity: 0.8;*/
-    		/*position: fixed;*/
-    		/*bottom: 23px;*/
-    		/*right: 28px;*/
-    		/*width: 280px;*/
-    		}
+
 
     		/* The popup form - hidden by default */
     		.form-popup {
@@ -203,7 +186,7 @@
 
                             if (incidents.some(incident=> incident.lat === $inc.latitude) && incidents.some(incident=> incident.lng === $inc.longtitude ) && incidents.some(incident=> incident.address === add) &&incidents.some(incident=> incident.description === des) &&incidents.some(incident=> incident.crimecode === crimecode )  ){
                                 console.log("already exists");
-                                console.log(incidents);
+                                // console.log(incidents);
                                 ## console.log(locations.some(position=> position.lat === $inc.latitude ));
                             }
                             else{
@@ -274,21 +257,21 @@
                                         shouldFocus: false,
                                     });
                                 });
-                                console.log(position);
+                                // console.log(position);
                                 incidents.push(incident);
                                 arrMarkers.push(marker);
                                 // num_markers++;
                             }
-                        console.log("calling marker cluster");
+                        // console.log("calling marker cluster");
 
                         const imagePath = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m";
                         var cluster = new MarkerClusterer( map, arrMarkers,{imagePath: imagePath} );
-                        console.log(cluster);
+                        // console.log(cluster);
 
                         // const markerCluster = new markerClusterer.MarkerClusterer({ map, arrMarkers });
 
-                        console.log(marker);
-                        console.log(arrMarkers);
+                        // console.log(marker);
+                        // console.log(arrMarkers);
 
 
                     }, 3000);
@@ -308,37 +291,37 @@
 
     <div id="container" style="width: 100%; height: 100%"></div>
 
-##    <script>
-##        // const anychart = require("./js/d3.min.js");
-##        anychart.onDocumentReady(function() {
-##            var data = [
-##                {x: "LARCENY", value: 77073},
-##                {x: "COMMON ASSAULT", value: 60450},
-##                {x: "BURGLARY", value: 48387},
-##                {x: "LARCENY FROM AUTO", value: 45203},
-##                {x: "AGG. ASSAULT", value: 40566},
-##                {x: "AUTO THEFT", value: 30788},
-##                {x: "ROBBERY - STREET", value: 23734},
-##                {x: "ROBBERY - COMMERCIAL", value: 6158},
-##                {x: "SHOOTING", value: 4680},
-##                {x: "ROBBERY - RESIDENCE", value: 3757}
-##            ];
-##
-##
-##            // create the chart
-##            var chart = anychart.pie();
-##
-##            // set the chart title
-##            chart.title("Crime Visualization by Type");
-##
-##            // add the data
-##            chart.data(data);
-##
-##            // display the chart in the container
-##            chart.container('container');
-##            chart.draw();
-##        });
-##    </script>
+    <script>
+        // const anychart = require("./js/d3.min.js");
+        anychart.onDocumentReady(function() {
+            var data = [
+                {x: "LARCENY", value: 77073},
+                {x: "COMMON ASSAULT", value: 60450},
+                {x: "BURGLARY", value: 48387},
+                {x: "LARCENY FROM AUTO", value: 45203},
+                {x: "AGG. ASSAULT", value: 40566},
+                {x: "AUTO THEFT", value: 30788},
+                {x: "ROBBERY - STREET", value: 23734},
+                {x: "ROBBERY - COMMERCIAL", value: 6158},
+                {x: "SHOOTING", value: 4680},
+                {x: "ROBBERY - RESIDENCE", value: 3757}
+            ];
+
+
+            // create the chart
+            var chart = anychart.pie();
+
+            // set the chart title
+            chart.title("Crime Visualization by Type");
+
+            // add the data
+            chart.data(data);
+
+            // display the chart in the container
+            chart.container('container');
+            chart.draw();
+        });
+    </script>
 
 
 <section class="section pb-5">
@@ -352,33 +335,35 @@
 ##      </div>
     <!--Grid column-->
     <div class="col-lg-5 mb-4">
+        <button> <a href="https://security-jhu-app.herokuapp.com" onclick="signOut();"></a> Sign out </button>
+        <button> <a href="https://security-jhu-app.herokuapp.com" onclick="logout();"></a> Sign out </button>
     </div>
 
     <div class="form-popup" id="myForm" >
       <form  class="form-container" onsubmit="codeAddress(); return false;">
         <h2>REPORT</h2>
-        <div class="row">
-          <div class="col">
-            <label for="inputName">First Name</label>
-
-            <input type="text" id = "firstName" name="fname" class="form-control" placeholder="First name" required>
-          </div>
-          <div class="col">
-            <label for="inputName">Last Name</label>
-
-            <input type="text" id = "lastName" name="lname"  class="form-control" placeholder="Last name" required>
-          </div>
-        </div>
+##        <div class="row">
+##          <div class="col">
+##            <label for="inputName">First Name</label>
+##
+##            <input type="text" id = "firstName" name="fname" class="form-control" placeholder="First name" required>
+##          </div>
+##          <div class="col">
+##            <label for="inputName">Last Name</label>
+##
+##            <input type="text" id = "lastName" name="lname"  class="form-control" placeholder="Last name" required>
+##          </div>
+##        </div>
 
         <label for="Date"><b>Date:</b></label>
         <input type="date" id = "date"  name="date" min="2010-01-02" max="2022-01-01" required>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputEmail4">Email</label>
-            <input type="email" class="form-control" name="email" id="inputEmail4" placeholder="Email" required>
-          </div>
-
-        </div>
+##        <div class="form-row">
+##          <div class="form-group col-md-6">
+##            <label for="inputEmail4">Email</label>
+##            <input type="email" class="form-control" name="email" id="inputEmail4" placeholder="Email" required>
+##          </div>
+##
+##        </div>
         <div class="form-group">
           <label for="inputAddress">Address</label>
           <input type="text" id = "address" name="address" class="form-control" placeholder="1234 Main St" required>

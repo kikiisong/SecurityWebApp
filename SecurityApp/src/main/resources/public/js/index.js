@@ -41,74 +41,79 @@ function handleSubmit(event) {
 
 
 function codeAddress() {
-    console.log("codeAddress1");
-    var address = document.getElementById('address').value;
-    var description = document.getElementById('description').value;
-    // document.getElementById('address').style.fontSize = "x-large";
-    // document.getElementById('description').style.fontSize = "x-large";
-    console.log("calling code address function");
-    // const contentString = address + "\n" + description;
-    const contentString =
-        '<div id="content">' +
-        '<div id="siteNotice">' +
-        "</div>" +
-        // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
-        "<p2> Incident </p2>"+
-        '<div id="bodyContent">' +
-        "<p2> Location of the incident: </p2>" +"<p5>" + address+  "</p5>"  +"<p></p>"+
-        "<p3> Description of the incident: </p3>"+ "<p6>" + description + "</p6>"
+    if (!checkIfLoggedIn()){
+        alert("please log in");
+    }
+    else{
+        console.log("codeAddress1");
+        var address = document.getElementById('address').value;
+        var description = document.getElementById('description').value;
+        // document.getElementById('address').style.fontSize = "x-large";
+        // document.getElementById('description').style.fontSize = "x-large";
+        console.log("calling code address function");
+        // const contentString = address + "\n" + description;
+        const contentString =
+            '<div id="content">' +
+            '<div id="siteNotice">' +
+            "</div>" +
+            // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
+            "<p2> Incident </p2>"+
+            '<div id="bodyContent">' +
+            "<p2> Location of the incident: </p2>" +"<p5>" + address+  "</p5>"  +"<p></p>"+
+            "<p3> Description of the incident: </p3>"+ "<p6>" + description + "</p6>"
         "</div>" + "</div>";
-    geocoder.geocode( { 'address': address}, function(results, status) {
-        if (status == 'OK') {
-            var latitude = results[0].geometry.location.lat();
+        geocoder.geocode( { 'address': address}, function(results, status) {
+            if (status == 'OK') {
+                var latitude = results[0].geometry.location.lat();
 
-            var longitude = results[0].geometry.location.lng();
-            const position = { lat:latitude, lng: longitude };
-
-
-
-            const crimecode = predictCrimeCode();
-            console.log(crimecode);
-            var image = findimage(crimecode);
+                var longitude = results[0].geometry.location.lng();
+                const position = { lat:latitude, lng: longitude };
 
 
-            const infowindow = new google.maps.InfoWindow({
-                content: contentString,
-            });
-            var marker = new google.maps.Marker({
-                map: map,
-                position: position,
-                icon:image,
-                title:"incident"
-            });
-            arrMarkers.push(marker);
-            marker.addListener("click", () => {
-                infowindow.open({
-                    anchor: marker,
-                    map,
-                    shouldFocus: false,
+
+                const crimecode = predictCrimeCode();
+                console.log(crimecode);
+                var image = findimage(crimecode);
+
+
+                const infowindow = new google.maps.InfoWindow({
+                    content: contentString,
                 });
-            });
-            const firstName = document.getElementById("firstName").value;
-            const lastName = document.getElementById("lastName").value;
-            const description = document.getElementById("description").value;
-            const date = document.getElementById("date").value;
-            const address = document.getElementById("address").value;
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: position,
+                    icon:image,
+                    title:"incident"
+                });
+                arrMarkers.push(marker);
+                marker.addListener("click", () => {
+                    infowindow.open({
+                        anchor: marker,
+                        map,
+                        shouldFocus: false,
+                    });
+                });
+                const firstName = document.getElementById("firstName").value;
+                const lastName = document.getElementById("lastName").value;
+                const description = document.getElementById("description").value;
+                const date = document.getElementById("date").value;
+                const address = document.getElementById("address").value;
 
 
 
-            fetch('https://security-jhu-app.herokuapp.com/mainpage?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
-                    method: 'POST',
-                }
-            ).then();
-            console.log("FETCHED");
+                fetch('https://security-jhu-app.herokuapp.com/mainpage?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
+                        method: 'POST',
+                    }
+                ).then();
+                console.log("FETCHED");
 
-        } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-        }
-    });
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+        //alert("Successfully added your incident! Check map to see incident marker")
+    }
     document.getElementById("myForm").style.display = "none";
-    //alert("Successfully added your incident! Check map to see incident marker")
 
 
 }
@@ -200,6 +205,66 @@ function predictCrimeCode(){
         return crimecode;
 
     }
+}
+function onSignIn(googleUser) {
+    // Useful data for your client-side scripts:
+    var profile = googleUser.getBasicProfile();
+    //console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+    const name = profile.getName();
+    //console.log('Given Name: ' + profile.getGivenName());
+    //console.log('Family Name: ' + profile.getFamilyName());
+    //console.log("Image URL: " + profile.getImageUrl());
+    const email= profile.getEmail();
+    console.log("signing in");
+
+    fetch('https://security-jhu-app.herokuapp.com/login?'+ "&Name" + name +"&email"+ email, {
+            method: 'POST',
+        }
+    ).then();
+    console.log("FETCHED");
+
+
+    var myUserEntity = {};
+    myUserEntity.Id = profile.getId();
+    myUserEntity.Name = profile.getName();
+
+    //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
+    sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
+
+
+    window.location.href = "https://security-jhu-app.herokuapp.com/";
+
+
+}
+
+function checkIfLoggedIn()
+{
+    if(sessionStorage.getItem('myUserEntity') == null){
+        //Redirect to login page, no user entity available in sessionStorage
+        window.location.href='https://security-jhu-app.herokuapp.com//login';
+        return false;
+    } else {
+        //User already logged in
+        var userEntity = {};
+        userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+        // window.location.href = "https://security-jhu-app.herokuapp.com/";
+        return true;
+    }
+}
+// <a href="#" onclick="signOut();">Sign out</a>
+function signOut() {
+    console.log("signing out");
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
+}
+function logout()
+{
+    console.log("logging out");
+
+    //Don't forget to clear sessionStorage when user logs out
+    sessionStorage.clear();
 }
 // setInterval(function() {
 //     updateTheMarkers();
