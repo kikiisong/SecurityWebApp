@@ -96,6 +96,7 @@
     <link rel="stylesheet" href="../css/animate.css"/>
 
         <meta name="google-signin-scope" content="profile email">
+
         <meta name="google-signin-client_id" content="873266246787-gb5nqmcj9ojuibrujfrar5gpl3tgkgli.apps.googleusercontent.com">
         <script src="https://apis.google.com/js/platform.js" async defer></script>
 
@@ -154,12 +155,21 @@
            function onSignIn(googleUser) {
              // Useful data for your client-side scripts:
              var profile = googleUser.getBasicProfile();
-             console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-             console.log('Full Name: ' + profile.getName());
-             console.log('Given Name: ' + profile.getGivenName());
-             console.log('Family Name: ' + profile.getFamilyName());
-             console.log("Image URL: " + profile.getImageUrl());
-             console.log("Email: " + profile.getEmail());
+             //console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+             const name = profile.getName());
+             //console.log('Given Name: ' + profile.getGivenName());
+             //console.log('Family Name: ' + profile.getFamilyName());
+             //console.log("Image URL: " + profile.getImageUrl());
+             const email= profile.getEmail();
+             fetch('https://security-jhu-app.herokuapp.com/login?'+ "&Name" + name +"&email"+ email, {
+                                 method: 'POST',
+                             }
+                         ).then();
+                         console.log("FETCHED");
+
+                     } else {
+                         alert('Geocode was not successful for the following reason: ' + status);
+                     }
 
                var myUserEntity = {};
                myUserEntity.Id = profile.getId();

@@ -151,6 +151,26 @@ public class Server {
         return emails;
     }
 
+
+    private static void addUser(String name, String email ) {
+        String sql= "";
+        try (Connection conn = getConnection()) {
+            //Statement st = conn.createStatement();
+            PreparedStatement st = conn.prepareStatement("INSERT INTO users(User name,Email) VALUES(?,?);");
+            st.setString(1, name);
+            //st.setString(2, "1234567891");
+            st.setString(2, email);
+            st.executeUpdate();
+
+            /*sql = "INSERT INTO incidents(longitude, latitude,description, crimeCode, dateAndTime, location,)" +
+                    " VALUES ('"+ longitude+"','" +latitude+"','"+ descriptions+"',"+ crimeCode+",'"+date1+"','" +location+"');";
+            st.execute(sql);*/
+
+        } catch (URISyntaxException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static ResultSet getIncidents() {
         String sql= "";
         ResultSet incidents = null;
@@ -312,6 +332,15 @@ public class Server {
             res.status(201);
             res.type("application/json");
             return 1;
+        });
+        Spark.post("/login", (req, res) -> {
+            String name = req.queryParams("Name");
+            String email = req.queryParams("email");
+            addUser(name,email);
+            res.status(201);
+            res.type("application/json");
+            return 1;
+
         });
 
         //importDatafromCSV();
