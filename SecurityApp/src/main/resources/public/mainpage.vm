@@ -336,8 +336,8 @@
 ##      </div>
     <!--Grid column-->
     <div class="col-lg-5 mb-4">
-        <button onclick="signOut()" > Sign out </button>
-        <button onclick= "logout()" >  log out </button>
+##        <button onclick="signOut()" > Sign out </button>
+##        <button onclick= "logout()" >  log out </button>
     </div>
 
     <div class="form-popup" id="myForm" >
