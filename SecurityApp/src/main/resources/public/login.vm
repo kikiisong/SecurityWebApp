@@ -96,7 +96,7 @@
     <link rel="stylesheet" href="../css/animate.css"/>
 
         <meta name="google-signin-scope" content="profile email">
-        <meta name="google-signin-client_id" content="649384552528-c9ej84f58ijleb0o16rrpnqcsrns3c7u.apps.googleusercontent.com">
+        <meta name="google-signin-client_id" content="873266246787-gb5nqmcj9ojuibrujfrar5gpl3tgkgli.apps.googleusercontent.com">
         <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <header class="header-section">
