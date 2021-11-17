@@ -28,6 +28,16 @@ import java.util.Date;
 import static spark.Spark.port;
 import static spark.Spark.get;
 
+import com.sun.mail.smtp.SMTPTransport;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.util.Date;
+import java.util.Properties;
+
 public class Server {
 
 //    private static Dao getIncidentORMLiteDao() throws SQLException {
@@ -54,19 +64,101 @@ public class Server {
             /*sql = "INSERT INTO incidents(longitude, latitude,description, crimeCode, dateAndTime, location,)" +
                     " VALUES ('"+ longitude+"','" +latitude+"','"+ descriptions+"',"+ crimeCode+",'"+date1+"','" +location+"');";
             st.execute(sql);*/
-
+            SendEmailNotification();
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
         }
     }
-    private static ResultSet showIncident() {
+
+    private static void SendEmailNotification() throws SQLException {
+        // get emails from users table in postgresql database
+        ResultSet emails = getUserEmails();
+        List<String> rowValues = new ArrayList<String>();
+        while (emails.next()) {
+            rowValues.add(emails.getString(1));
+        }
+        //contactListNames = (String[]) rowValues.toArray(new String[rowValues.size()]);
+
+        // send email notifications
+        final String SMTP_SERVER = "smtp server ";
+        final String USERNAME = "";
+        final String PASSWORD = "csq@4132322";
+
+        final String EMAIL_FROM = "paipipiiya@gmail.com";
+        final String EMAIL_TO = "caosiqi1@gmail.com, scao16@jhu.edu";
+        final String EMAIL_TO_CC = "";
+
+        final String EMAIL_SUBJECT = "Test Send Email via SMTP";
+        final String EMAIL_TEXT = "Hello Java Mail \n ABC123";
+
+        Properties prop = System.getProperties();
+        prop.put("mail.smtp.host", SMTP_SERVER); //optional, defined in SMTPTransport
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.port", "25"); // default port 25
+
+        Session session = Session.getInstance(prop, null);
+        Message msg = new MimeMessage(session);
+
+        try {
+
+            // from
+            msg.setFrom(new InternetAddress(EMAIL_FROM));
+
+            // to
+            msg.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(EMAIL_TO, false));
+
+            // cc
+            msg.setRecipients(Message.RecipientType.CC,
+                    InternetAddress.parse(EMAIL_TO_CC, false));
+
+            // subject
+            msg.setSubject(EMAIL_SUBJECT);
+
+            // content
+            msg.setText(EMAIL_TEXT);
+
+            msg.setSentDate(new Date());
+
+            // Get SMTPTransport
+            SMTPTransport t = (SMTPTransport) session.getTransport("smtp");
+
+            // connect
+            t.connect(SMTP_SERVER, USERNAME, PASSWORD);
+
+            // send
+            t.sendMessage(msg, msg.getAllRecipients());
+
+            System.out.println("Response: " + t.getLastServerResponse());
+
+            t.close();
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static ResultSet getUserEmails() {
+        String query = "SELECT Email FROM users;";
+        ResultSet emails = null;
+        try (Connection conn = getConnection()) {
+            PreparedStatement st = conn.prepareStatement(query);
+            st.execute();
+            emails = st.getResultSet();
+        } catch (URISyntaxException | SQLException e) {
+            e.printStackTrace();
+        }
+        return emails;
+    }
+
+    private static ResultSet getIncidents() {
         String sql= "";
-        ResultSet incident=null;
+        ResultSet incidents = null;
         try (Connection conn = getConnection()) {
             //Statement st = conn.createStatement();
             PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents;");
             st.execute();
-            incident = st.getResultSet();
+            incidents = st.getResultSet();
 
 
             /*sqlx = "INSERT INTO incidents(longitude, latitude,description, crimeCode, dateAndTime, location,)" +
@@ -77,7 +169,7 @@ public class Server {
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
         }
-        return incident;
+        return incidents;
     }
 
     public static void importDatafromCSV() {
@@ -116,7 +208,6 @@ public class Server {
         }
     }
 
-
     static int PORT = 7000;
     private static int getPort() {
         String herokuPort = System.getenv("PORT");
@@ -132,7 +223,6 @@ public class Server {
         workWithDatabase();
         Spark.staticFiles.location("/public");
 
-
         // render and return homepage
 //        Spark.get("/", (req, res) -> {
 //            Map<String, Object> model = new HashMap<>();
@@ -141,7 +231,7 @@ public class Server {
         Spark.get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
-            ResultSet rs=showIncident();
+            ResultSet rs = getIncidents();
             List<Incident> ls = new ArrayList<Incident>();
             while (rs.next()) {
                 ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
@@ -149,18 +239,22 @@ public class Server {
             model.put("incidents", ls);
             return new ModelAndView(model, "public/mainpage.vm");
         }, new VelocityTemplateEngine());
+
         Spark.get("/intro", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "public/intro.vm");
         }, new VelocityTemplateEngine());
+
         Spark.get("/login", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "public/login.vm");
         }, new VelocityTemplateEngine());
+
         Spark.get("/signup", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "public/signup.vm");
         }, new VelocityTemplateEngine());
+
         Spark.get("/contact", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "public/contact.vm");
@@ -184,7 +278,7 @@ public class Server {
         Spark.get("/incidents", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
-            ResultSet rs=showIncident();
+            ResultSet rs = getIncidents();
             List<Incident> ls = new ArrayList<Incident>();
             while (rs.next()) {
                 ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
@@ -197,7 +291,6 @@ public class Server {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "public/account.vm");
         }, new VelocityTemplateEngine());
-
 
         // CHANGE THIS
         // need to use the correct element id
@@ -244,21 +337,22 @@ public class Server {
                     // "user_id INTEGER FOREIGN KEY);";
                     "user_id INTEGER NOT NULL);";
             sql_user = "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name VARCHAR(100));";
-        // }
+            // }
 
             Statement st = conn.createStatement();
             st.execute(sql_inc);
             st.execute(sql_user);
 
             //sql_inc = "INSERT INTO incidents(id, longitude, latitude, description, crimeCode, dateAndTime, location, user_id)" +
-              //      " VALUES (1, 39.3299, 76.6205, 'Robbery', 3,'1999-01-08 04:05:06', 'Johns Hopkins University', 100);";
+            //      " VALUES (1, 39.3299, 76.6205, 'Robbery', 3,'1999-01-08 04:05:06', 'Johns Hopkins University', 100);";
             //st.execute(sql_inc);
-             //st.execute(sql_user);
+            //st.execute(sql_user);
 
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
         }
     }
+
     private static Connection getConnection() throws URISyntaxException, SQLException {
         String databaseUrl = System.getenv("DATABASE_URL" +
                 "");
