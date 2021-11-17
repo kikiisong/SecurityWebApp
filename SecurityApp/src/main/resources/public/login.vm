@@ -169,7 +169,7 @@
                sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
 
 
-             window.location.href = "http://localhost:7000";
+             window.location.href = "https://security-jhu-app.herokuapp.com/";
 
 
            }
@@ -178,12 +178,12 @@
            {
              if(sessionStorage.getItem('myUserEntity') == null){
                //Redirect to login page, no user entity available in sessionStorage
-               window.location.href='http://localhost:7000/login';
+               window.location.href='https://security-jhu-app.herokuapp.com//login';
              } else {
                //User already logged in
                var userEntity = {};
                userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
-               window.location.href = "http://localhost:7000";
+               window.location.href = "https://security-jhu-app.herokuapp.com/";
 
              }
            }
