@@ -17,14 +17,15 @@ A security alert web app with functions to view, score, and report incidents in 
 **Must have:**
   
 As a user, I want to:  
-**Iteration 3:**
+**Iteration 4:**
 - **view all incidents so that I know what has happened before on the map using a marker.**
-- **view the newly reported incident on the map with a marker distinguished by color.**
-- **Be able to determine areas which are safe, moderately safe and unsafe.**
+- **Sign-up using google account**
+- **Only allow report if user is signed-up**
+- **Use cluster to show the frequency of crime within a region**
 
 **TO DO in later iterations:**
 - post an incident at a specific location on map (for example, drop-down menu giving users an option) so that I can report a new incident without entering location information.
-- click a location to send SMS alert text messages to my contacts so that they’ll get notified about the neighborhood. 
+- click a location to send email to other users so that they’ll get notified about the neighborhood. 
 - report an issue to the campus security so that I don’t have to learn how to report to campus security. 
 - rate the level of severity of an incident so that a more accurate score can be calculated. 
 - receive a notification of incidents and its details so that I know more about real-time danger. 
@@ -35,12 +36,13 @@ As a user, I want to:
  - user able to report a new incident.
  - marker pops up on the map when an icident is reported.
  - user able to view previously reported incidents.
+ - sign-up using google accounts
+ - 
 
 **Nice to have:**
 
 As a user, I want to:
 - view real time alert on browser so that I know the most recent dangers. 
-- have different colored pins for different dangerous/safety levels on the map so that it's easier to read the map. 
 - plan routes based on the level of safety and time so that I can find the safest route to travel. 
 - ask follow-up questions for an incident so that I know details about the case. 
 - comment on a report regarding the incident so that I can interact with other users. 
