@@ -23,3 +23,16 @@
 
 
 
+**Reflection 4:** We worked better as a team to work on the tasks. 
+
+**In iteration 4:**
+- Delegated tasks among each and worked together to solve big tasks.
+- Teammates have been more open to helping and asking for help
+- Need to work better to meet our deadlines.
+
+
+
+
+
+
+
