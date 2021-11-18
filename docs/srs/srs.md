@@ -23,6 +23,11 @@ As a user, I want to:
 - **Only allow report if user is signed-up**
 - **Use cluster to show the frequency of crime within a region**
 
+**Iteration 5:**
+- **Be able to filter all the incidents in the web app i.e. based on time**
+- **Visualize all the incidents in interactive ways**
+- **Differentiate between 2 types of users: student vs. admin**
+
 **TO DO in later iterations:**
 - post an incident at a specific location on map (for example, drop-down menu giving users an option) so that I can report a new incident without entering location information.
 - click a location to send email to other users so that they’ll get notified about the neighborhood. 
