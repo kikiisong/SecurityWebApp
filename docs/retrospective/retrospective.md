@@ -14,4 +14,12 @@
 - More collaborative effort
 
 
+**Reflection 3:** We improved our ability to get a head start and manage tasks accordingly 
+
+**In iteration 3:**
+- We got better at getting a head start on implementing core functionalities that other features may depend on 
+- We're much better at estimating how long tasks would take and breaking down into smaller chunks
+- Teammates have been more open to helping and asking for help
+
+
 
