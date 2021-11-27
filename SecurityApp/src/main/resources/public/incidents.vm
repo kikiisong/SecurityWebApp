@@ -67,16 +67,26 @@
             </div>
         </div>
     </nav>
+
     #if ($incidents)
-    <h2>List of all incidents:</h2>
-    <div class="container">
-        <ol>
+    <h2>All incidents:</h2>
+    <table class="incident table">
+        <thead>
+        <tr>
+            <th>Date And Time</th>
+            <th>Location</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
             #foreach($inc in $incidents)
-                <li id="data">
-                    <i> address: $inc.location </i> description: $inc.description
-                </li>
+                <tr>
+                    <td>$inc.dateAndTime</td>
+                    <td>$inc.location</td>
+                    <td>$inc.description</td>
+                </tr>
             #end
-        </ol>
-    </div>
+        </tbody>
+    </table>
     #end
 #parse("public/bottom.vm")
