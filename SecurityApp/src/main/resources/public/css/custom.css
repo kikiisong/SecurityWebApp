@@ -153,3 +153,11 @@ ol {
 .nav-switch {
 	display: none;
 }
+
+.dropdown:hover>.dropdown-menu {
+	display: block;
+}
+
+.nav-item {
+	padding: 10px 5px;
+}

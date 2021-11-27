@@ -1,4 +1,4 @@
-<header class="header-section">
+#* <header class="header-section">
     <div class="container">
         <!-- logo -->
         <a class="site-logo" href="/" style="color: #97d6de;">
@@ -27,4 +27,42 @@
             </ul>
         </nav>
     </div>
-</header>
+*#
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #212630">
+    <div class="container-fluid">
+        <a href="#" class="navbar-brand">Security App</a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/account">Account</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Incident History</a>
+                <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Week</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li><a class="dropdown-item" href="/incidents">View All Incidents</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/intro">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/contact">Contact</a>
+            </li>
+
+        </ul>
+        <div class="navbar-nav ms-auto">
+            <a href="login" class="nav-item nav-link">Login</a>
+            <a href="signup" class="nav-item nav-link">Register</a>
+        </div>
+    </div>
+</nav>
