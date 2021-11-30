@@ -69,15 +69,15 @@
         var profile = googleUser.getBasicProfile();
         //console.log("ID: " + profile.getId()); // Don't send this directly to your server!
         var name = String(profile.getName());
-        console.log(name);
+        // console.log(name);
         // console.log(typeof name);
         //console.log('Given Name: ' + profile.getGivenName());
         //console.log('Family Name: ' + profile.getFamilyName());
         //console.log("Image URL: " + profile.getImageUrl());
         var email= String(profile.getEmail());
-        console.log(email);
+        // console.log(email);
         // console.log(typeof email);
-        console.log("signing in");
+        // console.log("signing in");
 
         fetch('https://security-jhu-app.herokuapp.com/login?'+ "&name=" + name +"&email="+ email, {
                     method: 'POST',

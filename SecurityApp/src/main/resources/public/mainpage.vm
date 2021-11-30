@@ -269,6 +269,7 @@
                         var cluster = new MarkerClusterer( map, arrMarkers,{imagePath: imagePath} );
                         // console.log(cluster);
 
+
                         // const markerCluster = new markerClusterer.MarkerClusterer({ map, arrMarkers });
 
                         // console.log(marker);
@@ -276,6 +277,7 @@
 
 
                     }, 3000);
+                    //filter only 6 months
                         </script>
 ##                    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js">
 ##                        console.log("marker cluster");
@@ -292,37 +294,6 @@
 
     <div id="container" style="width: 100%; height: 100%"></div>
 
-    <script>
-        // const anychart = require("./js/d3.min.js");
-        anychart.onDocumentReady(function() {
-            var data = [
-                {x: "LARCENY", value: 77073},
-                {x: "COMMON ASSAULT", value: 60450},
-                {x: "BURGLARY", value: 48387},
-                {x: "LARCENY FROM AUTO", value: 45203},
-                {x: "AGG. ASSAULT", value: 40566},
-                {x: "AUTO THEFT", value: 30788},
-                {x: "ROBBERY - STREET", value: 23734},
-                {x: "ROBBERY - COMMERCIAL", value: 6158},
-                {x: "SHOOTING", value: 4680},
-                {x: "ROBBERY - RESIDENCE", value: 3757}
-            ];
-
-
-            // create the chart
-            var chart = anychart.pie();
-
-            // set the chart title
-            chart.title("Crime Visualization by Type");
-
-            // add the data
-            chart.data(data);
-
-            // display the chart in the container
-            chart.container('container');
-            chart.draw();
-        });
-    </script>
 
 
 <section class="section pb-5">
