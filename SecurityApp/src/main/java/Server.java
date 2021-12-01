@@ -162,10 +162,6 @@ public class Server {
             st.setString(2, email);
             st.executeUpdate();
 
-            /*sql = "INSERT INTO incidents(longitude, latitude,description, crimeCode, dateAndTime, location,)" +
-                    " VALUES ('"+ longitude+"','" +latitude+"','"+ descriptions+"',"+ crimeCode+",'"+date1+"','" +location+"');";
-            st.execute(sql);*/
-
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
         }
@@ -185,6 +181,34 @@ public class Server {
                     " VALUES ('"+ longitude+"','" +latitude+"','"+ descriptions+"',"+ crimeCode+",'"+date1+"','" +location+"');";
             st.execute(sql);*/
 
+
+        } catch (URISyntaxException | SQLException e) {
+            e.printStackTrace();
+        }
+        return incidents;
+    }
+
+    //to select Incidents happened today
+    private static ResultSet getIncidentsToday() {
+        ResultSet incidents = null;
+        try (Connection conn = getConnection()) {
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE CAST( dateAndTime AS Date )=CAST( GETDATE() AS Date );");
+            st.execute();
+            incidents = st.getResultSet();
+
+        } catch (URISyntaxException | SQLException e) {
+            e.printStackTrace();
+        }
+        return incidents;
+    }
+
+    //to select Incidents based on date
+    private static ResultSet getIncidentsByDate() {
+        ResultSet incidents = null;
+        try (Connection conn = getConnection()) {
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE description='LARCENY';");
+            st.execute();
+            incidents = st.getResultSet();
 
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
@@ -344,6 +368,13 @@ public class Server {
         });
         Spark.get("/incidents-today", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+
+            ResultSet rs = getIncidentsByDate();
+            List<Incident> ls = new ArrayList<Incident>();
+            while (rs.next()) {
+                ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
+            }
+            model.put("incidents", ls);
             return new ModelAndView(model, "public/incidents-today.vm");
         }, new VelocityTemplateEngine());
         Spark.get("/incidents-this-week", (req, res) -> {
