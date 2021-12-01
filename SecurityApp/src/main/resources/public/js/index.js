@@ -39,7 +39,7 @@ function handleSubmit(event) {
     //Write business logic here
 }
 
-
+//create markers based on the address provided by user
 function codeAddress() {
     if (!checkIfLoggedIn()){
         alert("please log in");
@@ -117,6 +117,7 @@ function codeAddress() {
 
 
 }
+//setting color of the marker based on the crime code
 function findimage(crimecode){
     var image;
     if (crimecode == 1){
@@ -159,7 +160,7 @@ function findimage(crimecode){
 }
 
 
-
+//We predict the crime code based on keywords within the description provided by the user
 function predictCrimeCode(){
     let description = document.getElementById("description").value;
 
@@ -207,7 +208,7 @@ function predictCrimeCode(){
     }
 }
 
-
+//to check if the user is logged-in
 function checkIfLoggedIn()
 {
     if(sessionStorage.getItem('myUserEntity') == null){
@@ -222,7 +223,7 @@ function checkIfLoggedIn()
         return true;
     }
 }
-
+//to logout the user
 function logout()
 {
     console.log("logging out");

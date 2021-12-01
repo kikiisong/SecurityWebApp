@@ -46,7 +46,7 @@ public class Server {
 //        TableUtils.createTableIfNotExists(connectionSource, Incident.class);
 //        return DaoManager.createDao(connectionSource, Incident.class);
 //    }
-
+    //To the add incident from form to the database
     private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, String date1, String location ) {
         String sql= "";
         try (Connection conn = getConnection()) {
@@ -151,7 +151,7 @@ public class Server {
         return emails;
     }
 
-
+    //to add a new user to db after google sign-up
     private static void addUser(String name, String email ) {
         String sql= "";
         try (Connection conn = getConnection()) {
@@ -170,7 +170,7 @@ public class Server {
             e.printStackTrace();
         }
     }
-
+    //to get all the incidents within the DB
     private static ResultSet getIncidents() {
         String sql= "";
         ResultSet incidents = null;
@@ -394,6 +394,7 @@ public class Server {
         }
     }
 
+    //create connection to DB
     private static Connection getConnection() throws URISyntaxException, SQLException {
         String databaseUrl = System.getenv("DATABASE_URL" +
                 "");
