@@ -344,15 +344,15 @@ public class Server {
         });
         Spark.get("/incidents-today", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            return new ModelAndView(model, "public/signup.vm");
+            return new ModelAndView(model, "public/incidents-today.vm");
         }, new VelocityTemplateEngine());
         Spark.get("/incidents-this-week", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            return new ModelAndView(model, "public/signup.vm");
+            return new ModelAndView(model, "public/incidents-this-week.vm");
         }, new VelocityTemplateEngine());
         Spark.get("/incidents-this-month", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            return new ModelAndView(model, "public/signup.vm");
+            return new ModelAndView(model, "public/incidents-this-month.vm");
         }, new VelocityTemplateEngine());
 
         //importDatafromCSV();
