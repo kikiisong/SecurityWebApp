@@ -41,7 +41,7 @@
 
     #if ($incidents)
     <h2>All incidents:</h2>
-    <table class="incident table">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Date And Time</th>
