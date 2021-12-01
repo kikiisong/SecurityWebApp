@@ -192,7 +192,7 @@ public class Server {
     private static ResultSet getIncidentsToday() {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
-            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE CAST( dateAndTime AS Date )=CAST( GETDATE() AS Date );");
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '2021/09/22%';");
             st.execute();
             incidents = st.getResultSet();
 
@@ -202,8 +202,9 @@ public class Server {
         return incidents;
     }
 
-    //to select Incidents based on date
-    private static ResultSet getIncidentsByDate() {
+    //to select Incidents based on type
+    //TODO: select use crimecode
+    private static ResultSet getIncidentsByType() {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
             PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE description='LARCENY';");
@@ -369,7 +370,7 @@ public class Server {
         Spark.get("/incidents-today", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
-            ResultSet rs = getIncidentsByDate();
+            ResultSet rs = getIncidentsToday();
             List<Incident> ls = new ArrayList<Incident>();
             while (rs.next()) {
                 ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
