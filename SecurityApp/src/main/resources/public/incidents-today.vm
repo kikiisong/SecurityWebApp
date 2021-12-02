@@ -40,7 +40,7 @@
             <input type="date" name="picked_day" value="2021-09-22" min="2018-04-01" max="2021-12-02">
         </label>
 
-        <p><button id="Submit">Submit</button></p>
+        <p><button id="Submit" onclick="filterDate()">Submit</button></p>
     </form>
     <div class="container">
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>

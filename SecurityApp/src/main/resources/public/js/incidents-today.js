@@ -6,5 +6,5 @@ function filterDate() {
     ).then(console.log("test"));
 }
 
-var SubmitButton = document.getElementById("Submit");
-SubmitButton.addEventListener('click', filterDate());
+//var SubmitButton = document.getElementById("Submit");
+//SubmitButton.addEventListener('click', filterDate());
