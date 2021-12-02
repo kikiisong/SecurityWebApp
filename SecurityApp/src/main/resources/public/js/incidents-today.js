@@ -1,7 +1,7 @@
 function filterDate() {
-    const date = document.getElementById("picked_day").value;
-    fetch('http://localhost:7000/employers?date=' + date, {
-            method: 'POST',
+    const picked_day = document.getElementById("picked_day").value;
+    fetch('https://security-jhu-app.herokuapp.com/incidents-today?&picked_day=' + picked_day, {
+            method: 'GET',
         }
     ).then(res => window.location.reload = window.location.reload(true));
 }

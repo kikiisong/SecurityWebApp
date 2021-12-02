@@ -1,3 +1,4 @@
+import com.google.gson.Gson;
 import model.IncidentManager;
 import model.User;
 import model.Incident;
@@ -288,19 +289,28 @@ public class Server {
         });
 
         Spark.post("/incidents-today", (req, res) -> {
-            String date = req.queryParams("date");
+            String date = req.queryParams("picked_day");
             IncidentManager.setSelectedDay(date);
 
             return 1;
         });
+
         Spark.get("/incidents-today", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
+            /*SimpleDateFormat inputDateFormatter = new SimpleDateFormat("yyyy-mm-dd");
+            Date dateParsed = inputDateFormatter.parse(req.queryParams("picked_day"));
+            SimpleDateFormat outputDateFormatter = new SimpleDateFormat("yyyy/mm/dd");
+
+            ResultSet rs = getIncidentsByDate(outputDateFormatter.format(dateParsed));*/
             ResultSet rs = getIncidentsByDate(IncidentManager.selectedDay);
             List<Incident> ls = new ArrayList<Incident>();
             while (rs.next()) {
                 ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
             }
+            /*String json = new Gson().toJson(ls);
+            res.type("application/json");
+            return json;*/
             model.put("incidents", ls);
             return new ModelAndView(model, "public/incidents-today.vm");
         }, new VelocityTemplateEngine());
