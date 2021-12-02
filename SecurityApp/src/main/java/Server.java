@@ -1,3 +1,4 @@
+import model.IncidentManager;
 import model.User;
 import model.Incident;
 
@@ -162,10 +163,11 @@ public class Server {
     }
 
     //to select Incidents happened today
-    private static ResultSet getIncidentsToday() {
+    private static ResultSet getIncidentsByDate(String pickedDate) {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
-            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '2021/09/22%';");
+            //PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '2021/09/22%';");
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '" + "pickedDate" +"%';");
             st.execute();
             incidents = st.getResultSet();
 
@@ -284,10 +286,17 @@ public class Server {
             return 1;
 
         });
+
+        Spark.post("/incidents-today", (req, res) -> {
+            String date = req.queryParams("date");
+            IncidentManager.setSelectedDay(date);
+
+            return 1;
+        });
         Spark.get("/incidents-today", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
-            ResultSet rs = getIncidentsToday();
+            ResultSet rs = getIncidentsByDate(IncidentManager.selectedDay);
             List<Incident> ls = new ArrayList<Incident>();
             while (rs.next()) {
                 ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
@@ -295,6 +304,7 @@ public class Server {
             model.put("incidents", ls);
             return new ModelAndView(model, "public/incidents-today.vm");
         }, new VelocityTemplateEngine());
+
         Spark.get("/incidents-this-week", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "public/incidents-this-week.vm");
