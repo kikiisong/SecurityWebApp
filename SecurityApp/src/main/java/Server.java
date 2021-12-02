@@ -169,12 +169,9 @@ public class Server {
         try (Connection conn = getConnection()) {
 //            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '2021/09/22%';");
 //            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '2021/09/22%';");
-            String sqlStmt = "SELECT * FROM incidents where DateAndTime LIKE ?";
+            String sql = "SELECT * FROM incidents WHERE dateAndTime LIKE '" + pickedDate +"%';";
 
-            PreparedStatement st = conn.prepareStatement(sqlStmt);
-            pickedDate += "%";
-            st.setString(1,pickedDate);
-//           PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '" + "pickedDate" +"%';");
+            PreparedStatement st = conn.prepareStatement(sql);
             st.executeQuery();
             incidents = st.getResultSet();
 
@@ -297,28 +294,17 @@ public class Server {
 
         });
 
-//        Spark.post("/incidents-today", (req, res) -> {
-//            String date = req.queryParams("picked_day");
-//            IncidentManager.setSelectedDay(date);
-//
-//            return 1;
-//        });
+        Spark.post("/incidents-today", (req, res) -> {
+            IncidentManager.selectedDay = req.queryParams("picked_day");
+
+            return 1;
+        });
 
         Spark.get("/incidents-today", (req, res) -> {
                     Map<String, Object> model = new HashMap<>();
 
-//                    String date=req.queryParams("date");
-//                    if (date == null)
-//                    {
-//                        date = "2021/09/22";
-//                    }
-//
-//                    SimpleDateFormat inputDateFormatter = new SimpleDateFormat("yyyy-mm-dd");
-//                    Date dateParsed = inputDateFormatter.parse(date);
-//                    SimpleDateFormat outputDateFormatter = new SimpleDateFormat("yyyy/mm/dd");
-                    ResultSet rs = getIncidents();
-//                    ResultSet rs = getIncidentsByDate(date);
-                    //ResultSet rs = getIncidentsByDate(IncidentManager.selectedDay);
+                   ResultSet rs = getIncidentsByDate(IncidentManager.selectedDay);
+
                     List<Incident> ls = new ArrayList<Incident>();
 //                    while (rs.next()) {
 //                        ls.add(new Incident(rs.getFloat(2), rs.getFloat(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getInt(8)));
