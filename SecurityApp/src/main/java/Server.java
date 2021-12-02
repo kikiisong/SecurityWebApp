@@ -312,12 +312,14 @@ public class Server {
                     while (rs.next()) {
                         ls.add(new Incident(rs.getFloat(2), rs.getFloat(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getInt(8)));
                     }
+                int[] lsCounted = IncidentManager.countIncidentsByType(ls);
                     String json = new Gson().toJson(ls);
 //                    Object obj = json;
 //                    res.type("application/json");
 ////                    return json;
 //                });
             model.put("incidents",ls);
+            model.put("types", lsCounted);
 
             model.put("json",json);
 //            res.body(new Gson().toJson(ls));
