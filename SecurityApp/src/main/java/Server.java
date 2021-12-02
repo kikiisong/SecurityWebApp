@@ -168,7 +168,7 @@ public class Server {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
             PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '2021/09/22%';");
-           //PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '" + "pickedDate" +"%';");
+//           PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '" + "pickedDate" +"%';");
             st.execute();
             incidents = st.getResultSet();
 
@@ -219,6 +219,8 @@ public class Server {
                 ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
             }
             model.put("incidents", ls);
+            String json = new Gson().toJson(ls);
+            model.put("json",json);
             return new ModelAndView(model, "public/mainpage.vm");
         }, new VelocityTemplateEngine());
 
@@ -252,6 +254,7 @@ public class Server {
                 ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
             }
             model.put("incidents", ls);
+
             return new ModelAndView(model, "public/incidents.vm");
         }, new VelocityTemplateEngine());
 
@@ -321,6 +324,7 @@ public class Server {
 ////                    return json;
 //                });
             model.put("incidents",ls);
+
             model.put("json",json);
 //            res.body(new Gson().toJson(ls));
             return new ModelAndView(model, "public/incidents-today.vm");

@@ -49,9 +49,7 @@
 
     #if ($incidents)
     <h2>All incidents:</h2>
-        <div id = "json"> $incidents</div>
-        <p> ==============</p>
-        <div id="json2"> $json</div>
+        <div id="json2" style="display: none"> $json</div>
     <table class="table table-striped">
         <thead>
         <tr>

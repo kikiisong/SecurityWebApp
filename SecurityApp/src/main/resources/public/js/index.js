@@ -79,7 +79,7 @@ function codeAddress() {
                     icon:image,
                     title:"incident"
                 });
-                arrMarkers.push(marker);
+                // arrMarkers.push(marker);
                 marker.addListener("click", () => {
                     infowindow.open({
                         anchor: marker,
@@ -110,6 +110,85 @@ function codeAddress() {
 
 
 }
+
+function loadData() {
+
+
+    /*fetch('https://security-jhu-app.herokuapp.com/incidents-today?' +"&picked_day=" + picked_day)
+        .then(res => res.json())
+        .then(console.log)
+        .then(console.log("start processing data"))*/
+
+    fetch('https://security-jhu-app.herokuapp.com/' ,{
+            method: 'GET',
+        }
+    ).then(
+        function(data){
+
+
+            var obj_list2 = document.getElementById("json");
+            var content2 = obj_list2.innerHTML;
+            console.log(content2);
+            var json = JSON.parse(content2);
+            console.log(json);
+
+            for (var i = 0; i < json.length;i++) {
+                console.log(json[i]);
+                var obj = json[i];
+                var incident = {
+                    lat: obj.latitude,
+                    lng: obj.longtitude,
+                    address: obj.location,
+                    description: obj.description,
+                    crimecode: obj.crimeCode,
+                };
+
+                var contentString =
+                    '<div id="content">' +
+                    '<div id="siteNotice">' +
+                    "</div>" +
+                    // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
+                    "<p2> Incident </p2>" +
+                    '<div id="bodyContent">' +
+                    "<p2> Location of the incident: </p2>" + "<p5>" + obj.location + "</p5>" + "<p></p>" +
+                    "<p3> Description of the incident: </p3>" + "<p6>" + obj.description + "</p6>"
+                "</div>" + "</div>";
+
+                var position = {lat: obj.latitude, lng: obj.longtitude};
+                var image = findimage(obj.crimeCode);
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: contentString,
+                });
+                console.log("adding markers");
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: position,
+                    icon: image,
+                    title: "incident"
+                });
+                arrMarkers.push(marker);
+                marker.addListener("click", () => {
+                    infowindow.open({
+                        anchor: marker,
+                        map,
+                        shouldFocus: false,
+                    });
+                });
+            }
+            console.log("calling marker cluster");
+            console.log("arrmarkers",arrMarkers);
+            const imagePath = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m";
+            var cluster = new MarkerClusterer( map, arrMarkers,{imagePath: imagePath} );
+            // console.log(cluster);
+
+            // c
+            }
+
+    );
+    console.log("FETCHED");
+}
+
 //setting color of the marker based on the crime code
 function findimage(crimecode){
     var image;
