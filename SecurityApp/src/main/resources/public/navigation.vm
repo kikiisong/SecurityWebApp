@@ -1,33 +1,3 @@
-#* <header class="header-section">
-    <div class="container">
-        <!-- logo -->
-        <a class="site-logo" href="/" style="color: #97d6de;">
-            <img src="../img/main-icon.ico" alt="" style="padding-right:10px" width="60vh" height ="60vh">
-            <b>JHU Security APP</b>
-        </a>
-        <div class="user-panel">
-            <a href="/login">Login</a>
-        </div>
-        <div class="user-panel">
-            <a href="/signup">Register</a>
-        </div>
-
-        <!-- responsive -->
-        <div class="nav-switch">
-            <i class="fa fa-bars"></i>
-        </div>
-        <!-- site menu -->
-        <nav class="main-menu">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/account">Account</a></li>
-                <li><a href="/intro">Intro</a></li>
-                <li><a href="/incidents">Incident History</a></li>
-                <li><a href="/contact">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
-*#
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #212630">
     <div class="container-fluid">
@@ -39,9 +9,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/account">Account</a>
-            </li>
+##            <li class="nav-item">
+##                <a class="nav-link" href="/account">Account</a>
+##            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Incident History</a>
                 <ul class="dropdown-menu" aria-labelledby="dropdown01">
@@ -61,8 +31,7 @@
 
         </ul>
         <div class="navbar-nav ms-auto">
-            <a href="login" class="nav-item nav-link">Login</a>
-            <a href="signup" class="nav-item nav-link">Register</a>
+            <a href="login" class="nav-item nav-link">Login/Signup</a>
         </div>
     </div>
 </nav>

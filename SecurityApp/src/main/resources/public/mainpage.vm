@@ -106,8 +106,8 @@
 #parse("public/navigation.vm")
 
     <body>
-    <a><h3 style="text-align: center">You can report your incident using the Report button below, once submitted
-    you can see your incident marked on the map<h3></a>
+    <a><h3 style="text-align: center">Please login (using Google) first and then you can report your incident using the Report button below, once submitted
+    after which you can see your incident marked on the map</h3></a>
     <div class="row">
     <button type="button" class="btn btn-danger btn-lg" style=" position: relative; margin: 0 auto;  align-self: center; justify-content: center;" onclick="openForm()">REPORT INCIDENT</button>
     </div>
@@ -164,21 +164,15 @@
         #if ($incidents)
         <div class="container">
                 #foreach($inc in $incidents)
-##                        <i>longtitude: $inc.longtitude  latitude: $inc.latitude </i> description: $inc.description <i> address: $inc.location </i> <i> crimeCode: $inc.crimeCode</i>
-##                    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-##                        // import { MarkerClusterer } from "@googlemaps/markerclusterer";
+
                     <script>
                         // import { MarkerClusterer } from "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js";
 
                         var arrMarkers = [];
                         var incidents = [];
 
-
                     setInterval(function() {
-                            //     updateTheMarkers();
-                            // }, 5000);
-                            ## codeAddress2( $inc.longtitude, $inc.latitude, "$inc.location",  "$inc.description",  $inc.crimeCode);
-                            // console.log("codeadd2");
+
                             var num_markers = 0;
                             var add = String("$inc.location");
                             var des = String("$inc.description");

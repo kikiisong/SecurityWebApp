@@ -4,13 +4,6 @@ import model.Incident;
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.velocity.VelocityTemplateEngine;
-import com.google.gson.Gson;
-
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.table.TableUtils;
-import com.j256.ormlite.jdbc.JdbcConnectionSource;
-import com.j256.ormlite.support.ConnectionSource;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -20,13 +13,11 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 
 import static spark.Spark.port;
-import static spark.Spark.get;
 
 import com.sun.mail.smtp.SMTPTransport;
 
@@ -35,22 +26,15 @@ import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Date;
 import java.util.Properties;
 
 public class Server {
 
-//    private static Dao getIncidentORMLiteDao() throws SQLException {
-//        final String URI = "jdbc:sqlite:./SecurityApp.db";  // change to postgres later
-//        ConnectionSource connectionSource = new JdbcConnectionSource(URI);
-//        TableUtils.createTableIfNotExists(connectionSource, Incident.class);
-//        return DaoManager.createDao(connectionSource, Incident.class);
-//    }
     //To the add incident from form to the database
     private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, String date1, String location ) {
         String sql= "";
         try (Connection conn = getConnection()) {
-            //Statement st = conn.createStatement();
+            // Create prepared statement to insert into db
             PreparedStatement st = conn.prepareStatement("INSERT INTO incidents(longitude,latitude,description,crimeCode,dateAndTime, location,user_id) VALUES(?,?,?,?,?,?,?);");
             st.setFloat(1, longitude);
             st.setFloat(2, latitude);
@@ -61,15 +45,14 @@ public class Server {
             st.setInt(7, 1);
             st.executeUpdate();
 
-            /*sql = "INSERT INTO incidents(longitude, latitude,description, crimeCode, dateAndTime, location,)" +
-                    " VALUES ('"+ longitude+"','" +latitude+"','"+ descriptions+"',"+ crimeCode+",'"+date1+"','" +location+"');";
-            st.execute(sql);*/
+            // Notify users of incident reports in real-time
             SendEmailNotification();
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
         }
     }
 
+    // method to notify all users of incident reports
     private static void SendEmailNotification() throws SQLException {
         // get emails from users table in postgresql database
         ResultSet emails = getUserEmails();
@@ -77,7 +60,6 @@ public class Server {
         while (emails.next()) {
             rowValues.add(emails.getString(1));
         }
-        //contactListNames = (String[]) rowValues.toArray(new String[rowValues.size()]);
 
         // send email notifications
         final String SMTP_SERVER = "smtp server ";
@@ -138,8 +120,9 @@ public class Server {
         }
     }
 
+    // Get email info for users
     private static ResultSet getUserEmails() {
-        String query = "SELECT Email FROM users;";
+        String query = "SELECT email FROM users;";
         ResultSet emails = null;
         try (Connection conn = getConnection()) {
             PreparedStatement st = conn.prepareStatement(query);
@@ -153,12 +136,9 @@ public class Server {
 
     //to add a new user to db after google sign-up
     private static void addUser(String name, String email ) {
-        String sql= "";
         try (Connection conn = getConnection()) {
-            //Statement st = conn.createStatement();
             PreparedStatement st = conn.prepareStatement("INSERT INTO users(name,email) VALUES (?,?);");
             st.setString(1, name);
-            //st.setString(2, "1234567891");
             st.setString(2, email);
             st.executeUpdate();
 
@@ -168,19 +148,12 @@ public class Server {
     }
     //to get all the incidents within the DB
     private static ResultSet getIncidents() {
-        String sql= "";
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
-            //Statement st = conn.createStatement();
+
             PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents;");
             st.execute();
             incidents = st.getResultSet();
-
-
-            /*sqlx = "INSERT INTO incidents(longitude, latitude,description, crimeCode, dateAndTime, location,)" +
-                    " VALUES ('"+ longitude+"','" +latitude+"','"+ descriptions+"',"+ crimeCode+",'"+date1+"','" +location+"');";
-            st.execute(sql);*/
-
 
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
@@ -217,41 +190,6 @@ public class Server {
         return incidents;
     }
 
-    public static void importDatafromCSV() {
-        List<Incident> ls = null;
-
-        if (ls == null) {
-            try (BufferedReader br = new BufferedReader(new FileReader("/Part1_Crime_data.csv"))) {
-                String line = br.readLine();
-                int i = 0;
-
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss", Locale.US);
-                formatter.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-
-                // reads the latest 500 incidents from .csv file
-                while ((line = br.readLine()) != null && i <= 500) {
-                    String[] values = line.split(",");
-                    float longitude = Float.valueOf(values[13]);
-                    float latitude = Float.valueOf(values[12]);
-                    String dateAndTime = String.valueOf(values[3]);
-                    String description = values[6];
-                    String location = values[5];
-                    int crimeCode = Integer.parseInt(values[0]);
-
-
-//                    Incident incident = new Incident(longitude, latitude, description, 0, dateAndTime, location, 2);
-                    addIncident( longitude,  latitude,  description,  crimeCode, dateAndTime, location);
-
-                    i++;
-
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     static int PORT = 7000;
     private static int getPort() {
@@ -268,11 +206,7 @@ public class Server {
         workWithDatabase();
         Spark.staticFiles.location("/public");
 
-        // render and return homepage
-//        Spark.get("/", (req, res) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            return new ModelAndView(model, "public/mainpage.vm");
-//        }, new VelocityTemplateEngine());
+
         Spark.get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
@@ -304,21 +238,7 @@ public class Server {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "public/contact.vm");
         }, new VelocityTemplateEngine());
-        /*Spark.get("/incidents", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            return new ModelAndView(model, "public/incidents.vm");
-        }, new VelocityTemplateEngine());*/
-//        Spark.get("/mainpage", (req, res) -> {
-//            Map<String, Object> model = new HashMap<>();
-//
-//            ResultSet rs=showIncident();
-//            List<Incident> ls = new ArrayList<Incident>();
-//            while (rs.next()) {
-//                ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
-//            }
-//            model.put("incidents", ls);
-//            return new ModelAndView(model, "public/mainpage.vm");
-//        }, new VelocityTemplateEngine());
+
 
         Spark.get("/incidents", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
@@ -337,8 +257,7 @@ public class Server {
             return new ModelAndView(model, "public/account.vm");
         }, new VelocityTemplateEngine());
 
-        // CHANGE THIS
-        // need to use the correct element id
+
         Spark.post("/mainpage", (req, res) -> {
             String firstName = req.queryParams("firstName");
             String lastName = req.queryParams("lastName");
@@ -349,11 +268,9 @@ public class Server {
             String crimecode = req.queryParams("crimecode");
             String date=req.queryParams("date");
             String name = firstName + lastName;
-            // Date date1 = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss").parse(date);
-            // User user = new User(name);
+
             addIncident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,Integer.valueOf(crimecode), date,location);
-            //getIncidentORMLiteDao().create(incident);
-            //System.out.println(incident);
+
             res.status(201);
             res.type("application/json");
             return 1;
@@ -387,7 +304,6 @@ public class Server {
             return new ModelAndView(model, "public/incidents-this-month.vm");
         }, new VelocityTemplateEngine());
 
-        //importDatafromCSV();
     }
 
     private static void workWithDatabase(){
@@ -395,31 +311,26 @@ public class Server {
             String sql_inc = "";
             String sql_user = "";
 
-//            if ("SQLite".equalsIgnoreCase(conn.getMetaData().getDatabaseProductName())) { // running locally
-//                sql_inc = "CREATE TABLE IF NOT EXISTS incidents (id SERIAL PRIMARY KEY, " +
-//                        "longitude DECIMAL NOT NULL, latitude DECIMAL NOT NULL, description VARCHAR(10000), " +
-//                        "crimeCode INTEGER NOT NULL, dateAndTime VARCHAR(100) NOT NULL, location VARCHAR(100) NOT NULL, " +
-//                        //"user_id INTEGER FOREIGN KEY);";
-//                        "user_id INTEGER NOT NULL);";
-//                sql_user = "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name VARCHAR(100));";
-//            }
-//            else {
-            sql_inc = "CREATE TABLE IF NOT EXISTS incidents (id SERIAL PRIMARY KEY, " +
-                    "longitude DECIMAL NOT NULL, latitude DECIMAL NOT NULL, description VARCHAR(10000), " +
-                    "crimeCode INTEGER NOT NULL, dateAndTime VARCHAR(100) NOT NULL, location VARCHAR(100) NOT NULL, " +
-                    // "user_id INTEGER FOREIGN KEY);";
-                    "user_id INTEGER NOT NULL);";
-            sql_user = "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name VARCHAR(100));";
-            // }
+            if ("SQLite".equalsIgnoreCase(conn.getMetaData().getDatabaseProductName())) { // running locally
+                sql_inc = "CREATE TABLE IF NOT EXISTS incidents (id SERIAL PRIMARY KEY, " +
+                        "longitude DECIMAL NOT NULL, latitude DECIMAL NOT NULL, description VARCHAR(10000), " +
+                        "crimeCode INTEGER NOT NULL, dateAndTime VARCHAR(100) NOT NULL, location VARCHAR(100) NOT NULL, " +
+                        //"user_id INTEGER FOREIGN KEY);";
+                        "user_id INTEGER NOT NULL);";
+                sql_user = "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name VARCHAR(100));";
+            }
+            else {
+                sql_inc = "CREATE TABLE IF NOT EXISTS incidents (id SERIAL PRIMARY KEY, " +
+                        "longitude DECIMAL NOT NULL, latitude DECIMAL NOT NULL, description VARCHAR(10000), " +
+                        "crimeCode INTEGER NOT NULL, dateAndTime VARCHAR(100) NOT NULL, location VARCHAR(100) NOT NULL, " +
+                        // "user_id INTEGER FOREIGN KEY);";
+                        "user_id INTEGER NOT NULL);";
+                sql_user = "CREATE TABLE IF NOT EXISTS users (user_id SERIAL PRIMARY KEY, name VARCHAR(100));";
+            }
 
             Statement st = conn.createStatement();
             st.execute(sql_inc);
             st.execute(sql_user);
-
-            //sql_inc = "INSERT INTO incidents(id, longitude, latitude, description, crimeCode, dateAndTime, location, user_id)" +
-            //      " VALUES (1, 39.3299, 76.6205, 'Robbery', 3,'1999-01-08 04:05:06', 'Johns Hopkins University', 100);";
-            //st.execute(sql_inc);
-            //st.execute(sql_user);
 
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();

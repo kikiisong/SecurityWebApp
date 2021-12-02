@@ -1,13 +1,11 @@
-#set( $title = "Show Incidents" )
+#set( $title = "Login" )
 #parse("public/top.vm")
 <head>
     <meta charset="utf-8">
     <meta name="description" content="Game Warrior Template">
     <meta name="keywords" content="warrior, game, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Favicon -->
-    <!--   <link href="img/favicon.ico" rel="shortcut icon"/>
-     -->
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
 
@@ -38,26 +36,16 @@
 #parse("public/navigation.vm")
 
 
-<title>Simple Map</title>
+<title>Login</title>
     ##      <form action="action_page.php" method="post">
     <div class="imgcontainer">
-        ##           <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Avatar" class="avatar" style="width:100px; height: 100px">
-        ##         </div>
-        ##
-        ##         <div class="container">
-        ##           <label for="uname"><b>Username</b></label>
-        ##           <input type="text" placeholder="Enter Username" name="uname" required>
-        ##
-        ##           <label for="psw"><b>Password</b></label>
-        ##           <input type="password" placeholder="Enter Password" name="psw" required>
+        <img src = "img/google.png" style="margin:auto; width:200px;display:block" />
 
-##        <button type="button" onclick="handleSubmit()">Login</button>
-        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" style="margin:auto; width:200px;display:block"></div>
         <br>
-        <button type="button" class="btn btn-primary" onclick="signOut()">Sign out</button>
+        <button type="button" class="btn btn-primary" onclick="signOut() " style="margin:auto; width:200px;display:block">Sign out</button>
 
     </div>
-    ##       </form>
 
 <center>
 </center>
@@ -67,18 +55,10 @@
     function onSignIn(googleUser) {
         // Useful data for your client-side scripts:
         var profile = googleUser.getBasicProfile();
-        //console.log("ID: " + profile.getId()); // Don't send this directly to your server!
         var name = String(profile.getName());
-        // console.log(name);
-        // console.log(typeof name);
-        //console.log('Given Name: ' + profile.getGivenName());
-        //console.log('Family Name: ' + profile.getFamilyName());
-        //console.log("Image URL: " + profile.getImageUrl());
         var email= String(profile.getEmail());
-        // console.log(email);
-        // console.log(typeof email);
-        // console.log("signing in");
 
+        // Sending user details to backend
         fetch('https://security-jhu-app.herokuapp.com/login?'+ "&name=" + name +"&email="+ email, {
                     method: 'POST',
                 }
@@ -92,7 +72,6 @@
 
         //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
         sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
-
 
         // window.location.href = "https://security-jhu-app.herokuapp.com/";
 
