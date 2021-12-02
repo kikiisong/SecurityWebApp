@@ -1,17 +1,9 @@
 #set( $title = "Login" )
 #parse("public/top.vm")
 <head>
-    <meta charset="utf-8">
-    <meta name="description" content="Game Warrior Template">
-    <meta name="keywords" content="warrior, game, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" media="only screen and (min-width: 481px) and (max-width: 960px)" href="../css/tablet.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -19,14 +11,9 @@
     <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
-    <!-- Media query for full browser width -->
-    <link rel="stylesheet" media="only screen and (min-width: 961px)" href="../css/custom.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="../css/owl.carousel.css"/>
     <link rel="stylesheet" href="../css/custom.css"/>
-    <link rel="stylesheet" href="../css/animate.css"/>
-
     <meta name="google-signin-scope" content="profile email">
 
     <meta name="google-signin-client_id" content="873266246787-gb5nqmcj9ojuibrujfrar5gpl3tgkgli.apps.googleusercontent.com">

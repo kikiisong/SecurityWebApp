@@ -8,20 +8,12 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
 
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
 
     <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
 
-##    <script type="text/javascript">
-##        // only load it if it isn't already loaded
-##        !window.google && document.write('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPjr40zhYagqXTfKxI1sBC8hnNajRo98&v=weekly"><\/script>')
-##    </script>
-    ##    <script type="module" src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
-    ##    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-##    <script src="jquery-csv.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -34,7 +26,6 @@
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/custom.css"/>
-    <link rel="stylesheet" href="../css/animate.css"/>
 </head>
 <body>
     #parse("public/navigation.vm")
