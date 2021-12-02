@@ -161,10 +161,123 @@
      </table>
      </div>
 </div>
-    <div id="json" > $json</div>
+    <div id="json" style="display: none" > $json</div>
         #if ($incidents)
         <div class="container">
                 #foreach($inc in $incidents)
+##
+##                    <script>
+##                        // import { MarkerClusterer } from "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js";
+##
+##                        var arrMarkers = [];
+##                        var incidents = [];
+##
+##                    setInterval(function() {
+##
+##                            var num_markers = 0;
+##                            var add = String("$inc.location");
+##                            var des = String("$inc.description");
+##                            var crimecode = $inc.crimeCode;
+##                            var incident = {lat:$inc.latitude,lng:$inc.longtitude, address:add, description:des, crimecode:crimecode};
+##
+##                            if (incidents.some(incident=> incident.lat === $inc.latitude) && incidents.some(incident=> incident.lng === $inc.longtitude ) && incidents.some(incident=> incident.address === add) &&incidents.some(incident=> incident.description === des) &&incidents.some(incident=> incident.crimecode === crimecode )  ){
+##                                console.log("already exists");
+##                                // console.log(incidents);
+##                                ## console.log(locations.some(position=> position.lat === $inc.latitude ));
+##                            }
+##                            else{
+##                                var contentString =
+##                                        '<div id="content">' +
+##                                        '<div id="siteNotice">' +
+##                                        "</div>" +
+##                                        // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
+##                                        "<p2> Incident </p2>"+
+##                                        '<div id="bodyContent">' +
+##                                        "<p2> Location of the incident: </p2>" +"<p5>" + add+  "</p5>"  +"<p></p>"+
+##                                        "<p3> Description of the incident: </p3>"+ "<p6>" + des + "</p6>"
+##                                "</div>" + "</div>";
+##
+##                                var position = { lat:$inc.latitude, lng: $inc.longtitude };
+##                                var image;
+##                                if (crimecode == 1){
+##                                    image =
+##                                            "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+##                                }
+##                                else if (crimecode == 2){
+##                                    image =
+##                                            "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+##                                }
+##                                else if (crimecode ==3) {
+##                                    image =
+##                                            "http://maps.google.com/mapfiles/ms/icons/pink-dot.png";
+##                                }
+##                                else if (crimecode ==4) {
+##                                    image =
+##                                            "http://maps.google.com/mapfiles/ms/icons/purple-dot.png";
+##                                }
+##                                else if (crimecode ==5) {
+##                                    image =
+##                                            "http://maps.google.com/mapfiles/ms/icons/orange-dot.png";
+##                                }
+##                                else if (crimecode ==6) {
+##                                    image =
+##                                            "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+##                                }
+##                                else if (crimecode ==7) {
+##                                    image =
+##                                            "../img/grey-dot.png";
+##                                }
+##                                else if (crimecode ==8) {
+##                                    image =
+##                                            "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
+##                                }
+##                                else if (crimecode ==9) {
+##                                    image =
+##                                            "http://maps.google.com/mapfiles/ms/micons/ltblue-dot.png";
+##                                }
+##                                var infowindow = new google.maps.InfoWindow({
+##                                    content: contentString,
+##                                });
+##                                // console.log("adding markers");
+##                                var marker = new google.maps.Marker({
+##                                    map: map,
+##                                    position: position,
+##                                    icon:image,
+##                                    title:"incident"
+##                                });
+##                                // arrMarkers.push(marker);
+##                                marker.addListener("click", () => {
+##                                    infowindow.open({
+##                                        anchor: marker,
+##                                        map,
+##                                        shouldFocus: false,
+##                                    });
+##                                });
+##                                // console.log(position);
+##                                incidents.push(incident);
+##                                arrMarkers.push(marker);
+##                                // num_markers++;
+##                            }
+##                        // console.log("calling marker cluster");
+##
+##                        const imagePath = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m";
+##                        var cluster = new MarkerClusterer( map, arrMarkers,{imagePath: imagePath} );
+##                        // console.log(cluster);
+##
+##
+##                        // const markerCluster = new markerClusterer.MarkerClusterer({ map, arrMarkers });
+##
+##                        // console.log(marker);
+##                        // console.log(arrMarkers);
+##
+##
+##                    }, 3000);
+####                    //filter only 6 months
+##                        </script>
+##                    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js">
+##                        console.log("marker cluster");
+##                        new markerClusterer.MarkerClusterer({ map, arrMarkers });
+##                    </script>
 
 
                 #end

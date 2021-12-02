@@ -62,24 +62,23 @@ function codeAddress() {
         // Finding latitude and longitude based on location
         geocoder.geocode( { 'address': address}, function(results, status) {
             if (status == 'OK') {
-                var latitude = results[0].geometry.location.lat();
-                var longitude = results[0].geometry.location.lng();
+                const latitude = results[0].geometry.location.lat();
+                const longitude = results[0].geometry.location.lng();
                 const position = { lat:latitude, lng: longitude };
                 const crimecode = predictCrimeCode();
                 console.log(crimecode);
-                var image = findimage(crimecode);
+                const image = findimage(crimecode);
 
                 const infowindow = new google.maps.InfoWindow({
                     content: contentString,
                 });
 
-                var marker = new google.maps.Marker({
+                const marker = new google.maps.Marker({
                     map: map,
                     position: position,
                     icon:image,
                     title:"incident"
                 });
-                // arrMarkers.push(marker);
                 marker.addListener("click", () => {
                     infowindow.open({
                         anchor: marker,
@@ -87,6 +86,8 @@ function codeAddress() {
                         shouldFocus: false,
                     });
                 });
+                arrMarkers.push(marker);
+
                 const firstName = document.getElementById("firstName").value;
                 const lastName = document.getElementById("lastName").value;
                 const description = document.getElementById("description").value;
@@ -99,6 +100,9 @@ function codeAddress() {
                     }
                 ).then();
                 console.log("FETCHED");
+                console.log(arrMarkers);
+                const imagePath = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m";
+                new MarkerClusterer( map, arrMarkers,{imagePath: imagePath} );
 
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
@@ -125,7 +129,7 @@ function loadData() {
     ).then(
         function(data){
 
-
+            var incidents = [];
             var obj_list2 = document.getElementById("json");
             var content2 = obj_list2.innerHTML;
             console.log(content2);
@@ -134,8 +138,8 @@ function loadData() {
 
             for (var i = 0; i < json.length;i++) {
                 console.log(json[i]);
-                var obj = json[i];
-                var incident = {
+                const obj = json[i];
+                const incident = {
                     lat: obj.latitude,
                     lng: obj.longtitude,
                     address: obj.location,
@@ -143,39 +147,42 @@ function loadData() {
                     crimecode: obj.crimeCode,
                 };
 
-                var contentString =
-                    '<div id="content">' +
-                    '<div id="siteNotice">' +
-                    "</div>" +
-                    // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
-                    "<p2> Incident </p2>" +
-                    '<div id="bodyContent">' +
-                    "<p2> Location of the incident: </p2>" + "<p5>" + obj.location + "</p5>" + "<p></p>" +
-                    "<p3> Description of the incident: </p3>" + "<p6>" + obj.description + "</p6>"
-                "</div>" + "</div>";
+                    const contentString =
+                        '<div id="content">' +
+                        '<div id="siteNotice">' +
+                        "</div>" +
+                        // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
+                        "<p2> Incident </p2>" +
+                        '<div id="bodyContent">' +
+                        "<p2> Location of the incident: </p2>" + "<p5>" + obj.location + "</p5>" + "<p></p>" +
+                        "<p3> Description of the incident: </p3>" + "<p6>" + obj.description + "</p6>"
+                    "</div>" + "</div>";
+                    console.log(obj.latitude);
+                    console.log(obj.longtitude);
+                    const position = {lat: obj.latitude, lng: obj.longtitude};
+                    const image = findimage(obj.crimeCode);
 
-                var position = {lat: obj.latitude, lng: obj.longtitude};
-                var image = findimage(obj.crimeCode);
-
-                var infowindow = new google.maps.InfoWindow({
-                    content: contentString,
-                });
-                console.log("adding markers");
-                var marker = new google.maps.Marker({
-                    map: map,
-                    position: position,
-                    icon: image,
-                    title: "incident"
-                });
-                arrMarkers.push(marker);
-                marker.addListener("click", () => {
-                    infowindow.open({
-                        anchor: marker,
-                        map,
-                        shouldFocus: false,
+                    const infowindow = new google.maps.InfoWindow({
+                        content: contentString,
                     });
-                });
-            }
+                    console.log("adding markers");
+                    const marker = new google.maps.Marker({
+                        map: map,
+                        position: position,
+                        icon: image,
+                        title: "incident"
+                    });
+                    marker.addListener("click", () => {
+                        infowindow.open({
+                            anchor: marker,
+                            map,
+                            shouldFocus: false,
+                        });
+                    });
+                    incidents.push(incident);
+                    arrMarkers.push(marker);
+                }
+
             console.log("calling marker cluster");
             console.log("arrmarkers",arrMarkers);
             const imagePath = "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m";

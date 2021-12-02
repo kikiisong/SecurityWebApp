@@ -36,5 +36,10 @@ function filterDate() {
 }
 
 
+function visualization()
+{
+
+}
+
 //var SubmitButton = document.getElementById("Submit");
 //SubmitButton.addEventListener('click', filterDate());
