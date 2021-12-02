@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="../css/custom.css"/>
     <link rel="stylesheet" href="../css/animate.css"/>
 </head>
-<body>
+<body onload="loadVisData()" >
     #parse("public/navigation.vm")
     <form>
         <label>Choose thd date you want to view:
