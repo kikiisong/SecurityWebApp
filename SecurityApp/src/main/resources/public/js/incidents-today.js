@@ -70,23 +70,25 @@ function visualization()
         var ctx = document.getElementById('myChart')
         // eslint-disable-next-line no-unused-vars
         var myChart = new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: [
-                    'Sunday',
-                    'Monday',
-                    'Tuesday',
-                    'Wednesday',
-                    'Thursday',
-                    'Friday',
-                    'Saturday'
+                    'Murder',
+                    'Rape',
+                    'Robbery',
+                    'Assault',
+                    'Burglary',
+                    'Larceny',
+                    'Auto Theft',
+                    'Arson',
+                    'Shooting'
                 ],
                 datasets: [{
                     data: [
-                        parseInt(document.getElementById('test').innerText),
+                        parseInt(document.getElementById('type1').innerText),
                         21345,
-                        18483,
-                        24003,
+                        parseInt(document.getElementById('type3').innerText),
+                        parseInt(document.getElementById('type4').innerText),
                         23489,
                         24092,
                         12034

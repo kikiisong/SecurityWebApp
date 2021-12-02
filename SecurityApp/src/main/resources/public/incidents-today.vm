@@ -28,6 +28,11 @@
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="../js/incidents-today.js"></script>
 
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/custom.css"/>
@@ -45,7 +50,17 @@
     <div class="container">
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
         <p id="test">100</p>
+        #if ($types)
+            <p id="type1">$types[0]</p>
+            <p>$types[1]</p>
+            <p id="type3">$types[2]</p>
+            <p id="type4">$types[3]</p>
+            <p>$types[5]</p>
+        #end
     </div>
+    <script>
+        visualization();
+    </script>
 
     #if ($incidents)
     <h2>All incidents:</h2>
