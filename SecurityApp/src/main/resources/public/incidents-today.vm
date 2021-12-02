@@ -52,10 +52,14 @@
         <p id="test">100</p>
         #if ($types)
             <p id="type1">$types[0]</p>
-            <p>$types[1]</p>
+            <p id="type2">$types[1]</p>
             <p id="type3">$types[2]</p>
             <p id="type4">$types[3]</p>
-            <p>$types[5]</p>
+            <p id="type5">$types[4]</p>
+            <p id="type6">$types[5]</p>
+            <p id="type7">$types[6]</p>
+            <p id="type8">$types[7]</p>
+            <p id="type9">$types[8]</p>
         #end
     </div>
     <script>

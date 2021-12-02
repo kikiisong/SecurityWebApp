@@ -86,12 +86,14 @@ function visualization()
                 datasets: [{
                     data: [
                         parseInt(document.getElementById('type1').innerText),
-                        21345,
+                        parseInt(document.getElementById('type2').innerText),
                         parseInt(document.getElementById('type3').innerText),
                         parseInt(document.getElementById('type4').innerText),
-                        23489,
-                        24092,
-                        12034
+                        parseInt(document.getElementById('type5').innerText),
+                        parseInt(document.getElementById('type6').innerText),
+                        parseInt(document.getElementById('type7').innerText),
+                        parseInt(document.getElementById('type8').innerText),
+                        parseInt(document.getElementById('type9').innerText)
                     ],
                     lineTension: 0,
                     backgroundColor: 'transparent',
