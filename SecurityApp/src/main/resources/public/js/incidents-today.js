@@ -1,9 +1,9 @@
 function filterDate() {
     const picked_day = document.getElementById("picked_day").value;
-    fetch('https://security-jhu-app.herokuapp.com/incidents-today?&picked_day=' + picked_day, {
+    fetch('https://security-jhu-app.herokuapp.com/incidents-today?' + "&picked_day=" + picked_day, {
             method: 'GET',
         }
-    ).then(res => window.location.reload = window.location.reload(true));
+    ).then(console.log("test"));
 }
 
 var SubmitButton = document.getElementById("Submit");
