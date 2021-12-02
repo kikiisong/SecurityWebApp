@@ -1,20 +1,27 @@
 function filterDate() {
     const picked_day = document.getElementById("picked_day").value;
     console.log(picked_day);
-    fetch('https://security-jhu-app.herokuapp.com/incidents-today?'+ "&picked_day" + picked_day ,{
+    /*fetch('https://security-jhu-app.herokuapp.com/incidents-today?' +"&picked_day=" + picked_day)
+        .then(res => res.json())
+        .then(console.log)
+        .then(console.log("start processing data"))*/
+
+    fetch('https://security-jhu-app.herokuapp.com/incidents-today?'+ "&picked_day=" + picked_day ,{
             method: 'GET',
         }
     ).then(
         function(data){
-            console.log(data);
+          /*  console.log(data);
             console.log(JSON.stringify(data));
             //         // console.log(data);
             //         var jsonObj = $.parseJSON(data),
             //             i;
             var obj = JSON.stringify(data);
-            console.log(obj);
-            var myobj = JSON.parse(obj);
+            console.log(obj);*/
+            console.log(data);
+            var myobj = JSON.parse(data);
             console.log(myobj);
+            console.log(myobj.description);
         }
     );
     console.log("FETCHED");

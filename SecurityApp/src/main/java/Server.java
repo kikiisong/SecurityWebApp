@@ -168,7 +168,7 @@ public class Server {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
             PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '2021/09/22%';");
-//            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '" + "pickedDate" +"%';");
+           //PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '" + "pickedDate" +"%';");
             st.execute();
             incidents = st.getResultSet();
 
@@ -296,27 +296,28 @@ public class Server {
 //        });
 
         Spark.get("/incidents-today", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
+                    Map<String, Object> model = new HashMap<>();
 
-            String date = req.queryParams("picked_day");
-            if(date == null)
-            {
-                date = "2021-09-22";
-            }
-            SimpleDateFormat inputDateFormatter = new SimpleDateFormat("yyyy-mm-dd");
-            Date dateParsed = inputDateFormatter.parse(date);
-            SimpleDateFormat outputDateFormatter = new SimpleDateFormat("yyyy/mm/dd");
+                    String date = req.queryParams("picked_day");
+                    if (date == null) {
+                        date = "2021-09-22";
+                    }
+                    SimpleDateFormat inputDateFormatter = new SimpleDateFormat("yyyy-mm-dd");
+                    Date dateParsed = inputDateFormatter.parse(date);
+                    SimpleDateFormat outputDateFormatter = new SimpleDateFormat("yyyy/mm/dd");
 
-            ResultSet rs = getIncidentsByDate(outputDateFormatter.format(dateParsed));
-            //ResultSet rs = getIncidentsByDate(IncidentManager.selectedDay);
-            List<Incident> ls = new ArrayList<Incident>();
-            while (rs.next()) {
-                ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
-            }
-            /*String json = new Gson().toJson(ls);
-            res.type("application/json");
-            return json;*/
-            model.put("incidents", ls);
+                    ResultSet rs = getIncidentsByDate(outputDateFormatter.format(dateParsed));
+                    //ResultSet rs = getIncidentsByDate(IncidentManager.selectedDay);
+                    List<Incident> ls = new ArrayList<Incident>();
+                    while (rs.next()) {
+                        ls.add(new Incident(rs.getFloat(2), rs.getFloat(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getInt(8)));
+                    }
+                    String json = new Gson().toJson(ls);
+                    /*res.type("application/json");
+                    return json;
+                });*/
+            model.put("incidents", json);
+            res.body(json);
             return new ModelAndView(model, "public/incidents-today.vm");
         }, new VelocityTemplateEngine());
 
