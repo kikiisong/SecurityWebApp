@@ -1,20 +1,19 @@
 function filterDate() {
-    var picked_day = document.getElementById("picked_day").value;
-    picked_day = picked_day.split('-').join('/');
+    var date = document.getElementById("date").value;
+    date = date.split('-').join('/');
+    // const picked_day = sent;
 
-    console.log(picked_day);
+    console.log(date);
     /*fetch('https://security-jhu-app.herokuapp.com/incidents-today?' +"&picked_day=" + picked_day)
         .then(res => res.json())
         .then(console.log)
         .then(console.log("start processing data"))*/
 
-    fetch('https://security-jhu-app.herokuapp.com/incidents-today?'+ "&picked_day=" + picked_day ,{
+    fetch('https://security-jhu-app.herokuapp.com/incidents-today?'+ "&date=" + date ,{
             method: 'GET',
         }
     ).then(
         function(data){
-
-
             var obj_list2 = document.getElementById("json2");
             var content2 = obj_list2.innerHTML;
             console.log(content2);
@@ -25,10 +24,7 @@ function filterDate() {
             {
                 console.log(json[i]) ;
             }
-
             // console.log(content2);
-
-
             // console.log(data);
         }
     );
@@ -38,7 +34,53 @@ function filterDate() {
 
 function visualization()
 {
-
+        'use strict'
+        feather.replace({ 'aria-hidden': 'true' })
+        // Graphs
+        var ctx = document.getElementById('myChart')
+        // eslint-disable-next-line no-unused-vars
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [
+                    'Sunday',
+                    'Monday',
+                    'Tuesday',
+                    'Wednesday',
+                    'Thursday',
+                    'Friday',
+                    'Saturday'
+                ],
+                datasets: [{
+                    data: [
+                        parseInt(document.getElementById('test').innerText),
+                        21345,
+                        18483,
+                        24003,
+                        23489,
+                        24092,
+                        12034
+                    ],
+                    lineTension: 0,
+                    backgroundColor: 'transparent',
+                    borderColor: '#007bff',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#007bff'
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false
+                        }
+                    }]
+                },
+                legend: {
+                    display: false
+                }
+            }
+        })
 }
 
 //var SubmitButton = document.getElementById("Submit");

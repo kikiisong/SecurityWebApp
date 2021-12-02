@@ -167,9 +167,15 @@ public class Server {
     private static ResultSet getIncidentsByDate(String pickedDate) {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
-            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '2021/09/22%';");
+//            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '2021/09/22%';");
+//            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '2021/09/22%';");
+            String sqlStmt = "SELECT * FROM incidents where DateAndTime LIKE ?";
+
+            PreparedStatement st = conn.prepareStatement(sqlStmt);
+            pickedDate += "%";
+            st.setString(1,pickedDate);
 //           PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '" + "pickedDate" +"%';");
-            st.execute();
+            st.executeQuery();
             incidents = st.getResultSet();
 
         } catch (URISyntaxException | SQLException e) {
@@ -301,15 +307,17 @@ public class Server {
         Spark.get("/incidents-today", (req, res) -> {
                     Map<String, Object> model = new HashMap<>();
 
-                    String date = req.queryParams("picked_day");
-                    if (date == null) {
-                        date = "2021-09-22";
-                    }
-                    SimpleDateFormat inputDateFormatter = new SimpleDateFormat("yyyy-mm-dd");
-                    Date dateParsed = inputDateFormatter.parse(date);
-                    SimpleDateFormat outputDateFormatter = new SimpleDateFormat("yyyy/mm/dd");
-
-                    ResultSet rs = getIncidentsByDate(outputDateFormatter.format(dateParsed));
+//                    String date=req.queryParams("date");
+//                    if (date == null)
+//                    {
+//                        date = "2021/09/22";
+//                    }
+//
+//                    SimpleDateFormat inputDateFormatter = new SimpleDateFormat("yyyy-mm-dd");
+//                    Date dateParsed = inputDateFormatter.parse(date);
+//                    SimpleDateFormat outputDateFormatter = new SimpleDateFormat("yyyy/mm/dd");
+                    ResultSet rs = getIncidents();
+//                    ResultSet rs = getIncidentsByDate(date);
                     //ResultSet rs = getIncidentsByDate(IncidentManager.selectedDay);
                     List<Incident> ls = new ArrayList<Incident>();
 //                    while (rs.next()) {
