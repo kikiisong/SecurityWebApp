@@ -37,7 +37,7 @@
     #parse("public/navigation.vm")
     <form>
         <label>Choose thd date you want to view:
-            <input type="date" name="picked_day" value="2021-09-22" min="2018-04-01" max="2021-12-02">
+            <input type="date" id="picked_day" value="2021-09-22" min="2018-04-01" max="2021-12-02">
         </label>
 
         <p><button id="Submit" onclick="filterDate()">Submit</button></p>

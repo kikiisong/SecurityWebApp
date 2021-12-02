@@ -167,8 +167,8 @@ public class Server {
     private static ResultSet getIncidentsByDate(String pickedDate) {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
-            //PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '2021/09/22%';");
-            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '" + "pickedDate" +"%';");
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '2021/09/22%';");
+//            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '" + "pickedDate" +"%';");
             st.execute();
             incidents = st.getResultSet();
 
@@ -288,12 +288,12 @@ public class Server {
 
         });
 
-        Spark.post("/incidents-today", (req, res) -> {
-            String date = req.queryParams("picked_day");
-            IncidentManager.setSelectedDay(date);
-
-            return 1;
-        });
+//        Spark.post("/incidents-today", (req, res) -> {
+//            String date = req.queryParams("picked_day");
+//            IncidentManager.setSelectedDay(date);
+//
+//            return 1;
+//        });
 
         Spark.get("/incidents-today", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
