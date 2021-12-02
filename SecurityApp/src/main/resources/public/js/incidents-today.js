@@ -18,10 +18,31 @@ function filterDate() {
             //             i;
             var obj = JSON.stringify(data);
             console.log(obj);*/
-            console.log(data);
-            var myobj = JSON.parse(data);
-            console.log(myobj);
-            console.log(myobj.description);
+            // console.log(document.getElementById("json").value);
+
+
+            var obj_list2 = document.getElementById("json2");
+            var content2 = obj_list2.innerHTML;
+            // content2 = content2.slice(2,content2.length-1);
+            // content2 = "'"+ content2 + "'";
+            // content2 = JSON.stringify(content2);
+            console.log(content2);
+            var json = JSON.parse(content2);
+            console.log(json);
+            // json = json.split("}");
+            // console.log(json);
+            console.log(typeof json);
+            // json = json.slice(2,json.length-1);
+            //
+            // for (var i = 0; i < json.length;i++)
+            // {
+            //     console.log(json[i]) ;
+            // }
+
+            // console.log(content2);
+
+
+            // console.log(data);
         }
     );
     console.log("FETCHED");
