@@ -144,9 +144,9 @@ public class Server {
     //to add a new user to db after google sign-up
     private static void addUser(String name, String email ) {
         try (Connection conn = getConnection()) {
-            PreparedStatement st = conn.prepareStatement("INSERT INTO users( name,email) VALUES (?,?,?);");
-            st.setString(2, name);
-            st.setString(3, email);
+            PreparedStatement st = conn.prepareStatement("INSERT INTO users( name,email) VALUES (?,?);");
+            st.setString(1, name);
+            st.setString(2, email);
             st.executeUpdate();
 
         } catch (URISyntaxException | SQLException e) {
@@ -288,7 +288,6 @@ public class Server {
             return 1;
         });
         Spark.post("/login", (req, res) -> {
-            int id= Integer.parseInt(req.queryParams("id"));
             String name = req.queryParams("name");
             String email = req.queryParams("email");
             addUser(name,email);
