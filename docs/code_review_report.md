@@ -17,4 +17,4 @@
 7. Renamed daily incidents page to matched its functionality (Karine)
   - improved **Naming**
 8. Added Incident Manager class to move data analysis to backend and lifted weight off frontend. (Karine)
-  - improved **Design*
+  - improved **Design**
