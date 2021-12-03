@@ -17,7 +17,6 @@ function initMap() {
 
     // The location of Johns Hopkins
     console.log("init map");
-
     geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(-34.397, 150.644);
     console.log(findimage(3));
@@ -89,19 +88,14 @@ function codeAddress() {
                 });
                 arrMarkers.push(marker);
 
+                const firstName = document.getElementById("firstName").value;
+                const lastName = document.getElementById("lastName").value;
                 const description = document.getElementById("description").value;
                 const date = document.getElementById("date").value;
                 const address = document.getElementById("address").value;
-               if (auth2.isSignedIn.get()) {
-                  var profile = auth2.currentUser.get().getBasicProfile();
-                  const id= profile.getId();
-                  }
-               else{
-               const email = "rahulraman.3499@gmail.com";
-               }
 
                 // Sending data to backend
-                fetch('https://security-jhu-app.herokuapp.com/mainpage?'+  "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode+ "&email=" +email,{
+                fetch('https://security-jhu-app.herokuapp.com/mainpage?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
                         method: 'POST',
                     }
                 ).then();
@@ -250,23 +244,28 @@ function onSignIn(googleUser) {
     var email= String(profile.getEmail());
 
     // Sending user details to backend
-//    fetch('https://security-jhu-app.herokuapp.com/login?'+ "&name=" + name +"&email="+ email, {
-//        method: 'POST',
-//    }).then(
-//        document.getElementById("ls").innerHTML = "signed in",
-//
-//    // res=> window.location.href ="https://security-jhu-app.herokuapp.com/"
-//    );
+    fetch('https://security-jhu-app.herokuapp.com/login?'+ "&name=" + name +"&email="+ email, {
+        method: 'POST',
+    }).then(
+        document.getElementById("ls").innerHTML = "signed in",
+
+    // res=> window.location.href ="https://security-jhu-app.herokuapp.com/"
+    );
     document.getElementById("signoutB").style.display = "";
 
     console.log("FETCHED");
+
+
 
     var myUserEntity = {};
     myUserEntity.Id = profile.getId();
     console.log(myUserEntity.Id);
     myUserEntity.Name = profile.getName();
+
     //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
     sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
+
+
 }
 // <a href="#" onclick="signOut();">Sign out</a>
 function signOut() {

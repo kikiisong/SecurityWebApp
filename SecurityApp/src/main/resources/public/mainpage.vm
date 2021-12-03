@@ -177,8 +177,28 @@
     <div class="form-popup" id="myForm" >
       <form  class="form-container" onsubmit="codeAddress(); return false;">
         <h2>REPORT</h2>
+        <div class="row">
+          <div class="col">
+            <label for="inputName">First Name</label>
+
+            <input type="text" id = "firstName" name="fname" class="form-control" placeholder="First name" required>
+          </div>
+          <div class="col">
+            <label for="inputName">Last Name</label>
+
+            <input type="text" id = "lastName" name="lname"  class="form-control" placeholder="Last name" required>
+          </div>
+        </div>
+
         <label for="Date"><b>Date:</b></label>
         <input type="date" id = "date"  name="date" min="2010-01-02" max="2022-01-01" required>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Email</label>
+            <input type="email" class="form-control" name="email" id="inputEmail4" placeholder="Email" required>
+          </div>
+
+        </div>
         <div class="form-group">
           <label for="inputAddress">Address</label>
           <input type="text" id = "address" name="address" class="form-control" placeholder="1234 Main St" required>
@@ -204,7 +224,7 @@
         <textarea id="description" rows="4" cols="36" name="describe" form="myForm" placeholder="Describe the incident here" required></textarea>
          <input type="submit" id="addButton2" class="btn btn-primary" ></input>
 
-          <button type="button" id="formButton" class="btn cancel" onclick="closeForm()">Close</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
       </form>
     </div>
 

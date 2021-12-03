@@ -33,16 +33,10 @@ import java.util.Properties;
 public class Server {
 
     //To the add incident from form to the database
-    private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, String date1, String location, String email ) {
+    private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, String date1, String location ) {
         String sql= "";
         try (Connection conn = getConnection()) {
             // Create prepared statement to insert into db
-            PreparedStatement st2 = conn.prepareStatement("SELECT id FROM users WHERE email = ?;");
-            st2.setString(1,email);
-            st2.execute();
-            ResultSet id=st2.getResultSet();
-
-
             PreparedStatement st = conn.prepareStatement("INSERT INTO incidents(longitude,latitude,description,crimeCode,dateAndTime, location,user_id) VALUES(?,?,?,?,?,?,?);");
             st.setFloat(1, longitude);
             st.setFloat(2, latitude);
@@ -145,7 +139,7 @@ public class Server {
     //to add a new user to db after google sign-up
     private static void addUser(String name, String email ) {
         try (Connection conn = getConnection()) {
-            PreparedStatement st = conn.prepareStatement("INSERT INTO users( name,email) VALUES (?,?);");
+            PreparedStatement st = conn.prepareStatement("INSERT INTO users(name,email) VALUES (?,?);");
             st.setString(1, name);
             st.setString(2, email);
             st.executeUpdate();
@@ -168,7 +162,6 @@ public class Server {
         }
         return incidents;
     }
-
 
     //to select Incidents happened today
     private static ResultSet getIncidentsByDate(String pickedDate) {
@@ -275,14 +268,17 @@ public class Server {
 
 
         Spark.post("/mainpage", (req, res) -> {
+            String firstName = req.queryParams("firstName");
+            String lastName = req.queryParams("lastName");
             String longitude = req.queryParams("latitude");
             String latitude = req.queryParams("longitude");
             String description = req.queryParams("description");
             String location = req.queryParams("address");
             String crimecode = req.queryParams("crimecode");
             String date=req.queryParams("date");
-            String email=req.queryParams("email");
-            addIncident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,Integer.valueOf(crimecode), date,location,email);
+            String name = firstName + lastName;
+
+            addIncident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,Integer.valueOf(crimecode), date,location);
 
             res.status(201);
             res.type("application/json");
