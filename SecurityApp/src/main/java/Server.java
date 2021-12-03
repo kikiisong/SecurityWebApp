@@ -37,11 +37,12 @@ public class Server {
         String sql= "";
         try (Connection conn = getConnection()) {
             // Create prepared statement to insert into db
-            PreparedStatement st2 = conn.prepareStatement("SELECT id FROM users WHERE email == ?;");
+            PreparedStatement st2 = conn.prepareStatement("SELECT id FROM users WHERE email = ?;");
             st2.setString(1,email);
             st2.execute();
             ResultSet id=st2.getResultSet();
-            int id1= id.getInt(1);
+
+
             PreparedStatement st = conn.prepareStatement("INSERT INTO incidents(longitude,latitude,description,crimeCode,dateAndTime, location,user_id) VALUES(?,?,?,?,?,?,?);");
             st.setFloat(1, longitude);
             st.setFloat(2, latitude);
@@ -49,7 +50,7 @@ public class Server {
             st.setInt(4, crimeCode);
             st.setString(5, date1);
             st.setString(6, location);
-            st.setInt(7, id1);
+            st.setInt(7, 1);
             st.executeUpdate();
 
             // Notify users of incident reports in real-time
