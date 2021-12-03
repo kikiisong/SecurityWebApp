@@ -10,28 +10,6 @@ function filterDate() {
         method: 'POST',
     }).then(res => window.location.reload = window.location.reload(true));
 
-    /*console.log(date);
-
-    fetch('https://security-jhu-app.herokuapp.com/incidents-today?'+ "&date=" + date ,{
-            method: 'GET',
-        }
-    ).then(
-        function(data){
-            var obj_list2 = document.getElementById("json2");
-            var content2 = obj_list2.innerHTML;
-            console.log(content2);
-            var json = JSON.parse(content2);
-            console.log(json);
-
-            for (var i = 0; i < json.length;i++)
-            {
-                console.log(json[i]) ;
-            }
-            // console.log(content2);
-            // console.log(data);
-        }
-    );
-    console.log("FETCHED");*/
 }
 
 function loadVisData()
@@ -69,7 +47,9 @@ function visualization()
         // Graphs
         var ctx = document.getElementById('myChart')
         // eslint-disable-next-line no-unused-vars
-        var myChart = new Chart(ctx, {
+        console.log(parseInt(document.getElementById('type1').innerText));
+
+    var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: [
