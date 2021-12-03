@@ -31,7 +31,9 @@
 
         </ul>
         <div class="navbar-nav ms-auto">
-            <a href="login" class="nav-item nav-link">Login/Signup</a>
+            <a href="login" class="nav-item nav-link"><p9 id="ls">Login/Signup </p9></a>
+            <button type="button" id="signoutB" class="btn btn-primary" onclick="signOut() " style="display: none; margin:auto; width:200px;display:block">Sign out</button>
+
         </div>
     </div>
 </nav>

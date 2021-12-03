@@ -237,6 +237,47 @@ function findimage(crimecode){
     }
     return image;
 }
+function onSignIn(googleUser) {
+    // Useful data for your client-side scripts:
+    var profile = googleUser.getBasicProfile();
+    var name = String(profile.getName());
+    var email= String(profile.getEmail());
+
+    // Sending user details to backend
+    fetch('https://security-jhu-app.herokuapp.com/login?'+ "&name=" + name +"&email="+ email, {
+        method: 'POST',
+    }).then(
+        document.getElementById("ls").innerHTML = "signed in",
+
+    // res=> window.location.href ="https://security-jhu-app.herokuapp.com/"
+    );
+    document.getElementById("signoutB").style.display = "";
+
+    console.log("FETCHED");
+
+
+
+    var myUserEntity = {};
+    myUserEntity.Id = profile.getId();
+    console.log(myUserEntity.Id);
+    myUserEntity.Name = profile.getName();
+
+    //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
+    sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
+
+
+}
+// <a href="#" onclick="signOut();">Sign out</a>
+function signOut() {
+    console.log("signing out");
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+        document.getElementById("ls").innerHTML = "Login"
+    });
+    document.getElementById("signoutB").style.display = "none";
+
+}
 
 
 //We predict the crime code based on keywords within the description provided by the user

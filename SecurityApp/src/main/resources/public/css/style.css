@@ -52,7 +52,9 @@ body {
   border: 3px solid #f1f1f1;
   z-index: 9;
 }
-
+p8{
+  display: none;
+}
 
 /* Add styles to the form container */
 .form-container {
