@@ -1,4 +1,4 @@
-##Code Review report:
+## Code Review report:
 
 
 1. Changed the way the app reads data from the database and adds markers to the map, the app runs much faster now. (Gary, Karine)
