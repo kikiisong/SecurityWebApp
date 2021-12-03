@@ -17,6 +17,9 @@ function initMap() {
 
     // The location of Johns Hopkins
     console.log("init map");
+    if (!checkIfLoggedIn()){
+        document.getElementById("formButton").style.display = "none";
+    }
     geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(-34.397, 150.644);
     console.log(findimage(3));
@@ -253,20 +256,16 @@ function onSignIn(googleUser) {
     // res=> window.location.href ="https://security-jhu-app.herokuapp.com/"
     );
     document.getElementById("signoutB").style.display = "";
+    document.getElementById("formButton").style.display = "";
 
     console.log("FETCHED");
-
-
 
     var myUserEntity = {};
     myUserEntity.Id = profile.getId();
     console.log(myUserEntity.Id);
     myUserEntity.Name = profile.getName();
-
     //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
     sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
-
-
 }
 // <a href="#" onclick="signOut();">Sign out</a>
 function signOut() {
