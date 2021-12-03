@@ -1,21 +1,15 @@
 import com.google.gson.Gson;
 import model.IncidentManager;
-import model.User;
 import model.Incident;
 
 import spark.ModelAndView;
 import spark.Spark;
 import spark.template.velocity.VelocityTemplateEngine;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.*;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 
@@ -300,30 +294,24 @@ public class Server {
             return 1;
         });
 
-        Spark.get("/incidents-today", (req, res) -> {
+        Spark.get("/incidents-daily", (req, res) -> {
                     Map<String, Object> model = new HashMap<>();
 
                    ResultSet rs = getIncidentsByDate(IncidentManager.selectedDay);
 
                     List<Incident> ls = new ArrayList<Incident>();
-//                    while (rs.next()) {
-//                        ls.add(new Incident(rs.getFloat(2), rs.getFloat(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getInt(8)));
-//                    }
                     while (rs.next()) {
                         ls.add(new Incident(rs.getFloat(2), rs.getFloat(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getInt(8)));
                     }
                 int[] lsCounted = IncidentManager.countIncidentsByType(ls);
                     String json = new Gson().toJson(ls);
-//                    Object obj = json;
-//                    res.type("application/json");
-////                    return json;
-//                });
+
             model.put("incidents",ls);
             model.put("types", lsCounted);
 
             model.put("json",json);
 //            res.body(new Gson().toJson(ls));
-            return new ModelAndView(model, "public/incidents-today.vm");
+            return new ModelAndView(model, "public/incidents-daily.vm");
         }, new VelocityTemplateEngine());
 
         Spark.get("/incidents-this-week", (req, res) -> {

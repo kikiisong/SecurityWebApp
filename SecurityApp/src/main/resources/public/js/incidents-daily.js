@@ -32,8 +32,6 @@ function loadVisData()
             {
                 console.log(json[i]) ;
             }
-            // console.log(content2);
-            // console.log(data);
         }
     );
 }
@@ -44,11 +42,10 @@ function visualization()
 {
         'use strict'
         feather.replace({ 'aria-hidden': 'true' })
-        // Graphs
-        var ctx = document.getElementById('myChart')
-        // eslint-disable-next-line no-unused-vars
-        console.log(parseInt(document.getElementById('type1').innerText));
 
+        var ctx = document.getElementById('myChart')
+
+    //Set up the bar graph
     var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -102,6 +99,3 @@ function visualization()
             }
         })
 }
-
-//var SubmitButton = document.getElementById("Submit");
-//SubmitButton.addEventListener('click', filterDate());

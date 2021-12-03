@@ -1,4 +1,4 @@
-#set( $title = "Show Today's Incidents" )
+#set( $title = "Daily Incidents" )
 #parse("public/top.vm")
 <head>
     <!-- Google Fonts -->
@@ -6,22 +6,18 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
 
-    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://apis.google.com/js/api.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script src="../js/index.js"></script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-    <script src="../js/incidents-today.js"></script>
 
+    <script src="../js/incidents-daily.js"></script>
+
+    <!-- for graph -->
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
 
@@ -40,7 +36,6 @@
     </form>
     <div class="container">
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-        <p id="test">100</p>
         #if ($types)
             <p8 id="type1" >$types[0]</p8>
             <p8 id="type2">$types[1]</p8>
@@ -80,61 +75,4 @@
     </table>
     #end
 
- ##   <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
- ##   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
-   ## <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
-##    <script>
-##        (function () {
-##            'use strict'
-##
-##            feather.replace({ 'aria-hidden': 'true' })
-##
-##            // Graphs
-##            var ctx = document.getElementById('myChart')
-##            // eslint-disable-next-line no-unused-vars
-##            var myChart = new Chart(ctx, {
-##                type: 'line',
-##                data: {
-##                    labels: [
-##                        'Sunday',
-##                        'Monday',
-##                        'Tuesday',
-##                        'Wednesday',
-##                        'Thursday',
-##                        'Friday',
-##                        'Saturday'
-##                    ],
-##                    datasets: [{
-##                        data: [
-##                            parseInt(document.getElementById('test').innerText),
-##                            21345,
-##                            18483,
-##                            24003,
-##                            23489,
-##                            24092,
-##                            12034
-##                        ],
-##                        lineTension: 0,
-##                        backgroundColor: 'transparent',
-##                        borderColor: '#007bff',
-##                        borderWidth: 4,
-##                        pointBackgroundColor: '#007bff'
-##                    }]
-##                },
-##                options: {
-##                    scales: {
-##                        yAxes: [{
-##                            ticks: {
-##                                beginAtZero: false
-##                            }
-##                        }]
-##                    },
-##                    legend: {
-##                        display: false
-##                    }
-##                }
-##            })
-##        })()
-##    </script>
 </body>
