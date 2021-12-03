@@ -251,6 +251,7 @@ function onSignIn(googleUser) {
 
     // res=> window.location.href ="https://security-jhu-app.herokuapp.com/"
     );
+
     document.getElementById("signoutB").style.display = "";
 
     console.log("FETCHED");
