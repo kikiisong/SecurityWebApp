@@ -33,10 +33,15 @@ import java.util.Properties;
 public class Server {
 
     //To the add incident from form to the database
-    private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, String date1, String location ) {
+    private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, String date1, String location, String email ) {
         String sql= "";
         try (Connection conn = getConnection()) {
             // Create prepared statement to insert into db
+            PreparedStatement st2 = conn.prepareStatement("SELECT id FROM users WHERE email == ?;");
+            st2.setString(1,email);
+            st2.execute();
+            ResultSet id=st2.getResultSet();
+            int id1= id.getInt(1);
             PreparedStatement st = conn.prepareStatement("INSERT INTO incidents(longitude,latitude,description,crimeCode,dateAndTime, location,user_id) VALUES(?,?,?,?,?,?,?);");
             st.setFloat(1, longitude);
             st.setFloat(2, latitude);
@@ -44,7 +49,7 @@ public class Server {
             st.setInt(4, crimeCode);
             st.setString(5, date1);
             st.setString(6, location);
-            st.setInt(7, 1);
+            st.setInt(7, id1);
             st.executeUpdate();
 
             // Notify users of incident reports in real-time
@@ -139,9 +144,9 @@ public class Server {
     //to add a new user to db after google sign-up
     private static void addUser(String name, String email ) {
         try (Connection conn = getConnection()) {
-            PreparedStatement st = conn.prepareStatement("INSERT INTO users(name,email) VALUES (?,?);");
-            st.setString(1, name);
-            st.setString(2, email);
+            PreparedStatement st = conn.prepareStatement("INSERT INTO users( name,email) VALUES (?,?,?);");
+            st.setString(2, name);
+            st.setString(3, email);
             st.executeUpdate();
 
         } catch (URISyntaxException | SQLException e) {
@@ -162,6 +167,7 @@ public class Server {
         }
         return incidents;
     }
+
 
     //to select Incidents happened today
     private static ResultSet getIncidentsByDate(String pickedDate) {
@@ -268,23 +274,21 @@ public class Server {
 
 
         Spark.post("/mainpage", (req, res) -> {
-            String firstName = req.queryParams("firstName");
-            String lastName = req.queryParams("lastName");
             String longitude = req.queryParams("latitude");
             String latitude = req.queryParams("longitude");
             String description = req.queryParams("description");
             String location = req.queryParams("address");
             String crimecode = req.queryParams("crimecode");
             String date=req.queryParams("date");
-            String name = firstName + lastName;
-
-            addIncident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,Integer.valueOf(crimecode), date,location);
+            String email=req.queryParams("email");
+            addIncident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,Integer.valueOf(crimecode), date,location,email);
 
             res.status(201);
             res.type("application/json");
             return 1;
         });
         Spark.post("/login", (req, res) -> {
+            int id= Integer.parseInt(req.queryParams("id"));
             String name = req.queryParams("name");
             String email = req.queryParams("email");
             addUser(name,email);

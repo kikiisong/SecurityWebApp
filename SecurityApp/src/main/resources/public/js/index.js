@@ -88,14 +88,15 @@ function codeAddress() {
                 });
                 arrMarkers.push(marker);
 
-                const firstName = document.getElementById("firstName").value;
-                const lastName = document.getElementById("lastName").value;
                 const description = document.getElementById("description").value;
                 const date = document.getElementById("date").value;
                 const address = document.getElementById("address").value;
+                var auth2 = gapi.auth2.getAuthInstance();
+                var profile = auth2.currentUser.get().getBasicProfile();
+                var email = profile.getEmail();
 
                 // Sending data to backend
-                fetch('https://security-jhu-app.herokuapp.com/mainpage?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
+                fetch('https://security-jhu-app.herokuapp.com/mainpage?'+  "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode+ "&email=" +email,{
                         method: 'POST',
                     }
                 ).then();
