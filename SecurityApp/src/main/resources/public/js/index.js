@@ -17,9 +17,7 @@ function initMap() {
 
     // The location of Johns Hopkins
     console.log("init map");
-    if (!checkIfLoggedIn()){
-        document.getElementById("formButton").style.display = "none";
-    }
+
     geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(-34.397, 150.644);
     console.log(findimage(3));
@@ -94,9 +92,13 @@ function codeAddress() {
                 const description = document.getElementById("description").value;
                 const date = document.getElementById("date").value;
                 const address = document.getElementById("address").value;
-                var auth2 = gapi.auth2.getAuthInstance();
-                var profile = auth2.currentUser.get().getBasicProfile();
-                var email = profile.getEmail();
+               if (auth2.isSignedIn.get()) {
+                  var profile = auth2.currentUser.get().getBasicProfile();
+                  const id= profile.getId();
+                  }
+               else{
+               const email = "rahulraman.3499@gmail.com";
+               }
 
                 // Sending data to backend
                 fetch('https://security-jhu-app.herokuapp.com/mainpage?'+  "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode+ "&email=" +email,{
@@ -248,15 +250,14 @@ function onSignIn(googleUser) {
     var email= String(profile.getEmail());
 
     // Sending user details to backend
-    fetch('https://security-jhu-app.herokuapp.com/login?'+ "&name=" + name +"&email="+ email, {
-        method: 'POST',
-    }).then(
-        document.getElementById("ls").innerHTML = "signed in",
-
-    // res=> window.location.href ="https://security-jhu-app.herokuapp.com/"
-    );
+//    fetch('https://security-jhu-app.herokuapp.com/login?'+ "&name=" + name +"&email="+ email, {
+//        method: 'POST',
+//    }).then(
+//        document.getElementById("ls").innerHTML = "signed in",
+//
+//    // res=> window.location.href ="https://security-jhu-app.herokuapp.com/"
+//    );
     document.getElementById("signoutB").style.display = "";
-    document.getElementById("formButton").style.display = "";
 
     console.log("FETCHED");
 
