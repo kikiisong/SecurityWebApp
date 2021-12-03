@@ -308,6 +308,8 @@ public class Server {
 
             model.put("incidents",ls);
             model.put("types", lsCounted);
+            String formatted_date = (IncidentManager.selectedDay).replaceAll("/", "-");
+            model.put("selected_day", formatted_date);
 
             model.put("json",json);
 //            res.body(new Gson().toJson(ls));

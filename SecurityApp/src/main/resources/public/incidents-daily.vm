@@ -31,7 +31,11 @@
         <label>Choose thd date you want to view:
             <input type="date" id="picked_day" value="2021-09-22" min="2018-04-01" max="2021-12-02">
         </label>
-
+        #if ($selected_day)
+            <script>
+                document.getElementById('picked_day').value = '$selected_day';
+            </script>
+        #end
         <p><button type="button" refresh="false" onclick="filterDate()">Submit</button></p>
     </form>
     <div class="container">
