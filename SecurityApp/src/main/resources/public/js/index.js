@@ -250,7 +250,7 @@ function onSignIn(googleUser) {
     var email= String(profile.getEmail());
 
     // Sending user details to backend
-//    fetch('https://security-jhu-app.herokuapp.com/login?'+ "&name=" + name +"&email="+ email, {
+ fetch('https://security-jhu-app.herokuapp.com/login?'+ "&name=" + name +"&email="+ email, {
 //        method: 'POST',
 //    }).then(
 //        document.getElementById("ls").innerHTML = "signed in",
