@@ -15,6 +15,7 @@
     <script src="https://apis.google.com/js/api.js"></script>
 
     <script src="../js/incidents-daily.js"></script>
+    <script src="../js/visualization.js"></script>
 
     <!-- for graph -->
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
@@ -28,8 +29,8 @@
 <body onload="loadVisData()" >
     #parse("public/navigation.vm")
     <form>
-        <label>Choose thd date you want to view:
-            <input type="date" id="picked_day" value="2021-09-22" min="2018-04-01" max="2028-12-02">
+        <label>Choose the date you want to view:
+            <input type="date" id="picked_day">
         </label>
         #if ($selected_day)
             <script>

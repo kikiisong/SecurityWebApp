@@ -169,12 +169,10 @@ public class Server {
         return incidents;
     }
 
-    //to select Incidents happened today
+    //to select Incidents happened on a specific date
     private static ResultSet getIncidentsByDate(String pickedDate) {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
-//            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '2021/09/22%';");
-//            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE dateAndTime LIKE '2021/09/22%';");
             String sql = "SELECT * FROM incidents WHERE dateAndTime LIKE '" + pickedDate +"%';";
 
             PreparedStatement st = conn.prepareStatement(sql);
@@ -187,13 +185,13 @@ public class Server {
         return incidents;
     }
 
-    //to select Incidents based on type
-    //TODO: select use crimecode
-    private static ResultSet getIncidentsByType() {
+    private static ResultSet getIncidentsByMonth(String pickedMonth) {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
-            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents WHERE description='LARCENY';");
-            st.execute();
+            String sql = "SELECT * FROM incidents WHERE dateAndTime LIKE '" + pickedMonth +"%';";
+
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.executeQuery();
             incidents = st.getResultSet();
 
         } catch (URISyntaxException | SQLException e) {
@@ -303,18 +301,23 @@ public class Server {
 
             return 1;
         });
+        Spark.post("/incidents-monthly", (req, res) -> {
+            IncidentManager.selectedMonth = req.queryParams("picked_month");
+
+            return 1;
+        });
 
         Spark.get("/incidents-daily", (req, res) -> {
-                    Map<String, Object> model = new HashMap<>();
+            Map<String, Object> model = new HashMap<>();
 
-                   ResultSet rs = getIncidentsByDate(IncidentManager.selectedDay);
+            ResultSet rs = getIncidentsByDate(IncidentManager.selectedDay);
 
-                    List<Incident> ls = new ArrayList<Incident>();
-                    while (rs.next()) {
-                        ls.add(new Incident(rs.getFloat(2), rs.getFloat(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getInt(8)));
-                    }
-                int[] lsCounted = IncidentManager.countIncidentsByType(ls);
-                    String json = new Gson().toJson(ls);
+            List<Incident> ls = new ArrayList<Incident>();
+            while (rs.next()) {
+                ls.add(new Incident(rs.getFloat(2), rs.getFloat(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getInt(8)));
+            }
+            int[] lsCounted = IncidentManager.countIncidentsByType(ls);
+            String json = new Gson().toJson(ls);
 
             model.put("incidents",ls);
             model.put("types", lsCounted);
@@ -322,16 +325,30 @@ public class Server {
             model.put("selected_day", formatted_date);
 
             model.put("json",json);
-//            res.body(new Gson().toJson(ls));
             return new ModelAndView(model, "public/incidents-daily.vm");
         }, new VelocityTemplateEngine());
 
         Spark.get("/incidents-annual", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+
             return new ModelAndView(model, "public/incidents-annual.vm");
         }, new VelocityTemplateEngine());
         Spark.get("/incidents-monthly", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+
+            ResultSet rs = getIncidentsByMonth(IncidentManager.selectedMonth);
+
+            List<Incident> ls = new ArrayList<Incident>();
+            while (rs.next()) {
+                ls.add(new Incident(rs.getFloat(2), rs.getFloat(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getInt(8)));
+            }
+            int[] lsCounted = IncidentManager.countIncidentsByType(ls);
+
+            model.put("incidents",ls);
+            model.put("types", lsCounted);
+            String formatted_month = (IncidentManager.selectedMonth).replaceAll("/", "-");
+            model.put("selected_month", formatted_month);
+
             return new ModelAndView(model, "public/incidents-monthly.vm");
         }, new VelocityTemplateEngine());
 

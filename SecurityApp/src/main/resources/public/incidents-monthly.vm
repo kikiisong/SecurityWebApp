@@ -19,11 +19,64 @@
     <script src="../js/index.js"></script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 
+    <script src="../js/visualization.js"></script>
+    <script src="../js/incidents-monthly.js"></script>
+
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/custom.css"/>
 </head>
 <body>
     #parse("public/navigation.vm")
+    <form>
+        <label>Choose the month you want to view:
+            <input id="picked_month" type="month">
+        </label>
+        #if ($selected_month)
+            <script>
+                document.getElementById('picked_month').value = '$selected_month';
+            </script>
+        #end
+        <button type="button" refresh="false" onclick="filterMonth()">Submit</button>
+    </form>
+    <div class="container">
+        <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+        #if ($types)
+            <p8 id="type1" >$types[0]</p8>
+            <p8 id="type2">$types[1]</p8>
+            <p8 id="type3">$types[2]</p8>
+            <p8 id="type4">$types[3]</p8>
+            <p8 id="type5">$types[4]</p8>
+            <p8 id="type6">$types[5]</p8>
+            <p8 id="type7">$types[6]</p8>
+            <p8 id="type8">$types[7]</p8>
+            <p8 id="type9">$types[8]</p8>
+        #end
+    </div>
+    <script>
+        visualization();
+    </script>
+
+    #if ($incidents)
+    <h2>All incidents:</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Date And Time</th>
+            <th>Location</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+            #foreach($inc in $incidents)
+            <tr>
+                <td>$inc.dateAndTime</td>
+                <td>$inc.location</td>
+                <td>$inc.description</td>
+            </tr>
+            #end
+        </tbody>
+    </table>
+    #end
 
 </body>

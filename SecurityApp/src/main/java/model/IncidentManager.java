@@ -4,7 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 public class IncidentManager {
-    public static String selectedDay = new SimpleDateFormat("yyyy/MM/dd").format(new Date());;
+    public static String selectedDay = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
+    public static String selectedMonth = new SimpleDateFormat("yyyy/MM/dd").format(new Date()).substring(0, 7);
 
 
     public static int[] countIncidentsByType(List<Incident> incidents)
