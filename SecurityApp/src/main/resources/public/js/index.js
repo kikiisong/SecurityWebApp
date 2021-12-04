@@ -88,14 +88,13 @@ function codeAddress() {
                 });
                 arrMarkers.push(marker);
 
-                const firstName = document.getElementById("firstName").value;
-                const lastName = document.getElementById("lastName").value;
+
                 const description = document.getElementById("description").value;
                 const date = document.getElementById("date").value;
                 const address = document.getElementById("address").value;
 
                 // Sending data to backend
-                fetch('https://security-jhu-app.herokuapp.com/mainpage?'+ "&firstName" + firstName +"&lastName"+ lastName + "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
+                fetch('https://security-jhu-app.herokuapp.com/mainpage?'+ "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
                         method: 'POST',
                     }
                 ).then();
@@ -277,8 +276,10 @@ function signOut() {
         document.getElementById("ls").innerHTML = "Login"
     });
     document.getElementById("signoutB").style.display = "none";
+    sessionStorage.clear();
 
 }
+//to chek if user is logged in
 
 
 //We predict the crime code based on keywords within the description provided by the user
@@ -340,6 +341,20 @@ function checkIfLoggedIn()
         //User already logged in
         var userEntity = {};
         userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+        // window.location.href = "https://security-jhu-app.herokuapp.com/";
+        return true;
+    }
+}
+function checkIfLoggedIn2()
+{
+    if(sessionStorage.getItem('myUserEntity') == null){
+         document.getElementById("report").style.display = "none";
+        return false;
+    } else {
+        //User already logged in
+        var userEntity = {};
+        userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+        document.getElementById("report").style.display = "";
         // window.location.href = "https://security-jhu-app.herokuapp.com/";
         return true;
     }

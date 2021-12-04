@@ -262,15 +262,13 @@ public class Server {
 
 
         Spark.post("/mainpage", (req, res) -> {
-            String firstName = req.queryParams("firstName");
-            String lastName = req.queryParams("lastName");
             String longitude = req.queryParams("latitude");
             String latitude = req.queryParams("longitude");
             String description = req.queryParams("description");
             String location = req.queryParams("address");
             String crimecode = req.queryParams("crimecode");
             String date=req.queryParams("date");
-            String name = firstName + lastName;
+
 
             addIncident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,Integer.valueOf(crimecode), date,location);
 

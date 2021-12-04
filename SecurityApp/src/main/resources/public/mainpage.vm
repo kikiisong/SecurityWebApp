@@ -103,11 +103,11 @@
     <a><h3 style="text-align: center">Please login (using Google) first and then you can report your incident using the Report button below, once submitted
     after which you can see your incident marked on the map</h3></a>
     <div class="row">
-    <button type="button" class="btn btn-danger btn-lg" style=" position: relative; margin: 0 auto;  align-self: center; justify-content: center;" onclick="openForm()">REPORT INCIDENT</button>
+    <button type="button" id="report" class="btn btn-danger btn-lg" style=" position: relative; margin: 0 auto;  align-self: center; justify-content: center;" onclick="openForm()">REPORT INCIDENT</button>
     </div>
     </body>
 
-    <body onload="initMap(), loadData()">
+    <body onload="initMap(), loadData(), checkIfLoggedIn2()">
     <div class="row" style= "margin: auto;">
      <div id="map" style="margin:auto;  width: 800px; height: 600px;"></div>
      <div style="margin:auto;">
@@ -177,26 +177,11 @@
     <div class="form-popup" id="myForm" >
       <form  class="form-container" onsubmit="codeAddress(); return false;">
         <h2>REPORT</h2>
-        <div class="row">
-          <div class="col">
-            <label for="inputName">First Name</label>
 
-            <input type="text" id = "firstName" name="fname" class="form-control" placeholder="First name" required>
-          </div>
-          <div class="col">
-            <label for="inputName">Last Name</label>
-
-            <input type="text" id = "lastName" name="lname"  class="form-control" placeholder="Last name" required>
-          </div>
-        </div>
 
         <label for="Date"><b>Date:</b></label>
         <input type="date" id = "date"  name="date" min="2010-01-02" max="2022-01-01" required>
         <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputEmail4">Email</label>
-            <input type="email" class="form-control" name="email" id="inputEmail4" placeholder="Email" required>
-          </div>
 
         </div>
         <div class="form-group">
