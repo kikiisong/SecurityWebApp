@@ -133,7 +133,7 @@ public class Server {
     //to add a new user to db after google sign-up
     private static void addUser(String name, String email ) {
         try (Connection conn = getConnection()) {
-            PreparedStatement st = conn.prepareStatement("INSERT INTO users(name,email) VALUES (?,?);");
+            PreparedStatement st = conn.prepareStatement("INSERT INTO users(name,email) VALUES (?,?) ON CONFLICT (email) DO NOTHING;");
             st.setString(1, name);
             st.setString(2, email);
             st.executeUpdate();
