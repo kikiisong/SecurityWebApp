@@ -29,7 +29,7 @@
     #parse("public/navigation.vm")
     <form>
         <label>Choose thd date you want to view:
-            <input type="date" id="picked_day" value="2021-09-22" min="2018-04-01" max="2021-12-02">
+            <input type="date" id="picked_day" value="2021-09-22" min="2018-04-01" max="2028-12-02">
         </label>
         #if ($selected_day)
             <script>
