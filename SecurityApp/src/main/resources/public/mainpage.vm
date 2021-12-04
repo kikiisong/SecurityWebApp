@@ -107,7 +107,7 @@
     </div>
     </body>
 
-    <body onload="initMap(), loadData(), checkIfLoggedIn2()">
+    <body onload="initMap(), loadData(), checkIfLoggedIn2(), checkIfLoggedIn3()">
     <div class="row" style= "margin: auto;">
      <div id="map" style="margin:auto;  width: 800px; height: 600px;"></div>
      <div style="margin:auto;">

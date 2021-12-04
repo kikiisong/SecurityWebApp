@@ -93,8 +93,14 @@ function codeAddress() {
                 const date = document.getElementById("date").value;
                 const address = document.getElementById("address").value;
 
+                        //User already logged in
+                var userEntity = {};
+                userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+
+                const email = userEntity.Email;
+                  console.log(email);
                 // Sending data to backend
-                fetch('https://security-jhu-app.herokuapp.com/mainpage?'+ "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode, {
+                fetch('https://security-jhu-app.herokuapp.com/mainpage?'+ "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode + "&email" + email, {
                         method: 'POST',
                     }
                 ).then();
@@ -261,7 +267,7 @@ function onSignIn(googleUser) {
     myUserEntity.Id = profile.getId();
     console.log(myUserEntity.Id);
     myUserEntity.Name = profile.getName();
-
+    myUserEntity.Email = profile.getEmail();
     //Store the entity object in sessionStorage where it will be accessible from all pages of your site.
     sessionStorage.setItem('myUserEntity',JSON.stringify(myUserEntity));
 
@@ -280,7 +286,11 @@ function signOut() {
 
 }
 //to chek if user is logged in
-
+    function onLoad() {
+      gapi.load('auth2', function() {
+        gapi.auth2.init();
+      });
+    }
 
 //We predict the crime code based on keywords within the description provided by the user
 function predictCrimeCode(){
@@ -355,6 +365,23 @@ function checkIfLoggedIn2()
         var userEntity = {};
         userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
         document.getElementById("report").style.display = "";
+        // window.location.href = "https://security-jhu-app.herokuapp.com/";
+        return true;
+    }
+}
+
+function checkIfLoggedIn3()
+{
+    if(sessionStorage.getItem('myUserEntity') == null){
+         document.getElementById("signoutB").style.display = "none";
+         document.getElementById("login").style.display = "";
+        return false;
+    } else {
+        //User already logged in
+        var userEntity = {};
+        userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+        document.getElementById("signoutB").style.display = "";
+        document.getElementById("login").style.display = "none";
         // window.location.href = "https://security-jhu-app.herokuapp.com/";
         return true;
     }

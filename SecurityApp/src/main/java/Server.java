@@ -27,10 +27,22 @@ import java.util.Properties;
 public class Server {
 
     //To the add incident from form to the database
-    private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, String date1, String location ) {
+    private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, String date1, String location , String email) {
+        String sql1= "";
+
+            // Create prepared statement to insert into db
+
         String sql= "";
         try (Connection conn = getConnection()) {
             // Create prepared statement to insert into db
+            PreparedStatement st1 = conn.prepareStatement("SELECT id FROM users WHERE email=?;");
+            st1.setString(1, email);
+            st1.execute();
+            int id=1;
+            ResultSet email1= st1.getResultSet();
+            if (email1.next()) {
+                id = email1.getObject("id", Integer.class);
+            }
             PreparedStatement st = conn.prepareStatement("INSERT INTO incidents(longitude,latitude,description,crimeCode,dateAndTime, location,user_id) VALUES(?,?,?,?,?,?,?);");
             st.setFloat(1, longitude);
             st.setFloat(2, latitude);
@@ -38,7 +50,7 @@ public class Server {
             st.setInt(4, crimeCode);
             st.setString(5, date1);
             st.setString(6, location);
-            st.setInt(7, 1);
+            st.setInt(7, id);
             st.executeUpdate();
 
             // Notify users of incident reports in real-time
@@ -268,9 +280,9 @@ public class Server {
             String location = req.queryParams("address");
             String crimecode = req.queryParams("crimecode");
             String date=req.queryParams("date");
+            String email= req.queryParams("email");
 
-
-            addIncident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,Integer.valueOf(crimecode), date,location);
+            addIncident(Float.parseFloat(latitude),Float.parseFloat(longitude),description,Integer.valueOf(crimecode), date,location, email);
 
             res.status(201);
             res.type("application/json");
