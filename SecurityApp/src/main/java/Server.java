@@ -326,13 +326,13 @@ public class Server {
             return new ModelAndView(model, "public/incidents-daily.vm");
         }, new VelocityTemplateEngine());
 
-        Spark.get("/incidents-this-week", (req, res) -> {
+        Spark.get("/incidents-annual", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            return new ModelAndView(model, "public/incidents-this-week.vm");
+            return new ModelAndView(model, "public/incidents-annual.vm");
         }, new VelocityTemplateEngine());
-        Spark.get("/incidents-this-month", (req, res) -> {
+        Spark.get("/incidents-monthly", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            return new ModelAndView(model, "public/incidents-this-month.vm");
+            return new ModelAndView(model, "public/incidents-monthly.vm");
         }, new VelocityTemplateEngine());
 
     }

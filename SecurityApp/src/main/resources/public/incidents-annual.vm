@@ -1,4 +1,4 @@
-#set( $title = "Show Incidents of This Week" )
+#set( $title = "Incidents In A Year" )
 #parse("public/top.vm")
 <head>
     <!-- Google Fonts -->

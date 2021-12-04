@@ -1,4 +1,4 @@
-#set( $title = "Daily Incidents" )
+#set( $title = "Incidents Daily" )
 #parse("public/top.vm")
 <head>
     <!-- Google Fonts -->
