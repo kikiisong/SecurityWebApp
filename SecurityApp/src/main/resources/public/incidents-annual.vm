@@ -5,9 +5,6 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
-
-    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
 
     <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -24,5 +21,19 @@
 </head>
 <body>
     #parse("public/navigation.vm")
+
+    <form>
+        <label>Choose the year you want to view:
+        <select name="yearpicker" id="yearpicker"></select>
+        <script type="text/javascript">
+            let startYear = 1800;
+            let endYear = new Date().getFullYear();
+            for (i = endYear; i > startYear; i--)
+            {
+                $('#yearpicker').append($('<option />').val(i).html(i));
+            }
+        </script>
+        </label>
+    </form>
 
 </body>
