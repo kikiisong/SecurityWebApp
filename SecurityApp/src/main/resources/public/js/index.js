@@ -93,14 +93,14 @@ function codeAddress() {
                 const date = document.getElementById("date").value;
                 const address = document.getElementById("address").value;
 
-                        //User already logged in
+                //User already logged in
                 var userEntity = {};
                 userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
 
                 const email = userEntity.Email;
-                  console.log(email);
+                console.log(email);
                 // Sending data to backend
-                fetch('https://security-jhu-app.herokuapp.com/mainpage?'+ "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode + "&email" + email, {
+                fetch('https://security-jhu-app.herokuapp.com/mainpage?'+ "&date=" + date + "&description=" + description + "&address=" + address + "&latitude=" + latitude+ "&longitude=" + longitude+ "&crimecode=" + crimecode + "&email=" + email, {
                         method: 'POST',
                     }
                 ).then();
@@ -152,41 +152,41 @@ function loadData() {
                     crimecode: obj.crimeCode,
                 };
 
-                    const contentString =
-                        '<div id="content">' +
-                        '<div id="siteNotice">' +
-                        "</div>" +
-                        // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
-                        "<p2> Incident </p2>" +
-                        '<div id="bodyContent">' +
-                        "<p2> Location of the incident: </p2>" + "<p5>" + obj.location + "</p5>" + "<p></p>" +
-                        "<p3> Description of the incident: </p3>" + "<p6>" + obj.description + "</p6>"
-                    "</div>" + "</div>";
-                    console.log(obj.latitude);
-                    console.log(obj.longtitude);
-                    const position = {lat: obj.latitude, lng: obj.longtitude};
-                    const image = findimage(obj.crimeCode);
+                const contentString =
+                    '<div id="content">' +
+                    '<div id="siteNotice">' +
+                    "</div>" +
+                    // '<h1 id="firstHeading" class="firstHeading">Incident</h1>' +
+                    "<p2> Incident </p2>" +
+                    '<div id="bodyContent">' +
+                    "<p2> Location of the incident: </p2>" + "<p5>" + obj.location + "</p5>" + "<p></p>" +
+                    "<p3> Description of the incident: </p3>" + "<p6>" + obj.description + "</p6>"
+                "</div>" + "</div>";
+                console.log(obj.latitude);
+                console.log(obj.longtitude);
+                const position = {lat: obj.latitude, lng: obj.longtitude};
+                const image = findimage(obj.crimeCode);
 
-                    const infowindow = new google.maps.InfoWindow({
-                        content: contentString,
+                const infowindow = new google.maps.InfoWindow({
+                    content: contentString,
+                });
+                console.log("adding markers");
+                const marker = new google.maps.Marker({
+                    map: map,
+                    position: position,
+                    icon: image,
+                    title: "incident"
+                });
+                marker.addListener("click", () => {
+                    infowindow.open({
+                        anchor: marker,
+                        map,
+                        shouldFocus: false,
                     });
-                    console.log("adding markers");
-                    const marker = new google.maps.Marker({
-                        map: map,
-                        position: position,
-                        icon: image,
-                        title: "incident"
-                    });
-                    marker.addListener("click", () => {
-                        infowindow.open({
-                            anchor: marker,
-                            map,
-                            shouldFocus: false,
-                        });
-                    });
-                    incidents.push(incident);
-                    arrMarkers.push(marker);
-                }
+                });
+                incidents.push(incident);
+                arrMarkers.push(marker);
+            }
 
             console.log("calling marker cluster");
             console.log("arrmarkers",arrMarkers);
@@ -195,7 +195,7 @@ function loadData() {
             // console.log(cluster);
 
             // c
-            }
+        }
 
     );
     console.log("FETCHED");
@@ -254,7 +254,7 @@ function onSignIn(googleUser) {
     }).then(
         document.getElementById("ls").innerHTML = "signed in",
 
-    // res=> window.location.href ="https://security-jhu-app.herokuapp.com/"
+        // res=> window.location.href ="https://security-jhu-app.herokuapp.com/"
     );
 
     document.getElementById("signoutB").style.display = "";
@@ -276,6 +276,7 @@ function onSignIn(googleUser) {
 // <a href="#" onclick="signOut();">Sign out</a>
 function signOut() {
     console.log("signing out");
+    onLoad();
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         console.log('User signed out.');
@@ -286,11 +287,11 @@ function signOut() {
 
 }
 //to chek if user is logged in
-    function onLoad() {
-      gapi.load('auth2', function() {
+function onLoad() {
+    gapi.load('auth2', function() {
         gapi.auth2.init();
-      });
-    }
+    });
+}
 
 //We predict the crime code based on keywords within the description provided by the user
 function predictCrimeCode(){
@@ -358,7 +359,7 @@ function checkIfLoggedIn()
 function checkIfLoggedIn2()
 {
     if(sessionStorage.getItem('myUserEntity') == null){
-         document.getElementById("report").style.display = "none";
+        document.getElementById("report").style.display = "none";
         return false;
     } else {
         //User already logged in
@@ -373,14 +374,14 @@ function checkIfLoggedIn2()
 function checkIfLoggedIn3()
 {
     if(sessionStorage.getItem('myUserEntity') == null){
-         document.getElementById("signoutB").style.display = "none";
-         document.getElementById("login").style.display = "";
+        document.getElementById("signoutB").style.display = "none";
+
         return false;
     } else {
         //User already logged in
         var userEntity = {};
         userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
-        document.getElementById("signoutB").style.display = "";
+
         document.getElementById("login").style.display = "none";
         // window.location.href = "https://security-jhu-app.herokuapp.com/";
         return true;

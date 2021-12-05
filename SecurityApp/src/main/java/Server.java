@@ -30,18 +30,22 @@ public class Server {
     private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, String date1, String location , String email) {
         String sql1= "";
 
-            // Create prepared statement to insert into db
-
+        // Create prepared statement to insert into db
+        int id=1;
         String sql= "";
         try (Connection conn = getConnection()) {
             // Create prepared statement to insert into db
-            PreparedStatement st1 = conn.prepareStatement("SELECT id FROM users WHERE email=?;");
-            st1.setString(1, email);
-            st1.execute();
-            int id=1;
-            ResultSet email1= st1.getResultSet();
-            if (email1.next()) {
-                id = email1.getObject("id", Integer.class);
+            String sql2="SELECT id FROM users WHERE email='"+email+"';";
+            System.out.print(sql2);
+            PreparedStatement st1 = conn.prepareStatement(sql2);
+            //st1.setString(1, email);
+            st1.executeQuery();
+
+            ResultSet rs= st1.getResultSet();
+            System.out.print(rs.next());
+            while(rs.next()) {
+                id = rs.getInt(1);
+                System.out.print(id+"inside while");
             }
             PreparedStatement st = conn.prepareStatement("INSERT INTO incidents(longitude,latitude,description,crimeCode,dateAndTime, location,user_id) VALUES(?,?,?,?,?,?,?);");
             st.setFloat(1, longitude);
@@ -50,11 +54,12 @@ public class Server {
             st.setInt(4, crimeCode);
             st.setString(5, date1);
             st.setString(6, location);
+            System.out.print(id+"still1");
             st.setInt(7, id);
             st.executeUpdate();
 
             // Notify users of incident reports in real-time
-            SendEmailNotification();
+            //SendEmailNotification();
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
         }
@@ -305,16 +310,16 @@ public class Server {
         });
 
         Spark.get("/incidents-daily", (req, res) -> {
-                    Map<String, Object> model = new HashMap<>();
+            Map<String, Object> model = new HashMap<>();
 
-                   ResultSet rs = getIncidentsByDate(IncidentManager.selectedDay);
+            ResultSet rs = getIncidentsByDate(IncidentManager.selectedDay);
 
-                    List<Incident> ls = new ArrayList<Incident>();
-                    while (rs.next()) {
-                        ls.add(new Incident(rs.getFloat(2), rs.getFloat(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getInt(8)));
-                    }
-                int[] lsCounted = IncidentManager.countIncidentsByType(ls);
-                    String json = new Gson().toJson(ls);
+            List<Incident> ls = new ArrayList<Incident>();
+            while (rs.next()) {
+                ls.add(new Incident(rs.getFloat(2), rs.getFloat(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getInt(8)));
+            }
+            int[] lsCounted = IncidentManager.countIncidentsByType(ls);
+            String json = new Gson().toJson(ls);
 
             model.put("incidents",ls);
             model.put("types", lsCounted);

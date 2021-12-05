@@ -2,9 +2,9 @@
 #parse("public/top.vm")
 <head>
 
-<!--   <link href="img/favicon.ico" rel="shortcut icon"/>
- -->
-  <!-- Google Fonts -->
+    <!--   <link href="img/favicon.ico" rel="shortcut icon"/>
+     -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
 
 
@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/custom.css"/>
 </head>
-<body>
+<body onload="checkIfLoggedIn3()">
     #parse("public/navigation.vm")
 
     #if ($incidents)
@@ -42,16 +42,16 @@
         </thead>
         <tbody>
             #foreach($inc in $incidents)
-                <tr>
-                    <td>$inc.dateAndTime</td>
-                    <td>$inc.location</td>
-                    <td>$inc.description</td>
-                </tr>
+            <tr>
+                <td>$inc.dateAndTime</td>
+                <td>$inc.location</td>
+                <td>$inc.description</td>
+            </tr>
             #end
         </tbody>
     </table>
     #end
 
-    </body>
+</body>
 
 #parse("public/bottom.vm")
