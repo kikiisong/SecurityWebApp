@@ -33,7 +33,7 @@
 
         <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" style="margin:auto; width:200px;display:block"></div>
         <br>
-        <button type="button" class="btn btn-primary" onclick="signOut() " style="margin:auto; width:200px;display:block">Sign out</button>
+        <button type="button" class="btn btn-primary" onclick="onLoad(), signOut() " style="margin:auto; width:200px;display:block">Sign out</button>
 
     </div>
 

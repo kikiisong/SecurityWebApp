@@ -252,16 +252,14 @@ function onSignIn(googleUser) {
     fetch('https://security-jhu-app.herokuapp.com/login?'+ "&name=" + name +"&email="+ email, {
         method: 'POST',
     }).then(
-        document.getElementById("ls").innerHTML = "signed in",
 
         // res=> window.location.href ="https://security-jhu-app.herokuapp.com/"
     );
 
+    document.getElementById("login").style.display = "none",
     document.getElementById("signoutB").style.display = "";
 
     console.log("FETCHED");
-
-
 
     var myUserEntity = {};
     myUserEntity.Id = profile.getId();
@@ -276,11 +274,10 @@ function onSignIn(googleUser) {
 // <a href="#" onclick="signOut();">Sign out</a>
 function signOut() {
     console.log("signing out");
-    onLoad();
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         console.log('User signed out.');
-        document.getElementById("ls").innerHTML = "Login"
+        document.getElementById("login").style.display= ""
     });
     document.getElementById("signoutB").style.display = "none";
     sessionStorage.clear();
