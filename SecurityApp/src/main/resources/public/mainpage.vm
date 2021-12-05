@@ -293,7 +293,7 @@
                 <span class="form-label">Country/Region*</span>
                 <input id="country" name="country" required />
             </label>
-            <textarea id="description" rows="4" cols="36" name="describe" form="myForm" placeholder="Describe the incident here" required></textarea>
+            <textarea id="description" rows="4" cols="36" name="describe"  form="myForm" style="width:100%" placeholder="Describe the incident here" required></textarea>
             <input type="submit" id="addButton2" class="btn btn-primary" ></input>
             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
 ##            <button type="button" class="my-button">Save address</button>
