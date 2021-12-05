@@ -4,7 +4,6 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
@@ -13,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://apis.google.com/js/api.js"></script>
-
+    <script src="../js/index.js"></script>
     <script src="../js/incidents-daily.js"></script>
     <script src="../js/visualization.js"></script>
 
@@ -26,7 +25,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/custom.css"/>
 </head>
-<body onload="loadVisData()" >
+<body onload="checkIfLoggedIn3(),checkIfLoggedIn4(),loadVisData() " >
     #parse("public/navigation.vm")
     <form>
         <label>Choose the date you want to view:
@@ -37,7 +36,7 @@
                 document.getElementById('picked_day').value = '$selected_day';
             </script>
         #end
-        <p><button type="button" refresh="false" onclick="filterDate()">Submit</button></p>
+        <p><button type="button" refresh="false" id="visbutton" onclick="filterDate()">Submit</button></p>
     </form>
     <div class="container">
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>

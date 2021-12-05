@@ -20,6 +20,7 @@
 
     <script src="../js/visualization.js"></script>
     <script src="../js/incidents-annual.js"></script>
+    <script src="../js/index.js"></script>
 
     <!-- for graph -->
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
@@ -27,7 +28,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
 
 </head>
-<body>
+<body onload="checkIfLoggedIn3(),checkIfLoggedIn4()">
     #parse("public/navigation.vm")
 
     <form>
@@ -42,7 +43,7 @@
             }
         </script>
         </label>
-        <button type="button" refresh="false" onclick="filterYear()">Submit</button>
+        <button type="button" refresh="false" id="visbutton"  onclick="filterYear()">Submit</button>
     </form>
     #if ($selected_year)
     <script>

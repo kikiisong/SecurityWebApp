@@ -102,22 +102,16 @@
 #parse("public/navigation.vm")
 
     <body>
-    <a><h3 style="text-align: center">Please login (using Google) first and then you can report your incident using the Report button below, once submitted
-    after which you can see your incident marked on the map</h3></a>
+    <a><h3 style="text-align: center">Please login to report an incident and view visualization</h3></a>
     <div class="row">
     <button type="button" id="report" class="btn btn-danger btn-lg" style=" position: relative; margin: 0 auto;  align-self: center; justify-content: center;" onclick="openForm()">REPORT INCIDENT</button>
     </div>
     </body>
-   <div>             <button id="toggle-heatmap">Toggle Heatmap</button>
+   <div>             <button id="toggle-heatmap" class="btn btn-info">Toggle Heatmap</button>
    </div>
     <body onload="initMap(), checkIfLoggedIn2(), checkIfLoggedIn3()">
     <div class="row" style= "margin: auto;">
-##        <button id="toggle-heatmap">Toggle Heatmap</button>
-
-
         <div id="map" style="margin:auto;  width: 1000px; height: 600px;">
-
-
         </div>
      <div style="margin:auto;">
      <table>

@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/custom.css"/>
 </head>
-<body>
+<body onload="checkIfLoggedIn3(),checkIfLoggedIn4()">
     #parse("public/navigation.vm")
     <form>
         <label>Choose the month you want to view:
@@ -42,7 +42,7 @@
                 document.getElementById('picked_month').value = '$selected_month';
             </script>
         #end
-        <button type="button" refresh="false" onclick="filterMonth()">Submit</button>
+        <button type="button" refresh="false" id="visbutton" onclick="filterMonth()">Submit</button>
     </form>
     <div class="container">
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>

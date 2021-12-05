@@ -26,7 +26,7 @@ function initMap() {
 
     // The map, centered at Johns Hopkins
     map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 20,
+        zoom: 12,
         center: hopkins,
     });
     heatmap = new google.maps.visualization.HeatmapLayer({
@@ -84,7 +84,9 @@ function codeAddress() {
                     map: map,
                     position: position,
                     icon:image,
-                    title:"incident"
+                    title:"incident",
+                    animation: google.maps.Animation.DROP,
+
                 });
                 marker.addListener("click", () => {
                     infowindow.open({
@@ -307,6 +309,8 @@ function onSignIn(googleUser) {
 
     document.getElementById("signinB").style.display = "none",
     document.getElementById("signoutB").style.display = "";
+    document.getElementById("dropdown01").style.display = "";
+
 
     console.log("FETCHED");
 
@@ -329,6 +333,7 @@ function signOut() {
     });
     document.getElementById("signoutB").style.display = "none";
     document.getElementById("signinB").style.display = "";
+    document.getElementById("dropdown01").style.display = "none";
 
     sessionStorage.clear();
 
@@ -410,6 +415,7 @@ function checkIfLoggedIn()
 function checkIfLoggedIn2()
 {
     if(sessionStorage.getItem('myUserEntity') == null){
+        document.getElementById("dropdown01").style.display = "none";
         document.getElementById("report").style.display = "none";
         return false;
     } else {
@@ -417,6 +423,8 @@ function checkIfLoggedIn2()
         var userEntity = {};
         userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
         document.getElementById("report").style.display = "";
+        document.getElementById("dropdown01").style.display = "";
+
         // window.location.href = "https://security-jhu-app.herokuapp.com/";
         return true;
     }
@@ -438,6 +446,21 @@ function checkIfLoggedIn3()
         document.getElementById("signoutB").style.display = "";
 
         // window.location.href = "https://security-jhu-app.herokuapp.com/";
+        return true;
+    }
+}
+function checkIfLoggedIn4()
+{
+    if(sessionStorage.getItem('myUserEntity') == null){
+        document.getElementById("visbutton").style.display = "none";
+
+        return false;
+    } else {
+        //User already logged in
+        var userEntity = {};
+        userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
+
+        document.getElementById("visbutton").style.display = "";
         return true;
     }
 }
