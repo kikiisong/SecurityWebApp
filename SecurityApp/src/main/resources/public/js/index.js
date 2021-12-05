@@ -1,6 +1,6 @@
 
-
-var arrMarkers = []
+var arrlocations = [];
+var arrMarkers = [];
 var geocoder;
 var map;
 
@@ -17,6 +17,7 @@ function initMap() {
 
     // The location of Johns Hopkins
     console.log("init map");
+    loadData();
     geocoder = new google.maps.Geocoder();
     var latlng = new google.maps.LatLng(-34.397, 150.644);
     console.log(findimage(3));
@@ -28,7 +29,13 @@ function initMap() {
         zoom: 15,
         center: hopkins,
     });
-
+    heatmap = new google.maps.visualization.HeatmapLayer({
+        data: arrlocations,
+        map: map,
+    });
+    document
+        .getElementById("toggle-heatmap")
+        .addEventListener("click", toggleHeatmap);
     // The marker, positioned at Johns Hopkins
     const marker = new google.maps.Marker({
         position: hopkins,
@@ -165,6 +172,8 @@ function loadData() {
                 console.log(obj.latitude);
                 console.log(obj.longtitude);
                 const position = {lat: obj.latitude, lng: obj.longtitude};
+                var weight = assignWeight(obj.crimeCode);
+                arrlocations.push({location:new google.maps.LatLng(obj.latitude,obj.longtitude),weight:weight});
                 const image = findimage(obj.crimeCode);
 
                 const infowindow = new google.maps.InfoWindow({
@@ -200,6 +209,46 @@ function loadData() {
     );
     console.log("FETCHED");
 }
+
+
+function assignWeight(crimecode){
+    var weight;
+    if (crimecode == 1){
+        weight = 3;
+    }
+    else if (crimecode == 2){
+        weight =
+            1.7;
+    }
+    else if (crimecode ==3) {
+        weight =
+           1;
+    }
+    else if (crimecode ==4) {
+        weight  = 0.6;
+    }
+    else if (crimecode ==5) {
+        weight =
+           1.3;
+    }
+    else if (crimecode ==6) {
+        weight =
+           0.8;
+    }
+    else if (crimecode ==7) {
+        weight =
+            0.6;
+    }
+    else if (crimecode ==8) {
+        weight =
+            2;
+    }
+    else if (crimecode ==9) {
+        weight = 4;
+    }
+    return weight;
+}
+
 
 //setting color of the marker based on the crime code
 function findimage(crimecode){
@@ -289,6 +338,10 @@ function onLoad() {
         gapi.auth2.init();
     });
 }
+
+
+
+
 
 //We predict the crime code based on keywords within the description provided by the user
 function predictCrimeCode(){
@@ -384,6 +437,51 @@ function checkIfLoggedIn3()
         return true;
     }
 }
+
+
+
+
+function toggleHeatmap() {
+    heatmap.setMap(heatmap.getMap() ? null : map);
+}
+
+function changeGradient() {
+    const gradient = [
+        "rgba(0, 255, 255, 0)",
+        "rgba(0, 255, 255, 1)",
+        "rgba(0, 191, 255, 1)",
+        "rgba(0, 127, 255, 1)",
+        "rgba(0, 63, 255, 1)",
+        "rgba(0, 0, 255, 1)",
+        "rgba(0, 0, 223, 1)",
+        "rgba(0, 0, 191, 1)",
+        "rgba(0, 0, 159, 1)",
+        "rgba(0, 0, 127, 1)",
+        "rgba(63, 0, 91, 1)",
+        "rgba(127, 0, 63, 1)",
+        "rgba(191, 0, 31, 1)",
+        "rgba(255, 0, 0, 1)",
+    ];
+
+    heatmap.set("gradient", heatmap.get("gradient") ? null : gradient);
+}
+
+// function changeRadius() {
+//     heatmap.set("radius", heatmap.get("radius") ? null : 20);
+// }
+
+// function changeOpacity() {
+//     heatmap.set("opacity", heatmap.get("opacity") ? null : 0.2);
+// }
+
+
+
+
+
+
+
+
+
 
 // //to logout the user
 // function logout()

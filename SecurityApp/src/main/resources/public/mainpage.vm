@@ -13,6 +13,8 @@
         // only load it if it isn't already loaded
         !window.google && document.write('<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPjr40zhYagqXTfKxI1sBC8hnNajRo98&v=weekly"><\/script>')
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPjr40zhYagqXTfKxI1sBC8hnNajRo98&v&libraries=visualization"> </script>
+
     <script src="jquery-csv.js"></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -106,10 +108,17 @@
     <button type="button" id="report" class="btn btn-danger btn-lg" style=" position: relative; margin: 0 auto;  align-self: center; justify-content: center;" onclick="openForm()">REPORT INCIDENT</button>
     </div>
     </body>
-
-    <body onload="initMap(), loadData(), checkIfLoggedIn2(), checkIfLoggedIn3()">
+   <div>             <button id="toggle-heatmap">Toggle Heatmap</button>
+   </div>
+    <body onload="initMap(), checkIfLoggedIn2(), checkIfLoggedIn3()">
     <div class="row" style= "margin: auto;">
-     <div id="map" style="margin:auto;  width: 800px; height: 600px;"></div>
+##        <button id="toggle-heatmap">Toggle Heatmap</button>
+
+
+        <div id="map" style="margin:auto;  width: 800px; height: 600px;">
+
+
+        </div>
      <div style="margin:auto;">
      <table>
        <tr>

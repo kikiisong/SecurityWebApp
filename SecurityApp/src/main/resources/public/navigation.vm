@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: #212630">
     <div class="container-fluid">
-        <a href="/mainpage" class="navbar-brand">Security App</a>
+        <a href="/" class="navbar-brand">Security App</a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -27,6 +27,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/contact">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/heatmap">Heatmap</a>
             </li>
 
         </ul>
