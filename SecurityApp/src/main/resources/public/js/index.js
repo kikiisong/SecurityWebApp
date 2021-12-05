@@ -305,7 +305,7 @@ function onSignIn(googleUser) {
         // res=> window.location.href ="https://security-jhu-app.herokuapp.com/"
     );
 
-    document.getElementById("login").style.display = "none",
+    document.getElementById("signinB").style.display = "none",
     document.getElementById("signoutB").style.display = "";
 
     console.log("FETCHED");
@@ -326,9 +326,10 @@ function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
         console.log('User signed out.');
-        document.getElementById("login").style.display= ""
     });
     document.getElementById("signoutB").style.display = "none";
+    document.getElementById("signinB").style.display = "";
+
     sessionStorage.clear();
 
 }
@@ -425,6 +426,7 @@ function checkIfLoggedIn3()
 {
     if(sessionStorage.getItem('myUserEntity') == null){
         document.getElementById("signoutB").style.display = "none";
+        document.getElementById("signinB").style.display = "";
 
         return false;
     } else {
@@ -432,7 +434,9 @@ function checkIfLoggedIn3()
         var userEntity = {};
         userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
 
-        document.getElementById("login").style.display = "none";
+        document.getElementById("signinB").style.display = "none";
+        document.getElementById("signoutB").style.display = "";
+
         // window.location.href = "https://security-jhu-app.herokuapp.com/";
         return true;
     }
