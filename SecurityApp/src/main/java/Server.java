@@ -205,6 +205,20 @@ public class Server {
         return incidents;
     }
 
+    private static ResultSet getIncidentsByYear(String pickedYear) {
+        ResultSet incidents = null;
+        try (Connection conn = getConnection()) {
+            String sql = "SELECT * FROM incidents WHERE dateAndTime LIKE '" + pickedYear +"%';";
+
+            PreparedStatement st = conn.prepareStatement(sql);
+            st.executeQuery();
+            incidents = st.getResultSet();
+
+        } catch (URISyntaxException | SQLException e) {
+            e.printStackTrace();
+        }
+        return incidents;
+    }
 
     static int PORT = 7000;
     private static int getPort() {
@@ -306,8 +320,15 @@ public class Server {
 
             return 1;
         });
+
         Spark.post("/incidents-monthly", (req, res) -> {
             IncidentManager.selectedMonth = req.queryParams("picked_month");
+
+            return 1;
+        });
+
+        Spark.post("/incidents-annual", (req, res) -> {
+            IncidentManager.selectedYear = req.queryParams("picked_year");
 
             return 1;
         });
@@ -335,6 +356,18 @@ public class Server {
 
         Spark.get("/incidents-annual", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+
+            ResultSet rs = getIncidentsByYear(IncidentManager.selectedYear);
+
+            List<Incident> ls = new ArrayList<Incident>();
+            while (rs.next()) {
+                ls.add(new Incident(rs.getFloat(2), rs.getFloat(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getString(7), rs.getInt(8)));
+            }
+            int[] lsCounted = IncidentManager.countIncidentsByType(ls);
+
+            model.put("incidents",ls);
+            model.put("types", lsCounted);
+            model.put("selected_year", IncidentManager.selectedYear);
 
             return new ModelAndView(model, "public/incidents-annual.vm");
         }, new VelocityTemplateEngine());
