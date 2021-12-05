@@ -50,7 +50,7 @@ function codeAddress() {
     }
     else{
         console.log("codeAddress1");
-        var address = document.getElementById('address').value;
+        var address = document.getElementById('ship-address').value;
         var description = document.getElementById('description').value;
 
         console.log("calling code address function");
@@ -100,7 +100,7 @@ function codeAddress() {
 
                 const description = document.getElementById("description").value;
                 const date = document.getElementById("date").value;
-                const address = document.getElementById("address").value;
+                const address = document.getElementById("ship-address").value;
 
                 //User already logged in
                 var userEntity = {};
@@ -311,6 +311,7 @@ function onSignIn(googleUser) {
     document.getElementById("signoutB").style.display = "";
     document.getElementById("dropdown01").style.display = "";
     document.getElementById("report").style.display = "";
+    document.getElementById("loginmess").style.display = "none";
 
 
     console.log("FETCHED");
@@ -336,6 +337,7 @@ function signOut() {
     document.getElementById("signoutB").style.display = "none";
     document.getElementById("signinB").style.display = "";
     document.getElementById("dropdown01").style.display = "none";
+    document.getElementById("loginmess").style.display = "";
 
     sessionStorage.clear();
 
@@ -419,6 +421,8 @@ function checkIfLoggedIn2()
     if(sessionStorage.getItem('myUserEntity') == null){
         document.getElementById("dropdown01").style.display = "none";
         document.getElementById("report").style.display = "none";
+        document.getElementById("loginmess").style.display = "";
+
         return false;
     } else {
         //User already logged in
@@ -426,6 +430,8 @@ function checkIfLoggedIn2()
         userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
         document.getElementById("report").style.display = "";
         document.getElementById("dropdown01").style.display = "";
+        document.getElementById("loginmess").style.display = "none";
+
 
         // window.location.href = "https://security-jhu-app.herokuapp.com/";
         return true;
@@ -437,6 +443,8 @@ function checkIfLoggedIn3()
     if(sessionStorage.getItem('myUserEntity') == null){
         document.getElementById("signoutB").style.display = "none";
         document.getElementById("signinB").style.display = "";
+        document.getElementById("loginmess").style.display = "";
+
 
         return false;
     } else {
@@ -446,6 +454,8 @@ function checkIfLoggedIn3()
 
         document.getElementById("signinB").style.display = "none";
         document.getElementById("signoutB").style.display = "";
+        document.getElementById("loginmess").style.display = "none";
+
 
         // window.location.href = "https://security-jhu-app.herokuapp.com/";
         return true;
