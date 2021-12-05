@@ -27,6 +27,11 @@ dependencies {
     implementation 'org.xerial:sqlite-jdbc:3.36.0.2'
     // https://mvnrepository.com/artifact/javax.mail/mail
     implementation("javax.mail:mail:1.4.1")
+    // https://mvnrepository.com/artifact/jakarta.mail/jakarta.mail-api
+    implementation 'jakarta.mail:jakarta.mail-api:2.1.0-RC1'
+    // implementation 'jakarta.mail:jakarta.mail-api:1.6.4-RC1'
+    implementation group: 'net.sargue', name: 'mailgun', version: '1.10.0'
+
 }
 
 test {
