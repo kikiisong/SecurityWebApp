@@ -336,11 +336,12 @@ function signOut() {
     document.getElementById("signoutB").style.display = "none";
     document.getElementById("signinB").style.display = "";
     document.getElementById("dropdown01").style.display = "none";
-    document.getElementById("loginmess").style.display = "";
-    document.getElementById("report").style.display = "none";
+
 
     sessionStorage.clear();
-
+    window.location.href ="https://security-jhu-app.herokuapp.com/"
+    document.getElementById("loginmess").style.display = "";
+    document.getElementById("report").style.display = "none";
 }
 //to chek if user is logged in
 function onLoad() {
@@ -474,6 +475,7 @@ function checkIfLoggedIn4()
         return true;
     }
 }
+
 
 
 
