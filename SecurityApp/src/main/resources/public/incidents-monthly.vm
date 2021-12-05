@@ -31,8 +31,9 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/custom.css"/>
 </head>
+#parse("public/navigation.vm")
+
 <body onload="checkIfLoggedIn3(),checkIfLoggedIn4()">
-    #parse("public/navigation.vm")
     <form>
         <label>Choose the month you want to view:
             <input id="picked_month" type="month">

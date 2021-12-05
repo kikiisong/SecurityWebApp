@@ -27,8 +27,9 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/custom.css"/>
 </head>
+#parse("public/navigation.vm")
+
 <body onload="checkIfLoggedIn3()">
-    #parse("public/navigation.vm")
 
     #if ($incidents)
     <h2>All incidents:</h2>

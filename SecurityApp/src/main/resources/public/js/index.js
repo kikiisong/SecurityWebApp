@@ -333,11 +333,11 @@ function signOut() {
     auth2.signOut().then(function () {
         console.log('User signed out.');
     });
-    document.getElementById("report").style.display = "none";
     document.getElementById("signoutB").style.display = "none";
     document.getElementById("signinB").style.display = "";
     document.getElementById("dropdown01").style.display = "none";
     document.getElementById("loginmess").style.display = "";
+    document.getElementById("report").style.display = "none";
 
     sessionStorage.clear();
 
@@ -419,7 +419,6 @@ function checkIfLoggedIn()
 function checkIfLoggedIn2()
 {
     if(sessionStorage.getItem('myUserEntity') == null){
-        document.getElementById("dropdown01").style.display = "none";
         document.getElementById("report").style.display = "none";
         document.getElementById("loginmess").style.display = "";
 
@@ -428,9 +427,8 @@ function checkIfLoggedIn2()
         //User already logged in
         var userEntity = {};
         userEntity = JSON.parse(sessionStorage.getItem('myUserEntity'));
-        document.getElementById("report").style.display = "";
-        document.getElementById("dropdown01").style.display = "";
         document.getElementById("loginmess").style.display = "none";
+        document.getElementById("report").style.display = "";
 
 
         // window.location.href = "https://security-jhu-app.herokuapp.com/";
@@ -441,9 +439,9 @@ function checkIfLoggedIn2()
 function checkIfLoggedIn3()
 {
     if(sessionStorage.getItem('myUserEntity') == null){
+        document.getElementById("dropdown01").style.display = "none";
         document.getElementById("signoutB").style.display = "none";
         document.getElementById("signinB").style.display = "";
-        document.getElementById("loginmess").style.display = "";
 
 
         return false;
@@ -454,7 +452,7 @@ function checkIfLoggedIn3()
 
         document.getElementById("signinB").style.display = "none";
         document.getElementById("signoutB").style.display = "";
-        document.getElementById("loginmess").style.display = "none";
+        document.getElementById("dropdown01").style.display = "";
 
 
         // window.location.href = "https://security-jhu-app.herokuapp.com/";

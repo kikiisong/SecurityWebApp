@@ -25,9 +25,10 @@
   <link rel="stylesheet" href="../css/bootstrap.min.css"/>
   <link rel="stylesheet" href="../css/custom.css"/>
 </head>
-<body onload="checkIfLoggedIn2(), checkIfLoggedIn3()">
+#parse("public/navigation.vm")
 
-    #parse("public/navigation.vm")
+<body onload="checkIfLoggedIn3()">
+
 
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">

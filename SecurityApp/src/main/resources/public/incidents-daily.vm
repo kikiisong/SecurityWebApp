@@ -25,8 +25,9 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/custom.css"/>
 </head>
+#parse("public/navigation.vm")
+
 <body onload="checkIfLoggedIn3(),checkIfLoggedIn4(),loadVisData() " >
-    #parse("public/navigation.vm")
     <form>
         <label>Choose the date you want to view:
             <input type="date" id="picked_day">
