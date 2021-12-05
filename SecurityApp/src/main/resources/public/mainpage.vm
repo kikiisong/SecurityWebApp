@@ -266,7 +266,6 @@
         <form id="address-form" class="form-container" action="" method="get" autocomplete="off" onsubmit="codeAddress();return false;" >
             <label for="Date"><b>Date:</b></label>
             <input type="date" id = "date"  name="date" min="2010-01-02" max="2022-01-01" required>
-
             <label class="full-field">
                 <!-- Avoid the word "address" in id, name, or label text to avoid browser autofill from conflicting with Place Autocomplete. Star or comment bug https://crbug.com/587466 to request Chromium to honor autocomplete="off" attribute. -->
                 <span class="form-label">Address*</span>
@@ -277,7 +276,6 @@
                         autocomplete="off"
                 />
             </label>
-
             <label class="full-field">
                 <span class="form-label">City*</span>
                 <input id="locality" name="locality" required />
