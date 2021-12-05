@@ -26,7 +26,7 @@ function initMap() {
 
     // The map, centered at Johns Hopkins
     map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 15,
+        zoom: 20,
         center: hopkins,
     });
     heatmap = new google.maps.visualization.HeatmapLayer({
