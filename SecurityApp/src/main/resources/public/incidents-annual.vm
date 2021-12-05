@@ -44,6 +44,11 @@
         </label>
         <button type="button" refresh="false" onclick="filterYear()">Submit</button>
     </form>
+    #if ($selected_year)
+    <script>
+        document.getElementById('yearpicker').value = '$selected_year';
+    </script>
+    #end
 
     <div class="container">
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
