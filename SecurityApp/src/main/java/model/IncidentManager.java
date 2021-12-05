@@ -1,8 +1,11 @@
 package model;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class IncidentManager {
-    public static String selectedDay = "2021/09/22";
+    public static String selectedDay = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
+    public static String selectedMonth = new SimpleDateFormat("yyyy/MM/dd").format(new Date()).substring(0, 7);
 
 
     public static int[] countIncidentsByType(List<Incident> incidents)

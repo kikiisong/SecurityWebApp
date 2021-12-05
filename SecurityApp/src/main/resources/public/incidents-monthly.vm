@@ -1,43 +1,43 @@
-#set( $title = "Incidents Daily" )
+#set( $title = "Incidents In A Month" )
 #parse("public/top.vm")
 <head>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i" rel="stylesheet">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
 
+    <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
+
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="../js/index.js"></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 
-    <script src="../js/incidents-daily.js"></script>
     <script src="../js/visualization.js"></script>
-
-    <!-- for graph -->
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+    <script src="../js/incidents-monthly.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/custom.css"/>
 </head>
-<body onload="loadVisData()" >
+<body>
     #parse("public/navigation.vm")
     <form>
-        <label>Choose the date you want to view:
-            <input type="date" id="picked_day">
+        <label>Choose the month you want to view:
+            <input id="picked_month" type="month">
         </label>
-        #if ($selected_day)
+        #if ($selected_month)
             <script>
-                document.getElementById('picked_day').value = '$selected_day';
+                document.getElementById('picked_month').value = '$selected_month';
             </script>
         #end
-        <p><button type="button" refresh="false" onclick="filterDate()">Submit</button></p>
+        <button type="button" refresh="false" onclick="filterMonth()">Submit</button>
     </form>
     <div class="container">
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
@@ -59,7 +59,6 @@
 
     #if ($incidents)
     <h2>All incidents:</h2>
-        <div id="json2" style="display: none"> $json</div>
     <table class="table table-striped">
         <thead>
         <tr>
