@@ -135,7 +135,7 @@ public class Server {
     private static ResultSet getIncidentsByDate(String pickedDate) {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
-            String sql = "SELECT * FROM incidents WHERE dateAndTime LIKE '" + pickedDate +"%';";
+            String sql = "SELECT * FROM incidents WHERE dateAndTime LIKE '" + pickedDate +"%' ORDER BY dateAndTime DESC;";
 
             PreparedStatement st = conn.prepareStatement(sql);
             st.executeQuery();
@@ -151,7 +151,7 @@ public class Server {
     private static ResultSet getIncidentsByMonth(String pickedMonth) {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
-            String sql = "SELECT * FROM incidents WHERE dateAndTime LIKE '" + pickedMonth +"%';";
+            String sql = "SELECT * FROM incidents WHERE dateAndTime LIKE '" + pickedMonth +"%' ORDER BY dateAndTime DESC;";
 
             PreparedStatement st = conn.prepareStatement(sql);
             st.executeQuery();
@@ -167,7 +167,7 @@ public class Server {
     private static ResultSet getIncidentsByYear(String pickedYear) {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
-            String sql = "SELECT * FROM incidents WHERE dateAndTime LIKE '" + pickedYear +"%';";
+            String sql = "SELECT * FROM incidents WHERE dateAndTime LIKE '" + pickedYear +"%' ORDER BY dateAndTime DESC;";
 
             PreparedStatement st = conn.prepareStatement(sql);
             st.executeQuery();
