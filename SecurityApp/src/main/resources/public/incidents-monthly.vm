@@ -38,6 +38,7 @@
         <label>Choose the month you want to view:
             <input id="picked_month" type="month">
         </label>
+        <!-- preserve selected month-->
         #if ($selected_month)
             <script>
                 document.getElementById('picked_month').value = '$selected_month';
@@ -48,6 +49,7 @@
     <div class="container">
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
         #if ($types)
+            <!-- graph data-->
             <p8 id="type1" >$types[0]</p8>
             <p8 id="type2">$types[1]</p8>
             <p8 id="type3">$types[2]</p8>
@@ -64,7 +66,12 @@
     </script>
 
     #if ($incidents)
-    <h2>All incidents:</h2>
+    <h2>All incidents in <span id="incident_month"></span>:</h2>
+        #if ($selected_month)
+        <script>
+            document.getElementById('incident_month').innerHTML = '$selected_month';
+        </script>
+        #end
     <table class="table table-striped">
         <thead>
         <tr>

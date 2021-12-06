@@ -32,6 +32,7 @@
         <label>Choose the date you want to view:
             <input type="date" id="picked_day">
         </label>
+        <!-- preserve selected day-->
         #if ($selected_day)
             <script>
                 document.getElementById('picked_day').value = '$selected_day';
@@ -42,6 +43,7 @@
     <div class="container">
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
         #if ($types)
+            <!-- graph data-->
             <p8 id="type1" >$types[0]</p8>
             <p8 id="type2">$types[1]</p8>
             <p8 id="type3">$types[2]</p8>
@@ -58,7 +60,12 @@
     </script>
 
     #if ($incidents)
-    <h2>All incidents:</h2>
+    <h2>All incidents on <span id="incident_day"></span>:</h2>
+        #if ($selected_day)
+        <script>
+            document.getElementById('incident_day').innerHTML = '$selected_day';
+        </script>
+        #end
         <div id="json2" style="display: none"> $json</div>
     <table class="table table-striped">
         <thead>

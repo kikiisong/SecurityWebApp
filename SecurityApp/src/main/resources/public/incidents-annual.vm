@@ -46,6 +46,7 @@
         </label>
         <button type="button" refresh="false" id="visbutton"  onclick="filterYear()">Submit</button>
     </form>
+    <!-- preserve selected year-->
     #if ($selected_year)
     <script>
         document.getElementById('yearpicker').value = '$selected_year';
@@ -55,6 +56,7 @@
     <div class="container">
         <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
         #if ($types)
+            <!-- graph data-->
             <p8 id="type1" >$types[0]</p8>
             <p8 id="type2">$types[1]</p8>
             <p8 id="type3">$types[2]</p8>
@@ -71,7 +73,12 @@
     </script>
 
     #if ($incidents)
-    <h2>All incidents:</h2>
+    <h2>All incidents<span id="incident_year"></span>:</h2>
+        #if ($selected_year)
+        <script>
+            document.getElementById('incident_year').innerHTML = '$selected_year';
+        </script>
+        #end
     <table class="table table-striped">
         <thead>
         <tr>

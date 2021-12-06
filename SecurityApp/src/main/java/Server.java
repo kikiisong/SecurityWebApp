@@ -268,7 +268,7 @@ public class Server {
             res.type("application/json");
             return 1;
         });
-        
+
         Spark.post("/login", (req, res) -> {
             String name = req.queryParams("name");
             String email = req.queryParams("email");
