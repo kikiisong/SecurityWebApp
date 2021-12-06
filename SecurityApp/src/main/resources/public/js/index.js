@@ -99,7 +99,8 @@ function codeAddress() {
 
 
                 const description = document.getElementById("description").value;
-                const date = document.getElementById("date").value;
+                var date = document.getElementById("date").value;
+                date = date.split('-').join('/');
                 const address = document.getElementById("ship-address").value;
 
                 //User already logged in
