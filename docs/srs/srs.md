@@ -17,42 +17,24 @@ A security alert web app with functions to view, score, and report incidents in 
 **Must have:**
   
 As a user, I want to:  
-**Iteration 4:**
-- **view all incidents so that I know what has happened before on the map using a marker.**
-- **Sign-up using google account**
-- **Only allow report if user is signed-up**
-- **Use cluster to show the frequency of crime within a region**
+ - Interact with a map interface so that I am familiar with the environment in the neighborhood.
+ - Report incidents so that I can share the information with the community.
+ - View all incidents so that I have a general idea of what has happened before.
+ - View details of each incident so that I learned more about what has happened before.
 
-**Iteration 5:**
-- **Be able to filter all the incidents in the web app i.e. based on time**
-- **Visualize all the incidents in interactive ways**
-- **Differentiate between 2 types of users: student vs. admin**
-
-**TO DO in later iterations:**
-- post an incident at a specific location on map (for example, drop-down menu giving users an option) so that I can report a new incident without entering location information.
-- click a location to send email to other users so that they’ll get notified about the neighborhood. 
-- report an issue to the campus security so that I don’t have to learn how to report to campus security. 
-- rate the level of severity of an incident so that a more accurate score can be calculated. 
-- receive a notification of incidents and its details so that I know more about real-time danger. 
-- sign-up and login (provide details) to use social components so that I could explore more about the app. 
-
-**Done:**
- - view a map interface so that I am familiar with the environment in the neighborhood.
- - user able to report a new incident.
- - marker pops up on the map when an icident is reported.
- - user able to view previously reported incidents.
- - sign-up using google accounts
- - 
+As a campus security team member, I want to:
+ - Allow only signed-in users to report incidents so that I can ensure the security and genuineness of our user community.
 
 **Nice to have:**
 
 As a user, I want to:
-- view real time alert on browser so that I know the most recent dangers. 
-- plan routes based on the level of safety and time so that I can find the safest route to travel. 
-- ask follow-up questions for an incident so that I know details about the case. 
-- comment on a report regarding the incident so that I can interact with other users. 
-- upload photos/videos of neighborhoods. 
-- watch live updates about ongoing incidents so that I can learn more information 3D.
+  - See the total number of incidents over an area on map so that I know if a neighbourhood is danganerous.
+  - View contact information of the campus security so that I know how to contact them.
+  - View incidents based on their dates so that I can learn about more recent incidents.
+
+As a campus security team member, I want to:
+ - View incidents based on their dates and types so that I can learn what needs to be improved.
+ - Receive an email noification when an incident is reported so I can reach out and take actions.
 
 **Software Architecture:**
 1.	As an incident report system, I want an incident scale system to score incidents to different severity so that low-risk and high-risk incidents can be differentiated. (3rd party crime report can be used)
