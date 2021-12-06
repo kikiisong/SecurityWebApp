@@ -15,29 +15,8 @@ import java.net.URISyntaxException;
 import java.sql.*;
 
 import java.util.*;
-import java.util.Date;
 
 import static spark.Spark.port;
-
-import com.sun.mail.smtp.SMTPTransport;
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
-import java.io.*;
-import java.net.InetAddress;
-import java.util.Properties;
-import java.util.Date;
-import javax.mail.*;
-import javax.mail.internet.*;
-import com.sun.mail.smtp.*;
-import javax.mail.MessagingException;
 
 
 public class Server {
@@ -80,10 +59,7 @@ public class Server {
             // System.out.print(id+"still1");
             st.setInt(7, id);
             st.executeUpdate();
-
-            // Notify users of incident reports in real-time
-            // SendEmailNotification();
-
+            
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
         }
