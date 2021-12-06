@@ -41,8 +41,6 @@
     		right: 15px;
     		border: 3px solid #f1f1f1;
     		z-index: 9;
-             overflow-y:scroll;
-                max-height:360px;
     		}
 
     		/* Add styles to the form container */
@@ -189,10 +187,10 @@
     <body>
     <a><h3 id="loginmess" style="text-align: center"> Please login to report an incident and view visualization</h3></a>
     <div class="row">
-    <button type="button" id="report" class="btn btn-danger btn-lg" style=" position: relative; margin: 0 auto;  align-self: center; justify-content: center;" onclick="openForm()">REPORT INCIDENT</button>
+    <button type="button" id="report" class="btn btn-danger btn-lg" style=" position: relative; margin: 0 auto; margin-top:10px;  align-self: center; justify-content: center;" onclick="openForm()">REPORT INCIDENT</button>
     </div>
     </body>
-   <div>             <button id="toggle-heatmap" class="btn btn-info">Toggle Heatmap</button>
+   <div>             <button style="margin-left: 25px;" id="toggle-heatmap" class="btn btn-info">Toggle Heatmap</button>
    </div>
     <body onload="initMap(),initAutocomplete(), checkIfLoggedIn2(), checkIfLoggedIn3()">
     <div class="row" style= "margin: auto;">
