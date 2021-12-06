@@ -11,6 +11,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.mashape.unirest:unirest-java:1.4.9'
+    implementation 'net.sargue:mailgun:1.9.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     implementation 'com.j256.ormlite:ormlite-jdbc:5.6'
