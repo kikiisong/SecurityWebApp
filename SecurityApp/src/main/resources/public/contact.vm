@@ -24,32 +24,28 @@
   <link rel="stylesheet" type="text/css" href="../css/style.css" />
   <link rel="stylesheet" href="../css/bootstrap.min.css"/>
   <link rel="stylesheet" href="../css/custom.css"/>
+
 </head>
 #parse("public/navigation.vm")
 
 <body onload="checkIfLoggedIn3()">
     <!--Grid column-->
 
-  </div>
+ <div  style=" padding: 5px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); max-width: 500px; margin: auto; text-align: center; font-family: arial; margin-top:60px;">
+   <p style="font-size: 24px">JHU Campus Safety and Security</p>
+   <p style="color: grey; font-size: 18px;">3001 Remington Ave, Baltimore, MD 21211</p>
+   <p>Mon - Fri, 8:00-22:00 <span id="status">Open</span></p>
+   <div style="margin: 24px 0;">
+     <a href="https://security.jhu.edu/"><i class="fa fa-dribbble"></i></a>
+   </div>
 
-        <div class="col-md-4">
-          <a class="btn-floating blue accent-1"><ion-icon size = large name="location"></ion-icon></a>
-          <p> JHU Campus Safety and Security</p>
-          <p> 3001 Remington Ave, Baltimore, MD 21211</p>
-          <p>United States</p>
-        </div>
+   <p><a style="display: inline-block;
+   padding: 8px;
+   color: white;
+   background-color: #000;
+   text-align: center;" href="tel:+4105164600">+(410) 516-4600</a></p>
 
-        <div class="col-md-4">
-          <a class="btn-floating blue accent-1"><ion-icon size = large  name="call"></ion-icon></a>
-          <p><a href="tel:+4105164600">+(410) 516-4600</a></p>
-          <p>Mon - Fri, 8:00-22:00 <span id="status">Open</span></p>
-        </div>
-
-        <div class="col-md-4">
-          <a class="btn-floating blue accent-1"><ion-icon size = large name="mail"></ion-icon></a>
-          <p><a href="mailto:security@jhu.edu">security@jhu.edu</a></p>
-
-        </div>
+ </div>
 </body>
 
 </section>
