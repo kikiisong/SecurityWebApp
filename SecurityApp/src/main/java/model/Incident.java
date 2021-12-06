@@ -18,7 +18,7 @@ public class Incident {
     @DatabaseField//(canBeNull = false)
     private int crimeCode;
     @DatabaseField//(canBeNull = false)
-    private String dateAndTime; //TODO later: should date be from java.util or java.sql?
+    private String dateAndTime;
     @DatabaseField//(canBeNull = false)
     private String location;
     @DatabaseField(foreign = true)
@@ -31,7 +31,7 @@ public class Incident {
         this.longtitude = longtitude;
         this.latitude = latitude;
         this.description = description;
-        if(crimeCode == 0)
+        if(crimeCode == 0) //Imported data use a different crime code system so we need to convert it
             this.crimeCode = getCrimeCode(description);
         else
             this.crimeCode=crimeCode;
@@ -40,6 +40,7 @@ public class Incident {
         this.userid = userid;
     }
 
+    // Assign crime code based on crime type mentioned in description
     private int getCrimeCode(String description)
     {
         description = description.toLowerCase();
@@ -80,7 +81,7 @@ public class Incident {
             return 4;
         }
 
-        return 1; //TODO: check do we have every type from .csv?
+        return 1; //all types should be covered
     }
 
     public Integer getId() {

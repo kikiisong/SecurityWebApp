@@ -23,19 +23,14 @@ public class Server {
 
     private static final String YOUR_DOMAIN_NAME = "sandbox04f80204cd5d41ad8894e69e291879f3.mailgun.org";
 
-    //To the add incident from form to the database
+    //Add incident from form to the database
     private static void addIncident(float longitude, float latitude, String descriptions, int crimeCode, String date1, String location , String email) {
         String sql1= "";
 
-        // Create prepared statement to insert into db
+        // Create prepared statement to insert into the database
         int id=1;
-        String sql= "";
-        System.out.print("works");
 
         try (Connection conn = getConnection()) {
-
-            System.out.print("actually works!");
-
             // Create prepared statement to insert into db
             String sql2="SELECT id FROM users WHERE email='"+email+"';";
             PreparedStatement st1 = conn.prepareStatement(sql2);
@@ -66,7 +61,7 @@ public class Server {
     }
 
 
-
+    // Send emails when new incident reported
     public static JsonNode sendSimpleMessage(String description, String location) throws UnirestException, SQLException {
         ResultSet rs = getUserEmails();
         List<String> ls = new ArrayList();
@@ -108,7 +103,7 @@ public class Server {
         return emails;
     }
 
-    //to add a new user to db after google sign-up
+    //Add a new user to database after google sign-up
     private static void addUser(String name, String email ) {
         try (Connection conn = getConnection()) {
             PreparedStatement st = conn.prepareStatement("INSERT INTO users(name,email) VALUES (?,?) ON CONFLICT (email) DO NOTHING;");
@@ -120,7 +115,8 @@ public class Server {
             e.printStackTrace();
         }
     }
-    //to get all the incidents within the DB
+
+    //Get all the incidents within the database
     private static ResultSet getIncidents() {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
@@ -135,7 +131,7 @@ public class Server {
         return incidents;
     }
 
-    //to select Incidents happened on a specific date
+    // Select incidents happened on a specific date from the databse
     private static ResultSet getIncidentsByDate(String pickedDate) {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
@@ -151,6 +147,7 @@ public class Server {
         return incidents;
     }
 
+    // Select incidents happened in a specific month from the database
     private static ResultSet getIncidentsByMonth(String pickedMonth) {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
@@ -166,6 +163,7 @@ public class Server {
         return incidents;
     }
 
+    // Select incidents happened in a specific year from the database
     private static ResultSet getIncidentsByYear(String pickedYear) {
         ResultSet incidents = null;
         try (Connection conn = getConnection()) {
@@ -270,6 +268,7 @@ public class Server {
             res.type("application/json");
             return 1;
         });
+        
         Spark.post("/login", (req, res) -> {
             String name = req.queryParams("name");
             String email = req.queryParams("email");
@@ -336,6 +335,7 @@ public class Server {
 
             return new ModelAndView(model, "public/incidents-annual.vm");
         }, new VelocityTemplateEngine());
+
         Spark.get("/incidents-monthly", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
@@ -357,6 +357,7 @@ public class Server {
 
     }
 
+    // Set up the database
     private static void workWithDatabase(){
         try (Connection conn = getConnection()) {
             String sql_inc = "";
