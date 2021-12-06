@@ -93,7 +93,7 @@ public class Server {
             e.printStackTrace();
         }
     }
-    
+
 
 
     public static JsonNode sendSimpleMessage() throws UnirestException {
@@ -101,7 +101,7 @@ public class Server {
         HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + YOUR_DOMAIN_NAME + "/messages")
                 .basicAuth("api",
                         "b2c938f91c6272b3e508abaae1a5470c-7005f37e-a4926a37")
-                .field("from", "Excited User derek6.peng@gmail.com")
+                .field("from", "Incident rahulraman.3499@gmail.com\n")
                 .field("to", "garywu2697@gmail.com")
                 .field("subject", "hello from test security")
                 .field("text", "test from jhedu")
