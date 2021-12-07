@@ -397,7 +397,7 @@ function predictCrimeCode(){
     }
     else
     {
-        let crimecode = prompt("What was the crime related too? (1. Homicide 2.Rape 3.Robbery 4.Assault 5.Burglary 6.Larceny 7.Auto Theft 8.Arson 9.Shooting","Please enter a number!",10);
+        let crimecode = prompt("What was the crime related to? (1. Homicide 2.Rape 3.Robbery 4.Assault 5.Burglary 6.Larceny 7.Auto Theft 8.Arson 9.Shooting","Please enter a number!",10);
         return crimecode;
 
     }
