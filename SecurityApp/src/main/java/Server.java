@@ -73,13 +73,12 @@ public class Server {
             email_list += ",";
         }
         System.out.print(email_list);
-
         HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + YOUR_DOMAIN_NAME + "/messages")
                 .basicAuth("api",
                         "b2c938f91c6272b3e508abaae1a5470c-7005f37e-a4926a37")
                 .field("from", "Incident rahulraman.3499@gmail.com")
 //                .field("to", email_list)
-                .field("to", "rahulraman.3499@gmail.com,garywu2697@gmail.com,karine.song@gmail.com")
+                .field("to", email_list)
 
                 .field("subject", subject)
                 .field("text", description)
