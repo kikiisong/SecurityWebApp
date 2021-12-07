@@ -27,7 +27,7 @@
 </head>
 #parse("public/navigation.vm")
 
-<body onload="checkIfLoggedIn3(),checkIfLoggedIn4(),loadVisData() " >
+<body onload="checkIfLoggedIn3(),checkIfLoggedIn4()" >
     <form>
         <label>Choose the date you want to view:
             <input type="date" id="picked_day">
@@ -66,7 +66,6 @@
             document.getElementById('incident_day').innerHTML = '$selected_day';
         </script>
         #end
-        <div id="json2" style="display: none"> $json</div>
     <table class="table table-striped">
         <thead>
         <tr>

@@ -258,12 +258,6 @@ public class Server {
             return new ModelAndView(model, "public/incidents.vm");
         }, new VelocityTemplateEngine());
 
-        Spark.get("/account", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-            return new ModelAndView(model, "public/account.vm");
-        }, new VelocityTemplateEngine());
-
-
         Spark.post("/mainpage", (req, res) -> {
             String longitude = req.queryParams("latitude");
             String latitude = req.queryParams("longitude");
