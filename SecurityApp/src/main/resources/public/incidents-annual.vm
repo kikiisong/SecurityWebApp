@@ -73,7 +73,7 @@
     </script>
 
     #if ($incidents)
-    <h2>All incidents<span id="incident_year"></span>:</h2>
+    <h2>All incidents in <span id="incident_year"></span>:</h2>
         #if ($selected_year)
         <script>
             document.getElementById('incident_year').innerHTML = '$selected_year';
@@ -84,6 +84,7 @@
         <tr>
             <th>Date And Time</th>
             <th>Location</th>
+            <th>Type</th>
             <th>Description</th>
         </tr>
         </thead>
@@ -92,6 +93,27 @@
             <tr>
                 <td>$inc.dateAndTime</td>
                 <td>$inc.location</td>
+                <td>
+                    #if($inc.crimeCode == 1)
+                        Murder
+                    #elseif($inc.crimeCode == 2)
+                        Rape
+                    #elseif($inc.crimeCode == 3)
+                        Robbery
+                    #elseif($inc.crimeCode == 4)
+                        Assault
+                    #elseif($inc.crimeCode == 5)
+                        Burglary
+                    #elseif($inc.crimeCode == 6)
+                        Larceny
+                    #elseif($inc.crimeCode == 7)
+                        Auto Theft
+                    #elseif($inc.crimeCode == 8)
+                        Arson
+                    #elseif($inc.crimeCode == 9)
+                        Shooting
+                    #end
+                </td>
                 <td>$inc.description</td>
             </tr>
             #end

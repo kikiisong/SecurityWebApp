@@ -131,6 +131,21 @@ public class Server {
         return incidents;
     }
 
+    //Get all the incidents within the database, with most recent first
+    private static ResultSet getIncidentsOrderedByDate() {
+        ResultSet incidents = null;
+        try (Connection conn = getConnection()) {
+
+            PreparedStatement st = conn.prepareStatement("SELECT * FROM incidents ORDER BY dateAndTime DESC;");
+            st.execute();
+            incidents = st.getResultSet();
+
+        } catch (URISyntaxException | SQLException e) {
+            e.printStackTrace();
+        }
+        return incidents;
+    }
+
     // Select incidents happened on a specific date from the databse
     private static ResultSet getIncidentsByDate(String pickedDate) {
         ResultSet incidents = null;
@@ -233,7 +248,7 @@ public class Server {
         Spark.get("/incidents", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
 
-            ResultSet rs = getIncidents();
+            ResultSet rs = getIncidentsOrderedByDate();
             List<Incident> ls = new ArrayList<Incident>();
             while (rs.next()) {
                 ls.add(new Incident(rs.getFloat(2),rs.getFloat(3),rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getInt(8)));
