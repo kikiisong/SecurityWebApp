@@ -31,57 +31,10 @@ public class Incident {
         this.longtitude = longtitude;
         this.latitude = latitude;
         this.description = description;
-        if(crimeCode == 0) //Imported data use a different crime code system so we need to convert it
-            this.crimeCode = getCrimeCode(description);
-        else
-            this.crimeCode=crimeCode;
+        this.crimeCode = crimeCode;
         this.dateAndTime = dateAndTime;
         this.location = location;
         this.userid = userid;
-    }
-
-    // Assign crime code based on crime type mentioned in description
-    private int getCrimeCode(String description)
-    {
-        description = description.toLowerCase();
-        if (description.contains("shot") || description.contains("shoot") || description.contains("fired") || description.contains ("gun") || description.contains("bullet"))
-        {
-            return 9;
-        }
-        else if (description.contains("murder") || description.contains("homicide") || description.contains("killed") || description.contains("died"))
-        {
-            return 1;
-        }
-        else if (description.contains("rape") || description.contains("sexual") || description.contains("inappropriate") ||description.contains("molest") || description.contains("grope"))
-        {
-            return 2;
-        }
-        else if ((description.contains("home") || description.contains("house") || description.contains("property") || description.contains("store") || description.contains("office") || description.contains("room")) &&  (description.contains("rob") || description.contains("break")))
-        {
-            return 5;
-        }
-        else if (description.contains("set fire") || description.contains("torch") || description.contains("burn") || description.contains("lit"))
-        {
-            return 8;
-        }
-        else if (description.contains("bag") || description.contains("wallet") || description.contains("card") ||description.contains("bag") ||description.contains("phone") ||description.contains("snatch") ||description.contains("key") ||description.contains("watch"))
-        {
-            return 6;
-        }
-        else if (description.contains("car") || description.contains("bike") || description.contains("van") || description.contains("truck") || description.contains("scooter"))
-        {
-            return 7;
-        }
-        else if (description.contains("rob") || description.contains("theft") || description.contains("demand") || description.contains("larceny"))
-        {
-            return 3;
-        }
-        else if (description.contains("assault") || description.contains("hit") || description.contains("beat") || description.contains("threw") || description.contains("punch") || description.contains("kick"))
-        {
-            return 4;
-        }
-
-        return 1; //all types should be covered
     }
 
     public Integer getId() {
