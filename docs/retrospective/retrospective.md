@@ -1,38 +1,14 @@
-**Reflection 1:** We overcommitted at the beginning and needed to adjust some end goals at the end.
+**Final Retrospective group 3+3=7**
 
-**In iteration 2:**
-- We now have a better sense of the time needed for each task.
-- We break tasks into smaller sub-tasks that are easier to estimate time needed and to finish.
+We managed to deliver most of our core functionalities. Compared to our original proposal, we added data visualization to our project and we also added some nice to have like notification system, heatmaps, marker clusters and form auto complete. We did not implement the planning routes and comment incidents features. 
 
 
+**Challenges**: 
 
-**Reflection 2:** We were not fully aware of the progress on parts that someone else is working on.
+The deployment took us a long time to figure out. It involved the deployment and also switching our database from SQLite to PostgreSQL.There were a lot of details to fine tune which required substantial knowledge that none of us had at first. We experimented with it with a lot of effort and consulted our advisor. We did get every detail right at the end and deployed successfully.  
 
-**In iteration 2:**
-- We have standup meetings more frequently.
-- Delegating bigger tasks among multiple team members
-- More collaborative effort
+We were having trouble reading data from the database and send it back to the frontend in the first place. We tried sending different kinds of request, jquery/ajax etc but none of those worked. I then realized that the model view controller actually puts data back in the vm file and we can access the data using .innerHTML. And we just parse the data we get from the query and convert it to json format and send it to the front end. We then were able to use the data to add persistent markers on the map,do visualizations and heatmaps.
 
+Another challenge we encountered was implementing the notification system. We decided to go with email and used gmail with smtp at first, but gmail does not work well heroku. It took us a long time and a lot of trial and error to find a usable heroku emailing add-on. We consulted both official documents and external sources. At the end, we managed to make the emailing function work and integrate it into our app as the core of our notification system.
 
-**Reflection 3:** We improved our ability to get a head start and manage tasks accordingly 
-
-**In iteration 3:**
-- We got better at getting a head start on implementing core functionalities that other features may depend on 
-- We're much better at estimating how long tasks would take and breaking down into smaller chunks
-- Teammates have been more open to helping and asking for help
-
-
-
-**Reflection 4:** We worked better as a team to work on the tasks. 
-
-**In iteration 4:**
-- Delegated tasks among each and worked together to solve big tasks.
-- Teammates have been more open to helping and asking for help
-- Need to work better to meet our deadlines.
-
-
-
-
-
-
-
+If we could go back and start at iteration 1, we would write a more detailed srs of how our app would look like. We would start earlier and make use of the project backlog at github more often. We would host more stand up meetings to discuss the progress and make sure that everyone is on the same page. 
