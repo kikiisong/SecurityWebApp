@@ -8,12 +8,4 @@ A security alert web app where users can view, score and report incidents in nea
 1. The application is deployed at https://security-jhu-app.herokuapp.com/ 
 2. You can report an incident using the report button
 3. You can sign-in using google sign-in
-## Design Docs (for iteration 2)
-- retrospective: docs/retrospective/it1_retrospective.md
-- srs: docs/srs/srs.md
-- initial UML: docs/design/it2_class_diagram1.png
-- refined UML: docs/design/it2_class_diagram2.png
-## Contributions
-- In addition to the main branch, please check the branch iteration-2-database-setup to view all the commits from each group member during the development stage.
-
 
